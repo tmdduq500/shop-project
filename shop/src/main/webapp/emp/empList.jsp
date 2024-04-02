@@ -112,34 +112,36 @@
 	</div>
 	
 	
-	<div>
+	<div style="display:table;">
 		<h1>사원 목록</h1>	
 		
-		<div style="display: flex;" >
-			<div>직원 id</div>&nbsp;
-			<div>직원 이름</div>&nbsp;
-			<div>직급</div>&nbsp;
-			<div>고용일자</div>&nbsp;
-			<div>권한</div>
+		<div style="display:table-row">
+			<div style="display:table-cell">직원 id</div>
+			<div style="display:table-cell">직원 이름</div>
+			<div style="display:table-cell">직급</div>
+			<div style="display:table-cell">고용일자</div>
+			<div style="display:table-cell">권한</div>
 		</div>
 		
 		<%
 			for(HashMap<String, Object> m : empList) {
 		%>
-				<form action="/shop/emp/modifyEmpActive.jsp" method="post">
+				
 					
-					<div style="display: flex;">
-						<div><%=m.get("empId") %></div>&nbsp;
-						<div><%=m.get("empName") %></div>&nbsp;
-						<div><%=m.get("empJob") %></div>&nbsp;
-						<div><%=m.get("hireDate") %></div>&nbsp;
-						<div>
-							<input type="hidden" name="empId" value="<%=m.get("empId") %>">
-							<input type="hidden" name="active" value="<%=m.get("active") %>">
-							<button type="submit"><%=m.get("active") %></button>
-						</div>
+					<div style="display:table-row">
+						<div style="display:table-cell"><%=m.get("empId") %></div>
+						<div style="display:table-cell"><%=m.get("empName") %></div>
+						<div style="display:table-cell"><%=m.get("empJob") %></div>
+						<div style="display:table-cell"><%=m.get("hireDate") %></div>
+						<form action="/shop/emp/modifyEmpActive.jsp" method="post">
+							<div style="display:table-cell">
+								<input type="hidden" name="empId" value="<%=m.get("empId") %>">
+								<input type="hidden" name="active" value="<%=m.get("active") %>">
+								<button type="submit"><%=m.get("active") %></button>
+							</div>
+						</form>
 					</div>
-				</form>
+				
 		<%
 			}
 		%>
@@ -151,15 +153,15 @@
 		<%
 			if(currentPage > 1) {
 		%>	
-				<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
-				<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+			<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+			<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
 		<%		
 			} else {
 		%>
 				<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
 		<%		
 			}
-		
+
 			if(currentPage < lastPage) {
 		%>
 				<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
