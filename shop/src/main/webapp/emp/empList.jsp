@@ -103,8 +103,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>사원 목록</title>
 </head>
 <body>
 	<div>
@@ -112,11 +110,12 @@
 			로그아웃
 		</a>
 	</div>
-	<h1>사원 목록</h1>		
+	
 	
 	<div>
+		<h1>사원 목록</h1>	
 		
-		<div style="display: flex;">
+		<div style="display: flex;" >
 			<div>직원 id</div>&nbsp;
 			<div>직원 이름</div>&nbsp;
 			<div>직급</div>&nbsp;
@@ -136,7 +135,8 @@
 						<div><%=m.get("hireDate") %></div>&nbsp;
 						<div>
 							<input type="hidden" name="empId" value="<%=m.get("empId") %>">
-							<input type="submit" name="active" value="<%=m.get("active") %>">
+							<input type="hidden" name="active" value="<%=m.get("active") %>">
+							<button type="submit"><%=m.get("active") %></button>
 						</div>
 					</div>
 				</form>
@@ -144,6 +144,33 @@
 			}
 		%>
 	</div>	
+	
+	<div>
+		<!-- 페이징 버튼 -->
+		
+		<%
+			if(currentPage > 1) {
+		%>	
+				<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+				<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+		<%		
+			} else {
+		%>
+				<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+		<%		
+			}
+		
+			if(currentPage < lastPage) {
+		%>
+				<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
+				<a href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+		<%		
+			}
+		%>
+
+			
+
+	</div>
 		
 </body>
 </html>
