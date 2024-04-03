@@ -99,6 +99,10 @@
 	}
 %>
 
+<%
+	/* session의 정보 가져오기(어떤 emp가 로그인 돼있고, grade로 권한 부여 설정하기 위해) */
+	HashMap<String, Object> getSessionMap = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
+%>
 <!-- View Layer : 모델(ArrayList<HashMap<String, Object>>) 출력 -->
 <!DOCTYPE html>
 <html>
@@ -135,9 +139,21 @@
 						<div style="display:table-cell"><%=m.get("hireDate") %></div>
 						<form action="/shop/emp/modifyEmpActive.jsp" method="post">
 							<div style="display:table-cell">
-								<input type="hidden" name="empId" value="<%=m.get("empId") %>">
-								<input type="hidden" name="active" value="<%=m.get("active") %>">
-								<button type="submit"><%=m.get("active") %></button>
+							<%
+								// grade가 0보다 클 경우 active ON,OFF 권한 부여
+								if((Integer)(getSessionMap.get("grade")) > 0) {
+							%>
+									<input type="hidden" name="empId" value="<%=m.get("empId") %>">
+									<input type="hidden" name="active" value="<%=m.get("active") %>">
+									<button type="submit"><%=m.get("active") %></button>
+							<%
+								} else {
+							%>
+									<button type="button" disabled="disabled"><%=m.get("active") %></button>
+							<%
+								}
+							%>
+								
 							</div>
 						</form>
 					</div>
