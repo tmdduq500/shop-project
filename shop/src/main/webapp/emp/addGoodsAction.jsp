@@ -28,6 +28,12 @@
 	String goodsAmount = request.getParameter("goodsAmount");
 	String goodsContent = request.getParameter("goodsContent");
 	
+	// 요청 값이 1개라도 null일시
+	if(category == null || goodsTitle == null || goodsPrice == null || 
+			goodsAmount == null || goodsContent == null) {
+		response.sendRedirect("/shop/emp/addGoodsForm.jsp");
+	}
+	
 	// 요청값 디버깅
 	System.out.println("addGoodsAction - category = " + category);
 	System.out.println("addGoodsAction - goodsTitle = " + goodsTitle);

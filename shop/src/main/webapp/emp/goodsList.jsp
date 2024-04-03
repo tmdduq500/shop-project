@@ -181,9 +181,15 @@
 <body>
 	<!-- 메인 메뉴 -->
 	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
-
+	
+	<!-- 로그아웃 -->
 	<div>
-		<a href="/emp/addGoods.jsp">상품 등록</a>
+		<a href="/shop/emp/empLogoutAction.jsp">
+			로그아웃
+		</a>
+	</div>
+	<div>
+		<a href="/shop/emp/addGoodsForm.jsp">상품 등록</a>
 	</div>
 
 	<!-- 서브메뉴 카테고리별 상품리스트 -->
