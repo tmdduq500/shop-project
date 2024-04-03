@@ -8,6 +8,11 @@
 		return;
 	}
 %>
+<%
+	/* 에러 메시지 */
+	String errMsg = request.getParameter("errMsg");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +20,16 @@
 	<title>empLoginForm</title>
 </head>
 <body>
+	<!-- 에러 메시지 출력 -->
+	<%
+		if(errMsg != null) {
+	%>
+			<div>
+				<%=errMsg %>
+			</div>
+	<% 
+		}
+	%>
 	<form action="/shop/emp/empLoginAction.jsp">
 		<div>
 		id: <input type="text" name="empId">
