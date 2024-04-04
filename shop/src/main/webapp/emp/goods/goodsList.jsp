@@ -3,16 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- Controller Layer -->
-<%
-	/* 로그인 인증 분기*/
-	
-	// 세션 변수 이름 - loginEmp
-	
-	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/shop/emp/empLoginForm.jsp");
-		return;
-	}
-%>
+<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
 
 <%
 	/* DB 연결 및 초기화 */
@@ -95,17 +86,17 @@
 	
 	getCategoryStmt = conn.prepareStatement(getCategorySql);
 	getCategoryRs = getCategoryStmt.executeQuery();
-	ArrayList<HashMap<String, Object>> categoryList = new ArrayList<HashMap<String, Object>>();
+	ArrayList<HashMap<String, Object>> goodsCntPerCategory = new ArrayList<HashMap<String, Object>>();
 	
 	while(getCategoryRs.next()) {
 		HashMap<String, Object> m = new HashMap<String, Object>();
 		m.put("category", getCategoryRs.getString("category"));
 		m.put("cnt", getCategoryRs.getInt("cnt"));
-		categoryList.add(m);
+		goodsCntPerCategory.add(m);
 	}
 	
 	// 디버깅
-	System.out.println(categoryList);
+	System.out.println(goodsCntPerCategory);
 %>
 <%
 	/* category 별로 상품 보여주는 sql */
@@ -160,47 +151,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>title</title>
-	<style>
-		li {
-			list-style: none;
-			float: left; 
-			max-width: 250px;
-			margin: 0 10px;
-		}
-		
-		.goods {
-			display: block;
-		}
-		
-		.goods-info {
-			display: block;
-			text-align: center;
-		}
-	</style>
+	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<!-- 메인 메뉴 -->
 	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
-	
-	<!-- 로그아웃 -->
-	<div>
-		<a href="/shop/emp/empLogoutAction.jsp">
-			로그아웃
-		</a>
-	</div>
-	<div>
-		<a href="/shop/emp/addGoodsForm.jsp">상품 등록</a>
-	</div>
 
 	<!-- 서브메뉴 카테고리별 상품리스트 -->
 	<div>
-		<a href="/shop/emp/goodsList.jsp?category=all">전체</a>
+		<a href="/shop/emp/goods/goodsList.jsp?category=all">전체</a>
 		
 		<!-- View Layer -->
 		<%
-			for(HashMap m : categoryList) {
+			for(HashMap m : goodsCntPerCategory) {
 		%>
-				<a href="/shop/emp/goodsList.jsp?category=<%=(String)(m.get("category")) %>">
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=(String)(m.get("category")) %>">
 					<%=(String)(m.get("category")) %>
 					(<%=(Integer)(m.get("cnt")) %>)
 				</a>
@@ -211,16 +176,22 @@
 	
 	<!-- goods 목록 출력 -->
 	<div>
-		<h1>상품 목록</h1>	
+		<div>&nbsp;</div>
 		
-		<ul style="display: block;">
+		<div class="list-title">
+			<h1 style="display: inline;">상품 목록</h1>
+			<a href="/shop/emp/goods/addGoodsForm.jsp">상품 등록</a>
+		</div>
+
+		
+		<ul class="ul-goods">
 			<%
 				for(HashMap<String, Object> m : goodsList) {
 			%>
 				
-					<li>
-						<div class="goods">
-							<a href="/shop/emp/goodsOne.jsp">
+					<li class="li-goods">
+						<div class="img-goods">
+							<a href="/shop/emp/goods/goodsOne.jsp">
 								<img alt="" src="/shop/emp/image/laptop.jpg" width="200px;" style="display: block;">
 							</a>
 						</div>
@@ -241,30 +212,30 @@
 	</div>
 	
 	<!-- 페이징 버튼 -->	
-	<div style="clear: both; text-align: center; margin-top: 30px;">
+	<div class="paging-goods">
 
 		<%
 			if(currentPage > 1) {
 		%>	
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage-1%>">이전페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage-1%>">이전페이지</a>
 		<%		
 			} else {
 		%>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">이전페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">이전페이지</a>
 		<%		
 			}
 
 			if(currentPage < lastPage) {
 		%>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage+1%>">다음페이지</a>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage+1%>">다음페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
 		<%		
 			} else {
 		%>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">다음페이지</a>
-				<a href="/shop/emp/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">다음페이지</a>
+				<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
 		<%
 			}
 		%>

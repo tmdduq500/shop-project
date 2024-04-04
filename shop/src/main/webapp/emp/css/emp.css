@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.ul-goods{
+	display: block;
+}
+
+.li-goods {
+	list-style: none;
+	float: left; 
+	max-width: 250px;
+	margin: 0 10px;
+}
+
+.img-goods {
+	display: block;
+}
+
+.goods-info {
+	display: block;
+	text-align: center;
+}
+
+.paging-goods {
+	clear: both;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.list-cell {
+	padding: 10px;
+	border: 1px solid #000000;
+	min-width: 50px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.list-title {
+	margin:10px auto;
+}

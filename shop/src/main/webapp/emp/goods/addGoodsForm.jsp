@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
+
 <!-- Controller Layer -->
-<%
-	/* 로그인 인증 분기*/
-	
-	// 세션 변수 이름 - loginEmp
-	
-	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/shop/emp/empLoginForm.jsp");
-		return;
-	}
-%>
+<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
+
 <%
 	/* DB 연결 및 초기화 */
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -40,17 +33,10 @@
 <body>
 	<!-- 메인 메뉴 -->
 	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
-	
-	<!-- 로그아웃 -->
-	<div>
-		<a href="/shop/emp/empLogoutAction.jsp">
-			로그아웃
-		</a>
-	</div>
-	
+		
 	<h1>상품 등록</h1>
 	
-	<form action="/shop/emp/addGoodsAction.jsp" method="post">
+	<form action="/shop/emp/goods/addGoodsAction.jsp" method="post">
 	
 		<div>
 			category : 

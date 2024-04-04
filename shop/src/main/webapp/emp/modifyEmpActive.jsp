@@ -1,14 +1,9 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	/* 로그인 인증 분기*/
-	// 세션 변수 이름 - loginEmp
-	
-	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/shop/emp/empLoginForm.jsp");
-		return;
-	}
-%>
+
+<!-- Controller Layer -->
+<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
+
 <%
     //DB 연결 및 초기화
     Class.forName("org.mariadb.jdbc.Driver");

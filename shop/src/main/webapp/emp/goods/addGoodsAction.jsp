@@ -1,18 +1,9 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!-- Controller Layer -->
-<%
-	request.setCharacterEncoding("UTF-8");
-	/* 로그인 인증 분기*/
-	
-	// 세션 변수 이름 - loginEmp
-	
-	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/shop/emp/empLoginForm.jsp");
-		return;
-	}
-%>
+<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
 
 <!-- Session 설정 값 : 입력할 때 로그인한 emp의 emp_id값이 필요하기 때문! -->
 <%
@@ -31,7 +22,7 @@
 	// 요청 값이 1개라도 null일시
 	if(category == null || goodsTitle == null || goodsPrice == null || 
 			goodsAmount == null || goodsContent == null) {
-		response.sendRedirect("/shop/emp/addGoodsForm.jsp");
+		response.sendRedirect("/shop/emp/goods/addGoodsForm.jsp");
 	}
 	
 	// 요청값 디버깅
@@ -68,11 +59,11 @@
 	if(row == 1) {
 		// 상품 등록 성공
 		System.out.println("상품 등록 성공");
-		response.sendRedirect("/shop/emp/goodsList.jsp");
+		response.sendRedirect("/shop/emp/goods/goodsList.jsp");
 	} else {
 		// 상품 등록 실패
 		System.out.println("상품 등록 실패");
-		response.sendRedirect("/shop/emp/addGoodsForm.jsp");
+		response.sendRedirect("/shop/emp/goods/addGoodsForm.jsp");
 	}
 	
 %>

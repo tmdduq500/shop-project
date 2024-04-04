@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	/* 로그인 인증 분기*/
-	// 세션 변수 이름 - loginEmp
-	
-	if(session.getAttribute("loginEmp") != null) {
-		response.sendRedirect("/shop/emp/empList.jsp");
-		return;
-	}
-%>
+
+<!-- Controller Layer -->
+<jsp:include page="/emp/inc/loginSessionCheck.jsp"></jsp:include>
+
 <%
 	/* 에러 메시지 */
 	String errMsg = request.getParameter("errMsg");

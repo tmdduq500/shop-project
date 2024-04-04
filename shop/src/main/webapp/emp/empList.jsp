@@ -2,16 +2,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	/* 로그인 인증 분기*/
-	
-	// 세션 변수 이름 - loginEmp
-	
-	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/shop/emp/empLoginForm.jsp");
-		return;
-	}
-%>
+
+<!-- Controller Layer -->
+<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
 
 <!-- Model Layer -->
 <%
@@ -109,39 +102,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>empList</title>
-	<style>
-		.emp-cell {
-			padding: 10px;
-			border: 1px solid #000000;
-			min-width: 50px;
-			vertical-align: middle;
-			text-align: center;
-		}
-	</style>
+	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<!-- empMenu.jsp include : 주체(서버) vs redirect(주체: 클라이언트) -->
 	<!-- 주체가 서버이기때문에 include할때는 절대주소가 /shop/...으로 시작하지 않는다 -->
+	
 	<!-- 메인 메뉴 -->
 	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 	
-	<!-- 로그아웃 -->
-	<div>
-		<a href="/shop/emp/empLogoutAction.jsp">
-			로그아웃
-		</a>
-	</div>
-	
 	<!-- emp목록 출력 -->
 	<div style="display:table;">
-		<h1>사원 목록</h1>	
+	
+		<div class="list-title">
+			<h1>사원 목록</h1>
+		</div>
+			
 		
 		<div style="display:table-row">
-			<div class="emp-cell" style="display:table-cell">직원 id</div>
-			<div class="emp-cell" style="display:table-cell">직원 이름</div>
-			<div class="emp-cell" style="display:table-cell">직급</div>
-			<div class="emp-cell" style="display:table-cell">고용일자</div>
-			<div class="emp-cell" style="display:table-cell">권한</div>
+			<div class="list-cell" style="display:table-cell">직원 id</div>
+			<div class="list-cell" style="display:table-cell">직원 이름</div>
+			<div class="list-cell" style="display:table-cell">직급</div>
+			<div class="list-cell" style="display:table-cell">고용일자</div>
+			<div class="list-cell" style="display:table-cell">권한</div>
 		</div>
 		
 		<%
@@ -150,12 +133,12 @@
 				
 					
 					<div style="display:table-row">
-						<div class="emp-cell" style="display:table-cell"><%=m.get("empId") %></div>
-						<div class="emp-cell" style="display:table-cell"><%=m.get("empName") %></div>
-						<div class="emp-cell" style="display:table-cell"><%=m.get("empJob") %></div>
-						<div class="emp-cell" style="display:table-cell"><%=m.get("hireDate") %></div>
+						<div class="list-cell" style="display:table-cell"><%=m.get("empId") %></div>
+						<div class="list-cell" style="display:table-cell"><%=m.get("empName") %></div>
+						<div class="list-cell" style="display:table-cell"><%=m.get("empJob") %></div>
+						<div class="list-cell" style="display:table-cell"><%=m.get("hireDate") %></div>
 						<form action="/shop/emp/modifyEmpActive.jsp" method="post">
-							<div class="emp-cell" style="display:table-cell">
+							<div class="list-cell" style="display:table-cell">
 							<%
 								// grade가 0보다 클 경우 active ON,OFF 권한 부여
 								if((Integer)(getSessionMap.get("grade")) > 0) {
@@ -178,7 +161,7 @@
 		<%
 			}
 		%>
-	</div>	
+	</div>
 	
 	<!-- 페이징 버튼 -->	
 	<div>
