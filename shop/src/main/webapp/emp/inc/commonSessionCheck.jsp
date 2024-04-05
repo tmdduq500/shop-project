@@ -5,7 +5,7 @@
 	// 세션 변수 이름 - loginEmp
 	
 	if(session.getAttribute("loginEmp") == null) {
-		response.sendRedirect("/emp/empLoginForm.jsp");
+		response.sendRedirect("/shop/emp/empLoginForm.jsp");
 		return;
 	}
 %>

@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- Controller Layer -->
-<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
+<%@ include file ="/emp/inc/commonSessionCheck.jsp" %>
 
 <!-- Model Layer -->
 <%
@@ -119,12 +119,12 @@
 		</div>
 			
 		
-		<div style="display:table-row">
-			<div class="list-cell" style="display:table-cell">직원 id</div>
-			<div class="list-cell" style="display:table-cell">직원 이름</div>
-			<div class="list-cell" style="display:table-cell">직급</div>
-			<div class="list-cell" style="display:table-cell">고용일자</div>
-			<div class="list-cell" style="display:table-cell">권한</div>
+		<div class="my-table-row">
+			<div class="my-table-cell" >직원 id</div>
+			<div class="my-table-cell" >직원 이름</div>
+			<div class="my-table-cell" >직급</div>
+			<div class="my-table-cell" >고용일자</div>
+			<div class="my-table-cell" >권한</div>
 		</div>
 		
 		<%
@@ -132,13 +132,13 @@
 		%>
 				
 					
-					<div style="display:table-row">
-						<div class="list-cell" style="display:table-cell"><%=m.get("empId") %></div>
-						<div class="list-cell" style="display:table-cell"><%=m.get("empName") %></div>
-						<div class="list-cell" style="display:table-cell"><%=m.get("empJob") %></div>
-						<div class="list-cell" style="display:table-cell"><%=m.get("hireDate") %></div>
+					<div class="my-table-row">
+						<div class="my-table-cell" ><%=m.get("empId") %></div>
+						<div class="my-table-cell" ><%=m.get("empName") %></div>
+						<div class="my-table-cell" ><%=m.get("empJob") %></div>
+						<div class="my-table-cell" ><%=m.get("hireDate") %></div>
 						<form action="/shop/emp/modifyEmpActive.jsp" method="post">
-							<div class="list-cell" style="display:table-cell">
+							<div class="my-table-cell" >
 							<%
 								// grade가 0보다 클 경우 active ON,OFF 권한 부여
 								if((Integer)(getSessionMap.get("grade")) > 0) {

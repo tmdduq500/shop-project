@@ -3,7 +3,7 @@
 <%@page import="java.sql.*"%>
 
 <!-- Controller Layer -->
-<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
+<%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
 	/* DB 연결 및 초기화 */
@@ -36,7 +36,7 @@
 		
 	<h1>상품 등록</h1>
 	
-	<form action="/shop/emp/goods/addGoodsAction.jsp" method="post">
+	<form action="/shop/emp/goods/addGoodsAction.jsp" method="post" enctype="multipart/form-data">
 	
 		<div>
 			category : 
@@ -57,7 +57,12 @@
 			goodsTitle : 
 			<input type="text" name="goodsTitle">
 		</div>
-				
+		
+		<div>
+			goodsImage : 
+			<input type="file" name="goodsImg">
+		</div>
+		
 		<div>
 			goodsPrice : 
 			<input type="number" name="goodsPrice">

@@ -1,7 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
+<%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
 	HashMap<String, Object> loginMember = (HashMap<String, Object>)(session.getAttribute("loginEmp"));

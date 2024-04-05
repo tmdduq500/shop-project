@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- Controller Layer -->
-<jsp:include page="/emp/inc/commonSessionCheck.jsp"></jsp:include>
+<%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
 	/* DB 연결 및 초기화 */
@@ -53,22 +53,23 @@
 			
 		
 		<div style="display:table-row;">
-			<div class="list-cell" style="display:table-cell">카테고리</div>
-			<div class="list-cell" style="display:table-cell">생성한 사람</div>
-			<div class="list-cell" style="display:table-cell">생성일</div>
+			<div class="my-table-cell" >카테고리</div>
+			<div class="my-table-cell" >생성한 사람</div>
+			<div class="my-table-cell" >생성일</div>
+			<div class="my-table-cell" >&nbsp;</div>
 		</div>
 		
 		<%
 			for(HashMap<String, Object> m : categoryList) {
 		%>
 				<div style="display:table-row;">
-					<div class="list-cell" style="display:table-cell"><%=m.get("category") %></div>
-					<div class="list-cell" style="display:table-cell"><%=m.get("empId") %></div>
-					<div class="list-cell" style="display:table-cell"><%=m.get("createDate") %></div>
+					<div class="my-table-cell" ><%=m.get("category") %></div>
+					<div class="my-table-cell" ><%=m.get("empId") %></div>
+					<div class="my-table-cell" ><%=m.get("createDate") %></div>
 					<%
 						if((Integer)(getSessionMap.get("grade")) > 0) {
 					%>
-							<div style="display: inline-block; margin: 10px;">
+							<div class="my-table-cell">
 								<a href="/shop/emp/category/deleteCategoryForm.jsp?category=<%=m.get("category")%>">삭제</a>
 							</div>
 					<%
