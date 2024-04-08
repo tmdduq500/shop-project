@@ -1,3 +1,4 @@
+<%@page import="java.awt.font.ImageGraphicAttribute"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -105,6 +106,7 @@
 			<div>
 				<div>기존 이미지:</div>
 				<img alt="" src="/shop/upload/<%=goodsInfo.get("imgName")%>">
+				<input type="hidden" name="existImgName" value="<%=goodsInfo.get("imgName")%>">
 			</div>
 			
 			변경할 이미지(선택 안할 시 기존 이미지 사용) : 

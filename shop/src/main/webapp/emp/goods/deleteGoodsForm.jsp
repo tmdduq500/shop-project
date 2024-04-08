@@ -74,6 +74,7 @@
 		
 		<form action="/shop/emp/goods/deleteGoodsAction.jsp">
 			<input type="hidden" name="goodsNo" value="<%=goodsNo%>">
+			<input type="hidden" name="imgName" value="<%=goodsInfo.get("imgName")%>">
 			<div>
 				id <input type="text" name="empId" value="<%=getSessionMap.get("empId")%>" readonly="readonly">
 			</div>

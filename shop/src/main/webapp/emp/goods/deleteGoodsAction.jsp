@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -7,6 +8,7 @@
 <%
 	// 요청 값
 	String goodsNo = request.getParameter("goodsNo");
+	String imgName = request.getParameter("imgName");
 	String empId = request.getParameter("empId");
 	String empPw = request.getParameter("empPw");
 	
@@ -34,17 +36,28 @@
 	
 	// id, pw가 일치한다면
 	if(checkEmpRs.next()) {
+		
 		// 상품 삭제 쿼리
 		String deleteGoodsSql = "DELETE FROM goods WHERE goods_no = ?";
 		PreparedStatement deleteGoodsStmt = null;
 		deleteGoodsStmt = conn.prepareStatement(deleteGoodsSql);
 		deleteGoodsStmt.setString(1, goodsNo);
-		int row = deleteGoodsStmt.executeUpdate();
 		
+		// 이미지 삭제하기
+		String imgPath = request.getServletContext().getRealPath("upload");
+		System.out.println("deleteGoodsAction - imgPath = " + imgPath);
+		
+	 	File deleteFile = new File(imgPath, imgName);
+	 	deleteFile.delete();
+	 	
+		// DELETE 쿼리 실행 확인
+		int row = deleteGoodsStmt.executeUpdate();
 		System.out.println("deleteGoodsAction - row = " + row);
 		
 		System.out.println("상품 삭제 성공");
 		response.sendRedirect("/shop/emp/goods/goodsList.jsp");
+		
+		
 	} else {
 		// 상품 삭제 실패
 		System.out.println("상품 삭제 실패");

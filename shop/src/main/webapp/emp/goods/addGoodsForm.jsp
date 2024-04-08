@@ -40,7 +40,7 @@
 	
 		<div>
 			category : 
-			<select name="category">
+			<select name="category" required="required">
 				<option value="">선택</option>
 				<%
 					for(String s : categoryList) {
@@ -55,22 +55,22 @@
 		<!-- emp_id값은 action쪽에서 세션변수에서 바인딩 -->
 		<div>
 			goodsTitle : 
-			<input type="text" name="goodsTitle">
+			<input type="text" name="goodsTitle" required="required">
 		</div>
 		
 		<div>
 			goodsImage : 
-			<input type="file" name="goodsImg">
+			<input type="file" name="goodsImg" required="required">
 		</div>
 		
 		<div>
 			goodsPrice : 
-			<input type="number" name="goodsPrice">
+			<input type="number" name="goodsPrice" required="required">
 		</div>
 		
 		<div>
 			goodsAmount : 
-			<input type="number" name="goodsAmount">
+			<input type="number" name="goodsAmount" required="required">
 		</div>
 		
 		<div>
@@ -78,7 +78,7 @@
 				goodsContent :
 			</div>
 			 
-			<textarea rows="5" cols="50" name="goodsContent"></textarea>
+			<textarea rows="5" cols="50" name="goodsContent" required="required"></textarea>
 		</div>
 		
 		<div>

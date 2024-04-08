@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -43,6 +44,32 @@
 			String deleteCategorySql = "DELETE FROM category WHERE category = ?";
 			PreparedStatement deleteCategoryStmt = null;
 			
+			/* 카테고리와 연관된 상품들의 img 삭제하기 */
+			// 해당 카테고리의 상품들 가져오는 쿼리
+			String getGoodsOfCategorySql = "SELECT img_name imgName from goods WHERE category = ?";
+			PreparedStatement getGoodsOfCategoryStmt = null;
+			ResultSet getGoodsOfCategoryRs = null;
+			
+			getGoodsOfCategoryStmt = conn.prepareStatement(getGoodsOfCategorySql);
+			getGoodsOfCategoryStmt.setString(1, category);
+			getGoodsOfCategoryRs = getGoodsOfCategoryStmt.executeQuery();
+			
+			while(getGoodsOfCategoryRs.next()) {
+				// 삭제 쿼리
+				String deleteGoodsImgSql = "DELETE FROM goods WHERE img_name = ?";
+				PreparedStatement deleteGoodsImgStmt = null;
+				deleteGoodsImgStmt = conn.prepareStatement(deleteGoodsImgSql);
+				deleteGoodsImgStmt.setString(1, getGoodsOfCategoryRs.getString("imgName"));
+				
+				String imgPath = request.getServletContext().getRealPath("upload");
+				System.out.println("deleteGoodsAction - imgPath = " + imgPath);
+				
+			 	File deleteFile = new File(imgPath, getGoodsOfCategoryRs.getString("imgName"));
+			 	deleteFile.delete();
+			 	
+// 			 	getGoodsOfCategoryRs.beforeFirst();
+			}
+
 			deleteCategoryStmt = conn.prepareStatement(deleteCategorySql);
 			deleteCategoryStmt.setString(1, category);
 			

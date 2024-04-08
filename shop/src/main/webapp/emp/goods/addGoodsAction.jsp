@@ -95,9 +95,5 @@
 		System.out.println("상품 등록 실패");
 		response.sendRedirect("/shop/emp/goods/addGoodsForm.jsp");
 	}
-	
-	// 이미지 삭제하기
-// 	File deleteFile = new File(imgPath, rs.getString("file_name"));
-// 	deleteFile.delete();
-	
+		
 %>

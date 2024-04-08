@@ -14,22 +14,16 @@
 	String category = request.getParameter("category");
 	String empId = request.getParameter("empId");
 	String goodsTitle = request.getParameter("goodsTitle");
+	String existImgName = request.getParameter("existImgName");
 	String goodsPrice = request.getParameter("goodsPrice");
 	String goodsAmount = request.getParameter("goodsAmount");
 	String goodsContent = request.getParameter("goodsContent");
 	
 	String newImgName = "";
 	Part part = request.getPart("newGoodsImg");
+	
 	if(part != null) {
-		// 이미지 파일 업로드
-		String originalName = part.getSubmittedFileName();
-		// 원본 이름에서 확장자만 분리
-		int dotIndex = originalName.lastIndexOf(".");
-		String ext = originalName.substring(dotIndex);	// 확장자(ex. jpg, png ...)
-		
-		UUID uuid = UUID.randomUUID();
-		newImgName = uuid.toString().replace("-", "");
-		newImgName = newImgName + ext;
+		newImgName = existImgName;
 	}
 	
 	// 요청 값 디버깅
@@ -37,6 +31,7 @@
 	System.out.println("updateGoodsAction - category = " + category);
 	System.out.println("updateGoodsAction - empId = " + empId);
 	System.out.println("updateGoodsAction - goodsTitle = " + goodsTitle);
+	System.out.println("updateGoodsAction - existImgName = " + existImgName);
 	System.out.println("updateGoodsAction - newImgName = " + newImgName);
 	System.out.println("updateGoodsAction - goodsPrice = " + goodsPrice);
 	System.out.println("updateGoodsAction - goodsAmount = " + goodsAmount);

@@ -103,6 +103,8 @@
 	<meta charset="UTF-8">
 	<title>empList</title>
 	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
+	<link href="/shop/emp/css/w3.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<!-- empMenu.jsp include : 주체(서버) vs redirect(주체: 클라이언트) -->
