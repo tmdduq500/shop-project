@@ -102,99 +102,132 @@
 <head>
 	<meta charset="UTF-8">
 	<title>empList</title>
-	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
 	<link href="/shop/emp/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<!-- empMenu.jsp include : 주체(서버) vs redirect(주체: 클라이언트) -->
-	<!-- 주체가 서버이기때문에 include할때는 절대주소가 /shop/...으로 시작하지 않는다 -->
+<div class="row">
+<!-- 메인 메뉴 -->
+<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+	<div class="col">
 	
-	<!-- 메인 메뉴 -->
-	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+	</div>
 	
-	<!-- emp목록 출력 -->
-	<div style="display:table;">
-	
-		<div class="list-title">
-			<h1>사원 목록</h1>
-		</div>
-			
+	<div class="col-8">
+		<!-- empMenu.jsp include : 주체(서버) vs redirect(주체: 클라이언트) -->
+		<!-- 주체가 서버이기때문에 include할때는 절대주소가 /shop/...으로 시작하지 않는다 -->
 		
-		<div class="my-table-row">
-			<div class="my-table-cell" >직원 id</div>
-			<div class="my-table-cell" >직원 이름</div>
-			<div class="my-table-cell" >직급</div>
-			<div class="my-table-cell" >고용일자</div>
-			<div class="my-table-cell" >권한</div>
-		</div>
 		
-		<%
-			for(HashMap<String, Object> m : empList) {
-		%>
+		
+		<!-- emp목록 출력 -->
+		<div class="w3-panel w3-border w3-round-small">
+		
+			<div style="margin: 20px auto;">
+				<h1>사원 목록</h1>
+			</div>
 				
-					
-					<div class="my-table-row">
-						<div class="my-table-cell" ><%=m.get("empId") %></div>
-						<div class="my-table-cell" ><%=m.get("empName") %></div>
-						<div class="my-table-cell" ><%=m.get("empJob") %></div>
-						<div class="my-table-cell" ><%=m.get("hireDate") %></div>
-						<form action="/shop/emp/modifyEmpActive.jsp" method="post">
-							<div class="my-table-cell" >
+			<table class="table table-hover" style="table-layout: fixed;">
+				<thead>
+					<tr>
+						<th width="40%">직원 id</th>
+						<th width="15%">직원 이름</th>
+						<th width="15%">직급</th>
+						<th width="15%">고용일자</th>
+						<th width="15%">권한</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+				<%
+					for(HashMap<String, Object> m : empList) {
+				%>
+						
+						
+						<tr>
+							<td><%=m.get("empId") %></td>
+							<td><%=m.get("empName") %></td>
+							<td><%=m.get("empJob") %></td>
+							<td><%=m.get("hireDate") %></td>
+							<td>
 							<%
 								// grade가 0보다 클 경우 active ON,OFF 권한 부여
 								if((Integer)(getSessionMap.get("grade")) > 0) {
 							%>
-									<input type="hidden" name="empId" value="<%=m.get("empId") %>">
-									<input type="hidden" name="active" value="<%=m.get("active") %>">
-									<button type="submit"><%=m.get("active") %></button>
+									<form action="/shop/emp/modifyEmpActive.jsp" method="post">
+										<input type="hidden" name="empId" value="<%=m.get("empId") %>">
+										<input type="hidden" name="active" value="<%=m.get("active") %>">
+										
+										<div class="form-check form-switch">
+											<%
+												if(m.get("active").equals("ON")) {	
+											%>
+													<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>" checked="checked">
+											<%
+												} else {
+											%>
+													<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>">
+											<%
+												}
+											%>
+											<button type="submit" class="btn btn-outline-danger btn-sm">변경</button>
+										</div>										
 							<%
 								} else {
 							%>
-									<button disabled="disabled"><%=m.get("active") %></button>
+										<button disabled="disabled"><%=m.get("active") %></button>
 							<%
 								}
 							%>
-								
-							</div>
-						</form>
-					</div>
+									</form>
+							</td>
+						</tr>
+						
+				<%
+					}
+				%>
+				</tbody>
+			</table>	
 				
-		<%
-			}
-		%>
+				
+				<!-- 페이징 버튼 -->	
+				<div class="w3-bar w3-center" style="margin-bottom: 10px;">
+			
+					<%
+						if(currentPage > 1) {
+					%>	
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+					<%		
+						} else {
+					%>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">이전페이지</a>
+					<%		
+						}
+			
+						if(currentPage < lastPage) {
+					%>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+					<%		
+						} else {
+					%>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">다음페이지</a>
+							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+					<%
+						}
+					%>
+			
+				</div>
+			</div>
+			
+			
 	</div>
 	
-	<!-- 페이징 버튼 -->	
-	<div>
-
-		<%
-			if(currentPage > 1) {
-		%>	
-				<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
-				<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
-		<%		
-			} else {
-		%>
-				<a href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
-				<a href="/shop/emp/empList.jsp?currentPage=1">이전페이지</a>
-		<%		
-			}
-
-			if(currentPage < lastPage) {
-		%>
-				<a href="/shop/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
-				<a href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
-		<%		
-			} else {
-		%>
-				<a href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">다음페이지</a>
-				<a href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
-		<%
-			}
-		%>
-
+	<div class="col">
+	
 	</div>
-		
+</div>
+	
 </body>
 </html>

@@ -7,20 +7,26 @@
 %>
 
 <div>
-	<a href="/shop/emp/empList.jsp">사원 관리</a>
-	<!-- category CRUD -->
-	<a href="/shop/emp/category/categoryList.jsp">카테고리 관리</a>
-	<a href="/shop/emp/goods/goodsList.jsp">상품 관리</a>
 	
-	<!-- 개인정보 페이지 -->
-	<span>
-		<a href="/shop/emp/empOne.jsp"><%=(String)(loginMember.get("empName"))%>님</a> 반갑습니다 
-	</span>
+<div class="w3-bar w3-black w3-large">
+	
+	<a class="w3-bar-item w3-button" href="/shop/emp/empList.jsp">사원 관리</a>
+	<!-- category CRUD -->
+	<a class="w3-bar-item w3-button" href="/shop/emp/category/categoryList.jsp">카테고리 관리</a>
+	<a class="w3-bar-item w3-button" href="/shop/emp/goods/goodsList.jsp">상품 관리</a>
+	
+	
+	
 	
 	<!-- 로그아웃 -->
-	<div>
-		<a href="/shop/emp/empLogoutAction.jsp">
-			로그아웃
-		</a>
-	</div>
+	<a class="w3-bar-item w3-button w3-right" href="/shop/emp/empLogoutAction.jsp">로그아웃</a>
+	
+	<!-- 개인정보 페이지 -->
+	
+	<span class="w3-bar-item w3-right"><%=(String)(loginMember.get("empName"))%>님 반갑습니다</span>
+	
+	<a href="/shop/emp/empOne.jsp" class="w3-bar-item w3-button w3-white w3-right">
+		<img src="/shop/upload/profile_basic.jpg" alt="프로필사진" style="width:40px;" class="rounded-pill">	
+	</a>
+</div>
 </div>

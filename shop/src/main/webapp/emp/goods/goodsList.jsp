@@ -156,32 +156,35 @@
 	<title>title</title>
 	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
 	<link href="/shop/emp/css/w3.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<!-- 메인 메뉴 -->
 	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 
-	<div class="container">
+	<div>
 		<!-- 사이드바 - 서브메뉴 카테고리별 상품리스트 -->
-		<div class="sidebar-goods" style="text-align: center;">
-			<a href="/shop/emp/goods/goodsList.jsp?category=all">전체(<%=getTotalGoodsRowRs.getInt("cnt")%>)</a>
-			
-			<%
-				for(HashMap m : goodsCntPerCategory) {
-			%>
-					<div style="margin: 10px;">
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=(String)(m.get("category")) %>">
+		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+			<h3 class="w3-bar-item">카테고리</h3>
+			<nav class="w3-sidebar w3-card">
+				<a href="/shop/emp/goods/goodsList.jsp?category=all" class="w3-bar-item w3-button">전체(<%=getTotalGoodsRowRs.getInt("cnt")%>)</a>
+				<%
+					for(HashMap m : goodsCntPerCategory) {
+				%>
+	
+						<a href="/shop/emp/goods/goodsList.jsp?category=<%=(String)(m.get("category")) %>" class="w3-bar-item w3-button">
 							<%=(String)(m.get("category")) %>
 							(<%=(Integer)(m.get("cnt")) %>)
 						</a>
-					</div>
-			<% 
-				}
-			%>
+	
+				<% 
+					}
+				%>
+			</nav>
 		</div>
 		
 		<!-- goods 목록 출력 -->
-		<div style="margin-left: 20px;">
+		<div style="margin-left:25%; ">
 			<div class="goods-list">				
 				<div class="list-title">
 					<h1 style="display: inline-block;">상품 목록</h1>
@@ -220,30 +223,30 @@
 			
 			
 			<!-- 페이징 버튼 -->	
-			<div class="paging-goods">
+			<div class="w3-bar w3-center">
 		
 				<%
 					if(currentPage > 1) {
 				%>	
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage-1%>">이전페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage-1%>">이전페이지</a>
 				<%		
 					} else {
 				%>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">이전페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">처음페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=1">이전페이지</a>
 				<%		
 					}
 		
 					if(currentPage < lastPage) {
 				%>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage+1%>">다음페이지</a>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=currentPage+1%>">다음페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
 				<%		
 					} else {
 				%>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">다음페이지</a>
-						<a href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">다음페이지</a>
+						<a class="w3-button" href="/shop/emp/goods/goodsList.jsp?category=<%=session.getAttribute("category") %>&currentPage=<%=lastPage%>">마지막페이지</a>
 				<%
 					}
 				%>

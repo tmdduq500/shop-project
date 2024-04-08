@@ -38,48 +38,74 @@
 <head>
 	<meta charset="UTF-8">
 	<title>카테고리 목록</title>
-	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
+	<link href="/shop/emp/css/w3.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<!-- 메인 메뉴 -->
-	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+<div class="row">
+<!-- 메인 메뉴 -->
+<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
+	<div class="col"></div>
 	
-	<!-- category 목록 출력 -->
-	<div style="display:table; max-width:700px;">
-		<div class="list-title">
-			<h1 style="display: inline;">category 목록</h1>
-			<a href="/shop/emp/category/addCategoryForm.jsp">카테고리 추가</a>
-		</div>
-			
-		
-		<div style="display:table-row;">
-			<div class="my-table-cell" >카테고리</div>
-			<div class="my-table-cell" >생성한 사람</div>
-			<div class="my-table-cell" >생성일</div>
-			<div class="my-table-cell" >&nbsp;</div>
-		</div>
-		
-		<%
-			for(HashMap<String, Object> m : categoryList) {
-		%>
-				<div style="display:table-row;">
-					<div class="my-table-cell" ><%=m.get("category") %></div>
-					<div class="my-table-cell" ><%=m.get("empId") %></div>
-					<div class="my-table-cell" ><%=m.get("createDate") %></div>
-					<%
-						if((Integer)(getSessionMap.get("grade")) > 0) {
-					%>
-							<div class="my-table-cell">
-								<a href="/shop/emp/category/deleteCategoryForm.jsp?category=<%=m.get("category")%>">삭제</a>
-							</div>
-					<%
-						}
-					%>
-					
+	<div class="col-5">
+
+		<!-- category 목록 출력 -->
+		<div class="w3-panel w3-border w3-round-small">
+			<div class="row" style="margin: 20px auto;">
+				<div class="col">
+					<h1>category 목록</h1>
 				</div>
-		<%
-			}
-		%>
+			
+				<div class="col" style="text-align: right;">
+					<form action="/shop/emp/category/addCategoryForm.jsp">
+						<button type="submit" class="btn btn-outline-dark">카테고리 추가</button>
+					</form>
+				</div>
+			</div>
+					
+				
+			<table class="table table-hover" style="margin-bottom: 30px;">
+				<thead>
+					<tr>
+						<th>카테고리</th>
+						<th>생성한 사람</th>
+						<th>생성일</th>
+						<th>삭제</th>
+					</tr>
+				</thead>
+
+			<%
+				for(HashMap<String, Object> m : categoryList) {
+			%>
+					<tbody>
+						<tr>
+							<td><%=m.get("category") %></td>
+							<td><%=m.get("empId") %></td>
+							<td><%=m.get("createDate") %></td>
+							<%
+								if((Integer)(getSessionMap.get("grade")) > 0) {
+							%>
+									<td>
+										<form action="/shop/emp/category/deleteCategoryForm.jsp">
+											<input type="hidden" name="category" value="<%=m.get("category")%>">
+										</form>
+										<button type="submit" class="btn btn-danger btn-sm">삭제</button>
+									</td>
+							<%
+								}
+							%>
+							
+						</tr>
+					</tbody>
+			<%
+				}
+			%>
+			</table>
+		</div>
 	</div>
+		
+	<div class="col"></div>
+</div>
+
 </body>
 </html>
