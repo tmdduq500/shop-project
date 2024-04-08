@@ -22,6 +22,7 @@
 	String goodsAmount = request.getParameter("goodsAmount");
 	String goodsContent = request.getParameter("goodsContent");
 	
+	// 이미지 파일 업로드
 	Part part = request.getPart("goodsImg");
 	String originalName = part.getSubmittedFileName();
 	// 원본 이름에서 확장자만 분리

@@ -39,6 +39,11 @@
 	}
 	
 %>
+
+<%
+	/* session의 정보 가져오기(상품을 올린 emp_id가 같거나, grade가 0보다 클때만 상품 수정,삭제 가능) */
+	HashMap<String, Object> getSessionMap = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
+%>
 <!-- View Layer -->
 <!DOCTYPE html>
 <html>
@@ -117,10 +122,17 @@
 			
 		</div>
 		
-		<div>
-			<a href="/shop/goods/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>">수정</a>
-			<a href="/shop/goods/deleteGoodsForm.jsp?goodsNo=<%=goodsNo%>">삭제</a>
-		</div>
+		<!-- 동일한 관리자거나 관리자 등급 0보다 클때만 수정,삭제 가능 -->
+		<%
+			if(getSessionMap.get("empId").equals(goodsInfo.get("empId")) || (int)getSessionMap.get("grade") > 0) {
+		%>
+				<div>
+					<a href="/shop/emp/goods/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>">수정</a>
+					<a href="/shop/emp/goods/deleteGoodsForm.jsp?goodsNo=<%=goodsNo%>">삭제</a>
+				</div>
+		<%
+			}
+		%>
 	</div>
 </body>
 </html>

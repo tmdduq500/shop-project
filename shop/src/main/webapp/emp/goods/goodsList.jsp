@@ -163,7 +163,7 @@
 	<div class="container">
 		<!-- 사이드바 - 서브메뉴 카테고리별 상품리스트 -->
 		<div class="sidebar-goods" style="text-align: center;">
-			<a href="/shop/emp/goods/goodsList.jsp?category=all">전체</a>
+			<a href="/shop/emp/goods/goodsList.jsp?category=all">전체(<%=getTotalGoodsRowRs.getInt("cnt")%>)</a>
 			
 			<%
 				for(HashMap m : goodsCntPerCategory) {
