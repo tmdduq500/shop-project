@@ -50,89 +50,103 @@
 <head>
 	<meta charset="UTF-8">
 	<title>title</title>
-	<link href="/shop/emp/css/emp.css" rel="stylesheet" type="text/css">
+	<link href="/shop/emp/css/w3.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body style="height: 100vh;">
-	<!-- 메인 메뉴 -->
-	<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
-	
-	<div style="width: 1000px; height:500px; text-align: center;">
-	
-		<div style="display: inline-block; ">
-			<img alt="" src="/shop/upload/<%=goodsInfo.get("imgName") %>" style="height: 400px;">
-		</div>	
-	
-		<div style="display: inline-block; height: 400px; margin-top: 30px;">
+<body>
+<div class="row">
+<!-- 메인 메뉴 -->
+<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 
-			<div class="my-table-row" >
-				<div class="my-table-cell">상품 번호</div>
-				<div class="my-table-cell">
-					<%=goodsNo %>
-				</div>
-			</div>
-			
-			<div class="my-table-row" >
-				<div class="my-table-cell">카테고리</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("category") %>
-				</div>
-			</div>
-			
-			<div class="my-table-row">
-				<div class="my-table-cell">관리자</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("empId") %>
-				</div>
-			</div>
-			
-			<div class="my-table-row">
-				<div class="my-table-cell">상품명</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("goodsTitle") %>
-				</div>
-			</div>
-			
-			<div class="my-table-row">
-				<div class="my-table-cell">설명</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("goodsContent") %>
-				</div>
-			</div>
-			
-			<div class="my-table-row">
-				<div class="my-table-cell">가격</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("goodsPrice") %>
-				</div>
-			</div>
-			
-			<div class="my-table-row">
-				<div class="my-table-cell">수량</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("goodsAmount") %>
-				</div>
-			</div>
-			
-			<div class="my-table-row">
-				<div class="my-table-cell">등록일</div>
-				<div class="my-table-cell">
-					<%=goodsInfo.get("createDate") %>
-				</div>
-			</div>
-			
-		</div>
+	<div class="col"></div>
+
+	<div class="col-5">
+		<table class="w3-table w3-centered w3-card-4 w3-bordered" style="margin-top: 50px; width: 100%;">
+			<thead class="w3-dark-grey">
+				<tr>
+					<td colspan="3">
+						<h1><%=goodsInfo.get("goodsTitle") %>의 상세정보</h1>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="9" style=" border: solid 1px #ddd">
+						<img alt="" src="/shop/upload/<%=goodsInfo.get("imgName") %>" style="width: 100%;">
+					</td>
+				</tr>
+				<tr>
+					<td>상품번호</td>
+					<td><%=goodsNo %></td>
+				</tr>
+				<tr>
+					<td>카테고리</td>
+					<td>
+						<%=goodsInfo.get("category") %>
+					</td>
+				</tr>
+				<tr>
+					<td>관리자</td>
+					<td>
+						<%=goodsInfo.get("empId") %>
+					</td>
+				</tr>
+				<tr>
+					<td>상품명</td>
+					<td>
+						<%=goodsInfo.get("goodsTitle") %>
+					</td>
+				</tr>
+				<tr>
+					<td>설명</td>
+					<td>
+						<%=goodsInfo.get("goodsContent") %>
+					</td>
+				</tr>
+				<tr>
+					<td>가격</td>
+					<td>
+						<%=goodsInfo.get("goodsPrice") %>
+					</td>
+				</tr>
+				<tr>
+					<td>수량</td>
+					<td>
+						<%=goodsInfo.get("goodsAmount") %>
+					</td>
+				</tr>
+				<tr>
+					<td>등록일</td>
+					<td>
+						<%=goodsInfo.get("createDate") %>
+					</td>
+				</tr>
+				
+				<!-- 동일한 관리자거나 관리자 등급 0보다 클때만 수정,삭제 가능 -->
+				<%
+					if(getSessionMap.get("empId").equals(goodsInfo.get("empId")) || (int)getSessionMap.get("grade") > 0) {
+				%>
+						<tr>
+							<td colspan="3">
+								<form action="/shop/emp/goods/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>" method="post" style="display: inline-block;">
+									<button type="submit" class="btn btn-outline-secondary">수정</button>
+								</form>
+									
+								<form action="/shop/emp/goods/deleteGoodsForm.jsp?goodsNo=<%=goodsNo%>" method="post" style="display: inline-block;">
+									<button type="submit" class="btn btn-outline-secondary">삭제</button>
+								</form>
+							</td>
+						</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
 		
-		<!-- 동일한 관리자거나 관리자 등급 0보다 클때만 수정,삭제 가능 -->
-		<%
-			if(getSessionMap.get("empId").equals(goodsInfo.get("empId")) || (int)getSessionMap.get("grade") > 0) {
-		%>
-				<div>
-					<a href="/shop/emp/goods/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>">수정</a>
-					<a href="/shop/emp/goods/deleteGoodsForm.jsp?goodsNo=<%=goodsNo%>">삭제</a>
-				</div>
-		<%
-			}
-		%>
 	</div>
+	
+	<div class="col"></div>
+</div>
+
 </body>
 </html>

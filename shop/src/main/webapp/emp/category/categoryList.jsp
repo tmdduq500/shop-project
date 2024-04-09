@@ -82,18 +82,24 @@
 							<td><%=m.get("category") %></td>
 							<td><%=m.get("empId") %></td>
 							<td><%=m.get("createDate") %></td>
-							<%
-								if((Integer)(getSessionMap.get("grade")) > 0) {
-							%>
-									<td>
-										<form action="/shop/emp/category/deleteCategoryForm.jsp">
-											<input type="hidden" name="category" value="<%=m.get("category")%>">
-										</form>
-										<button type="submit" class="btn btn-danger btn-sm">삭제</button>
-									</td>
-							<%
-								}
-							%>
+							
+								<td>
+									<form action="/shop/emp/category/deleteCategoryForm.jsp">
+										<input type="hidden" name="category" value="<%=m.get("category")%>">
+										<%
+											if((Integer)(getSessionMap.get("grade")) > 0) {
+										%>
+												<button type="submit" class="btn btn-danger btn-sm">삭제</button>
+										<%
+											} else {
+										%>
+												<button type="submit" class="btn btn-danger btn-sm" disabled="disabled">삭제</button>
+										<%
+											}
+										%>
+									</form>
+								</td>
+							
 							
 						</tr>
 					</tbody>

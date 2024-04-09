@@ -49,7 +49,7 @@
 			</div>
 			
 			<div style="margin-top: 20px;">
-				<button class="w3-button w3-section w3-teal w3-ripple" type="submit" style="width: 100%;">
+				<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit" style="width: 100%;">
 					로그인
 				</button>
 			</div>

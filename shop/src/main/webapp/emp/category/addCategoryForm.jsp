@@ -18,25 +18,29 @@
 <jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 	<div class="col"></div>
 	
-	<div class="col-2 w3-container w3-half w3-margin-top" style="height: 90vh; width: 25%;">
-		<form class="w3-container w3-card-4 w3-border w3-round-large" action="/shop/emp/category/addCategoryAction.jsp" method="post" style="margin: 50% auto; height: 330px;">
-		
-			<div style="margin-top: 30px; text-align: center;">
+	<div class="col-3">
+		<div class="w3-border w3-round" style="margin-top: 20px;">
+			<div class="w3-container w3-dark-grey" style="padding: 10px;">
 				<h1>카테고리 추가</h1>
 			</div>
 			
-			<div class="form-floating mb-4 mt-5 form-control-lg" style="margin-top: 30px;">
-				<input class="w3-input" type="text" name="category" placeholder="카테고리를 입력해주세요">
+			<div class="w3-card-4" style="padding: 5%;">
+				<form class="w3-container" action="/shop/emp/category/addCategoryAction.jsp" method="post">
+					<label style="margin: 20px;">카테고리</label>
+					
+					<div style="margin: 10px;">
+						<input class="w3-input" type="text" name="category" placeholder="카테고리를 입력해주세요">
+					</div>
+					
+					<div style="text-align: center;">
+						<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit" style="width: 80%; margin: 20px;">
+							카테고리 추가
+						</button>
+					</div>
+		
+				</form>
 			</div>
-			
-			<div class="input-group" style="margin-top: 20px;">
-				<button class="w3-button w3-section w3-teal w3-ripple" type="submit" style="width: 100%;">
-					카테고리 추가
-				</button>
-			</div>
-			
-			
-		</form>
+		</div>
 	</div>
 	
 	<div class="col"></div>

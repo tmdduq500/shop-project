@@ -149,36 +149,47 @@
 							<td><%=m.get("empJob") %></td>
 							<td><%=m.get("hireDate") %></td>
 							<td>
-							<%
-								// grade가 0보다 클 경우 active ON,OFF 권한 부여
-								if((Integer)(getSessionMap.get("grade")) > 0) {
-							%>
-									<form action="/shop/emp/modifyEmpActive.jsp" method="post">
-										<input type="hidden" name="empId" value="<%=m.get("empId") %>">
-										<input type="hidden" name="active" value="<%=m.get("active") %>">
-										
-										<div class="form-check form-switch">
-											<%
-												if(m.get("active").equals("ON")) {	
-											%>
-													<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>" checked="checked">
-											<%
-												} else {
-											%>
-													<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>">
-											<%
-												}
-											%>
-											<button type="submit" class="btn btn-outline-danger btn-sm">변경</button>
-										</div>										
-							<%
-								} else {
-							%>
-										<button disabled="disabled"><%=m.get("active") %></button>
-							<%
-								}
-							%>
-									</form>
+								<form action="/shop/emp/modifyEmpActive.jsp" method="post">
+									<input type="hidden" name="empId" value="<%=m.get("empId") %>">
+									<input type="hidden" name="active" value="<%=m.get("active") %>">
+									<%
+										// grade가 0보다 클 경우 active ON,OFF 권한 부여
+										if((Integer)(getSessionMap.get("grade")) > 0) {
+									%>
+											<div class="form-check form-switch">
+												<%
+													if(m.get("active").equals("ON")) {	
+												%>
+														<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>" checked="checked">
+												<%
+													} else {
+												%>
+														<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>">
+												<%
+													}
+												%>
+												<button type="submit" class="btn btn-outline-danger btn-sm">변경</button>
+											</div>
+									<%
+										} else {
+									%>
+											<div class="form-check form-switch">
+												<%
+													if(m.get("active").equals("ON")) {	
+												%>
+														<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>" checked="checked" disabled="disabled">
+												<%
+													} else {
+												%>
+														<input class="form-check-input" type="checkbox" name="active" value="<%=m.get("active") %>" disabled="disabled">
+												<%
+													}
+												%>
+											</div>
+									<%
+										}
+									%>
+								</form>		
 							</td>
 						</tr>
 						
