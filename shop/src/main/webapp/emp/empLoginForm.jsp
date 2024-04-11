@@ -34,7 +34,7 @@
 		<form class="w3-container w3-card-4 w3-border w3-round-large" action="/shop/emp/empLoginAction.jsp" method="post" style="margin: 50% auto; height: 330px;">
 		
 			<div style="margin-top: 30px; text-align: center;">
-				<h1>로그인</h1>
+				<h1>관리자 로그인</h1>
 			</div>
 			
 			<div class="form-floating mb-3 mt-3" style="margin-top: 30px;">

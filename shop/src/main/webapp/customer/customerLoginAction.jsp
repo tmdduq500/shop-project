@@ -46,7 +46,7 @@
 		System.out.println((String)(checkCustomer.get("customerId")));
 		System.out.println((String)(checkCustomer.get("customerName")));		
 				
-		response.sendRedirect("/shop/customer/goodsList.jsp");
+		response.sendRedirect("/shop/customer/customerGoodsList.jsp");
 	} else {
 		// 실패 -> /emp/empLoginForm.jsp	
 		System.out.println("로그인 실패");

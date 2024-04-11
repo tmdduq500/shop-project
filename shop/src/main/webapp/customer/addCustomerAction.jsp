@@ -12,6 +12,12 @@
 	String customerBirth = request.getParameter("customerBirth");
 	String customerGender = request.getParameter("customerGender");
 
+	// 요청 값 하나라도 null일 경우
+	if(customerId == null || customerPw == null ||customerName == null ||customerBirth == null ||customerGender == null) {
+		response.sendRedirect("/shop/customer/addCustomerForm.jsp");
+		return;
+	}
+	
 	// 요청 값 디버깅
 	System.out.println("addCustomerAction - customerId = " + customerId);
 	System.out.println("addCustomerAction - customerPw = " + customerPw);

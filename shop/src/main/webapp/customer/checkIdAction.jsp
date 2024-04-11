@@ -9,12 +9,14 @@
 	String checkIdFirst = request.getParameter("checkIdFirst");
 	String checkIdMiddle = request.getParameter("checkIdMiddle");
 	String checkIdLast = request.getParameter("checkIdLast");
+
 	// 요청 값 디버깅
 	System.out.println("checkIdAction - checkIdFirst = " + checkIdFirst);
 	System.out.println("checkIdAction - checkIdMiddle = " + checkIdMiddle); 
 	System.out.println("checkIdAction - checkIdLast = " + checkIdLast); 
 
-	if(checkIdFirst.equals("") || checkIdMiddle.equals("") || checkIdLast.equals("")) {
+	// 요청 값 하나라도 null이거나 공백일 경우
+	if(checkIdFirst == null || checkIdMiddle == null || checkIdLast == null || checkIdFirst.equals("") || checkIdMiddle.equals("") || checkIdLast.equals("")) {
 		String errMsg = URLEncoder.encode("ID를 정확히 입력해주세요.", "UTF-8");
 		response.sendRedirect("/shop/customer/addCustomerForm.jsp?errMsg=" + errMsg);
 		return;

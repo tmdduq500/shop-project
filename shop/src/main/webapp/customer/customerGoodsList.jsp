@@ -3,8 +3,6 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- Controller Layer -->
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
 <%
 	/* DB 연결 및 초기화 */
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -155,7 +153,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+	<!-- 메인 메뉴 -->
+	<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
 	<div>
 		<!-- 사이드바 - 서브메뉴 카테고리별 상품리스트 -->
 		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">

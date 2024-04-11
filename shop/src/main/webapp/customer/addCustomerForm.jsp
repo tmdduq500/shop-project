@@ -26,6 +26,8 @@
 </head>
 <body>
 <div class="row">
+	<!-- 메인 메뉴 -->
+	<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
 	<div class="col"></div>
 	
 	<div class="col">
