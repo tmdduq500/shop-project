@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="shop.dao.GoodsDAO"%>
 <%@page import="java.io.File"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -19,41 +21,17 @@
 %>
 
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	// [DB]shop.emp에서 id,pw 확인
-	String checkEmpSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = PASSWORD(?)";
-	PreparedStatement checkEmpStmt = null;
-	ResultSet checkEmpRs = null;
-	
-	checkEmpStmt = conn.prepareStatement(checkEmpSql);
-	checkEmpStmt.setString(1, empId);
-	checkEmpStmt.setString(2, empPw);
-	checkEmpRs = checkEmpStmt.executeQuery();
-	
+	// id, pw 확인
+	HashMap<String, String> checkIdPw = GoodsDAO.checkIdPw(empId, empPw);
+
 	// id, pw가 일치한다면
-	if(checkEmpRs.next()) {
+	if(checkIdPw != null) {
 		
-		// 상품 삭제 쿼리
-		String deleteGoodsSql = "DELETE FROM goods WHERE goods_no = ?";
-		PreparedStatement deleteGoodsStmt = null;
-		deleteGoodsStmt = conn.prepareStatement(deleteGoodsSql);
-		deleteGoodsStmt.setString(1, goodsNo);
-		
-		// 이미지 삭제하기
+		// 이미지 삭제
 		String imgPath = request.getServletContext().getRealPath("upload");
-		System.out.println("deleteGoodsAction - imgPath = " + imgPath);
+		int row = GoodsDAO.deleteGoods(goodsNo, imgPath, imgName);
 		
-	 	File deleteFile = new File(imgPath, imgName);
-	 	deleteFile.delete();
-	 	
-		// DELETE 쿼리 실행 확인
-		int row = deleteGoodsStmt.executeUpdate();
 		System.out.println("deleteGoodsAction - row = " + row);
-		
 		System.out.println("상품 삭제 성공");
 		response.sendRedirect("/shop/emp/goods/goodsList.jsp");
 		

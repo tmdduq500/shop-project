@@ -1,3 +1,4 @@
+<%@page import="shop.dao.GoodsDAO"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -12,32 +13,8 @@
 %>
 
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	/* 상품 하나의 모든 정보 가져오는 쿼리 */
-	String getGoodsInfoSql = "SELECT category, emp_id empId, goods_title goodsTitle, img_name imgName, goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount, create_date createDate FROM goods WHERE goods_no = ?";
-	PreparedStatement getGoodsInfoStmt = null;
-	ResultSet getGoodsInfoRs = null;
-	getGoodsInfoStmt = conn.prepareStatement(getGoodsInfoSql);
-	getGoodsInfoStmt.setString(1, goodsNo);
-	getGoodsInfoRs = getGoodsInfoStmt.executeQuery();
-	
-	HashMap<String, Object> goodsInfo = new HashMap<String, Object>();
-	while(getGoodsInfoRs.next()) {
-		goodsInfo.put("category", getGoodsInfoRs.getString("category"));
-		goodsInfo.put("empId", getGoodsInfoRs.getString("empId"));
-		goodsInfo.put("goodsTitle", getGoodsInfoRs.getString("goodsTitle"));
-		goodsInfo.put("imgName", getGoodsInfoRs.getString("imgName"));
-		goodsInfo.put("goodsContent", getGoodsInfoRs.getString("goodsContent"));
-		goodsInfo.put("goodsPrice", getGoodsInfoRs.getString("goodsPrice"));
-		goodsInfo.put("goodsAmount", getGoodsInfoRs.getString("goodsAmount"));
-		goodsInfo.put("createDate", getGoodsInfoRs.getString("createDate"));
-
-	}
-	
+	// 상품 상세보기
+	HashMap<String, Object> goodsInfo = GoodsDAO.selectGoodsInfo(goodsNo);
 %>
 
 <%

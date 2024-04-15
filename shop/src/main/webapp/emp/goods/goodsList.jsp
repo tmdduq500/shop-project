@@ -1,3 +1,4 @@
+<%@page import="shop.dao.GoodsDAO"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -6,11 +7,6 @@
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-
 	/* 상품 목록 페이징 */
 	
 	// 현재 페이지 구하기
@@ -19,9 +15,8 @@
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	// currentPage 세션 값
+	// currentPage 세션 값 설정
 	session.setAttribute("currentPage", currentPage);
-	System.out.println("goodsList - currentPage 세션 값 = " + session.getAttribute("currentPage"));	// currentPage 세션 값 체크
 	
 	// 페이지당 보여줄 row 수
 	int rowPerPage = 30;
@@ -31,123 +26,57 @@
 //  		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 //  	}
 	
-	// 전체 goods 수 구하기
-	String getTotalGoodsRowSql = "SELECT COUNT(*) cnt FROM goods";
-	PreparedStatement getTotalGoodsRowStmt = null;
-	
 	// category 요청 값
 	String category = request.getParameter("category");
-	System.out.println("goodsList - category = " + category);
 	
-	// category 세션 값
-	if(category != null) {
-		session.setAttribute("category", category);
-		System.out.println("goodsList - category 세션 값 = " + session.getAttribute("category"));	// category 세션 값 체크
-	} else {
+	// category 세션 값 설정
+	if(category == null) {
 		category = "all";
-	}
-	
-	// category
-	if(category.equals("all")) {
-		getTotalGoodsRowStmt = conn.prepareStatement(getTotalGoodsRowSql);
+		session.setAttribute("category", category);
 	} else {
-		getTotalGoodsRowSql = "SELECT COUNT(*) cnt FROM goods WHERE category = ?";
-		getTotalGoodsRowStmt = conn.prepareStatement(getTotalGoodsRowSql);
-		getTotalGoodsRowStmt.setString(1, category);
+		session.setAttribute("category", category);
 	}
 	
-	ResultSet getTotalGoodsRowRs = getTotalGoodsRowStmt.executeQuery();
+	// 전체 goods 수
+	int totalGoodsRow = GoodsDAO.getTotalGoods();
 	
-	int totalRow = 0;
-	if(getTotalGoodsRowRs.next()) {
-		totalRow = getTotalGoodsRowRs.getInt("cnt");
-	}
-	System.out.println("goodsList - totalRow = " + totalRow);
+	// 카테고리별 goods 수
+	int goodsPerCategoryRow = GoodsDAO.getGoodsPerCategory(category);
 	
-	// 마지막 페이지 구하기
-	int lastPage = totalRow / rowPerPage;
-	if(totalRow % rowPerPage != 0) {
+	// 카테고리별(전체 포함) 마지막 페이지 구하기
+	int lastPage = goodsPerCategoryRow / rowPerPage;
+	if(goodsPerCategoryRow % rowPerPage != 0) {
 		lastPage += 1;
 	}
-	System.out.println("goodsList - lastPage = " + lastPage);
-	
+		
 	// 페이지당 시작할 row
 	int startRow = (currentPage - 1) * rowPerPage;
-	System.out.println("goodsList - startRow = " + startRow);
 	
 %>
 
-<!-- Model Layer -->
 <%	
-	/* 카테고리 별 상품 수 가져오는 sql쿼리 */
-	String getCategorySql = "SELECT category, COUNT(*) cnt FROM goods GROUP BY category ORDER BY category ASC";
-	PreparedStatement getCategoryStmt = null;
-	ResultSet getCategoryRs = null;
-	
-	getCategoryStmt = conn.prepareStatement(getCategorySql);
-	getCategoryRs = getCategoryStmt.executeQuery();
-	ArrayList<HashMap<String, Object>> goodsCntPerCategory = new ArrayList<HashMap<String, Object>>();
-	
-	while(getCategoryRs.next()) {
-		HashMap<String, Object> m = new HashMap<String, Object>();
-		m.put("category", getCategoryRs.getString("category"));
-		m.put("cnt", getCategoryRs.getInt("cnt"));
-		goodsCntPerCategory.add(m);
-	}
-	
-	// 디버깅
-	System.out.println(goodsCntPerCategory);
+	// 카테고리명, 카테고리 별 상품 수 구하기
+	ArrayList<HashMap<String, Object>> goodsCntPerCategory = GoodsDAO.getGoodsCntPerCategory();
 %>
+
 <%
-	/* category 별로 상품 보여주는 sql */
-	/*
-		category
-		
-		null이면
-		SELECT * FROM goods
-		
-		null이 아니면
-		SELECT * FROM goods WHERE category = ?
+	// 상품 목록 출력하기(category, page조건을 맞춰서)
+	ArrayList<HashMap<String, Object>> goodsList = GoodsDAO.selectGoodsList(startRow, rowPerPage, category);
+%>
+
+<%
+	// 디버깅 코드
+// 	System.out.println("goodsList - currentPage 세션 값 = " + session.getAttribute("currentPage"));	// currentPage 세션 값 체크
+// 	System.out.println("goodsList - category = " + category);
+// 	System.out.println("goodsList - category 세션 값 = " + session.getAttribute("category"));	// category 세션 값 체크
+// 	System.out.println("goodsList - totalGoodsRow = " + totalGoodsRow);
+// 	System.out.println("goodsList - goodsPerCategoryRow = " + goodsPerCategoryRow);
+// 	System.out.println("goodsList - lastPage = " + lastPage);
+// 	System.out.println("goodsList - startRow = " + startRow);
 	
-	*/
+// 	System.out.println("goodsList - goodsCntPerCategory = " + goodsCntPerCategory);
 	
-	String getTotalGoodsSql = "SELECT goods_no goodsNo, category, goods_title goodsTitle, img_name imgName, goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount FROM goods ";
-	PreparedStatement getTotalGoodsStmt = null;
-	
-	ResultSet getTotalGoodsRs = null;
-	
-	if(category.equals("all")) {
-		getTotalGoodsSql = getTotalGoodsSql + "ORDER BY create_date DESC LIMIT ?,?";
-		getTotalGoodsStmt = conn.prepareStatement(getTotalGoodsSql);
-		getTotalGoodsStmt.setInt(1, startRow);
-		getTotalGoodsStmt.setInt(2, rowPerPage);
-		getTotalGoodsRs = getTotalGoodsStmt.executeQuery();
-		
-	} else {
-		getTotalGoodsSql = getTotalGoodsSql + " " + "WHERE category = ? ORDER BY create_date DESC LIMIT ?,?";
-		getTotalGoodsStmt = conn.prepareStatement(getTotalGoodsSql);
-		getTotalGoodsStmt.setString(1, category);
-		getTotalGoodsStmt.setInt(2, startRow);
-		getTotalGoodsStmt.setInt(3, rowPerPage);
-		getTotalGoodsRs = getTotalGoodsStmt.executeQuery();
-	}
-	
-	ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
-	
-	while(getTotalGoodsRs.next()) {
-		HashMap<String, Object> m = new HashMap<String, Object>();
-		m.put("goodsNo", getTotalGoodsRs.getString("goodsNo"));
-		m.put("category", getTotalGoodsRs.getString("category"));
-		m.put("goodsTitle", getTotalGoodsRs.getString("goodsTitle"));
-		m.put("imgName", getTotalGoodsRs.getString("imgName"));
-		m.put("goodsContent", getTotalGoodsRs.getString("goodsContent"));
-		m.put("goodsPrice", getTotalGoodsRs.getString("goodsPrice"));
-		m.put("goodsAmount", getTotalGoodsRs.getString("goodsAmount"));
-		goodsList.add(m);
-	}
-	
-	// 디버깅
-// 	System.out.println(goodsList);
+// 	System.out.println("goodsList - goodsList = " + goodsList);
 %>
 <!DOCTYPE html>
 <html>
@@ -166,7 +95,7 @@
 		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
 			<h3 class="w3-bar-item">카테고리</h3>
 
-			<a href="/shop/emp/goods/goodsList.jsp?category=all" class="w3-bar-item w3-button">전체(<%=getTotalGoodsRowRs.getInt("cnt")%>)</a>
+			<a href="/shop/emp/goods/goodsList.jsp" class="w3-bar-item w3-button">전체(<%=totalGoodsRow%>)</a>
 			<%
 				for(HashMap m : goodsCntPerCategory) {
 			%>

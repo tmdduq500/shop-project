@@ -1,33 +1,13 @@
+<%@page import="shop.dao.CategoryDAO"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- Controller Layer -->
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
-
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	/* [DB]shop.category에서 category와 생성일 가져오는 쿼리 */
-	String getCategorySql = "SELECT category, emp_id empId, LEFT(create_date,16) createDate FROM category ORDER BY createDate DESC";
-	PreparedStatement getCategoryStmt = null;
-	ResultSet getCategoryRs = null;
-	
-	getCategoryStmt = conn.prepareStatement(getCategorySql);
-	getCategoryRs = getCategoryStmt.executeQuery();
-	
-	// 자료 구조 변경(ResultSet --> ArrayList<HashMap>)
-	ArrayList<HashMap<String, Object>> categoryList = new ArrayList<HashMap<String, Object>>();
-	while(getCategoryRs.next()) {
-		HashMap<String, Object> m = new HashMap<String, Object>();
-		m.put("category", getCategoryRs.getString("category"));
-		m.put("empId", getCategoryRs.getString("empId"));
-		m.put("createDate", getCategoryRs.getString("createDate"));
-		categoryList.add(m);
-	}
+	// 카테고리 목록 가져오기
+	ArrayList<HashMap<String, Object>> categoryList = CategoryDAO.selectCategoryList();
 %>
 <%
 	/* session의 정보 가져오기(grade별로 카테고리 삭제 권한 설정하기 위해) */

@@ -1,3 +1,4 @@
+<%@page import="shop.dao.GoodsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
@@ -6,21 +7,7 @@
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	String getCategorySql = "SELECT category FROM category";
-	PreparedStatement getCategoryStmt = null;
-	ResultSet getCategoryRs = null;
-	getCategoryStmt = conn.prepareStatement(getCategorySql);
-	getCategoryRs = getCategoryStmt.executeQuery();
-	
-	ArrayList<String> categoryList = new ArrayList<String>();
-	while(getCategoryRs.next()) {
-		categoryList.add(getCategoryRs.getString("category"));
-	}
+	ArrayList<String> categoryList = GoodsDAO.getCategoryList();
 %>
 
 <!-- View Layer -->

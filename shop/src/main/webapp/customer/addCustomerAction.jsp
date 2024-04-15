@@ -1,3 +1,4 @@
+<%@page import="shop.dao.CustomerDAO"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -27,26 +28,13 @@
 %>
 
 <%
-	//DB 연결 및 초기화
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	//[DB]shop.customer에 INSERT쿼리로 data 삽입
-	String addCustomerSql = "INSERT INTO customer(id, pw, name, birth, gender) VALUES(?, PASSWORD(?), ?, ?, ?)";
-	PreparedStatement addCustomerStmt = null;
-	addCustomerStmt = conn.prepareStatement(addCustomerSql);
-	addCustomerStmt.setString(1, customerId);
-	addCustomerStmt.setString(2, customerPw);
-	addCustomerStmt.setString(3, customerName);
-	addCustomerStmt.setString(4, customerBirth);
-	addCustomerStmt.setString(5, customerGender);
-	
-	int row = addCustomerStmt.executeUpdate();
+	// 고객 회원가입
+	int addCustomerRow = CustomerDAO.addCustomer(customerId, customerPw, customerName, customerBirth, customerGender);
+
 	// insert 됐는지 확인
-	System.out.println("addCustomerAction - row = " + row);
+	System.out.println("addCustomerAction - addCustomerRow = " + addCustomerRow);
 	
-	if(row == 1) {
+	if(addCustomerRow == 1) {
 		// 회원가입 성공
 		System.out.println("회원가입 성공");
 		response.sendRedirect("/shop/customer/customerLoginForm.jsp");

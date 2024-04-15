@@ -1,3 +1,5 @@
+<%@page import="shop.dao.CategoryDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
@@ -22,62 +24,32 @@
 	HashMap<String, Object> loginMember = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
 %>
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	/* [DB]shop.emp에서 id와 pw가 일치하는지 확인하고, grade를 가져오는 쿼리 */
-	String checkEmpInfoSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = PASSWORD(?)";
-	PreparedStatement checkEmpInfoStmt = null;
-	ResultSet checkEmpInfoRs = null;
-	checkEmpInfoStmt = conn.prepareStatement(checkEmpInfoSql);
-	checkEmpInfoStmt.setString(1, empId);
-	checkEmpInfoStmt.setString(2, empPw);
-	checkEmpInfoRs = checkEmpInfoStmt.executeQuery();
+	// [DB]에서 id, pw 체크
+	HashMap<String, String> checkIdPw = CategoryDAO.checkIdPw(empId, empPw);
 	
 	// id, pw가 일치한다면
-	if(checkEmpInfoRs.next()) {
+	if(checkIdPw != null) {
 		// grade가 0이 아니면 삭제
 		System.out.println("deleteCategoryAction - grade = " + (int)(loginMember.get("grade")));
 		if((int)(loginMember.get("grade")) > 0) {
-			String deleteCategorySql = "DELETE FROM category WHERE category = ?";
-			PreparedStatement deleteCategoryStmt = null;
 			
 			/* 카테고리와 연관된 상품들의 img 삭제하기 */
-			// 해당 카테고리의 상품들 가져오는 쿼리
-			String getGoodsOfCategorySql = "SELECT img_name imgName from goods WHERE category = ?";
-			PreparedStatement getGoodsOfCategoryStmt = null;
-			ResultSet getGoodsOfCategoryRs = null;
+			// 해당 카테고리의 상품들의 이미지 이름가져오기
+			ArrayList<HashMap<String, String>> imgNameListOfGoods = CategoryDAO.selectGoodsOfCategory(category);
 			
-			getGoodsOfCategoryStmt = conn.prepareStatement(getGoodsOfCategorySql);
-			getGoodsOfCategoryStmt.setString(1, category);
-			getGoodsOfCategoryRs = getGoodsOfCategoryStmt.executeQuery();
-			
-			while(getGoodsOfCategoryRs.next()) {
-				// 삭제 쿼리
-				String deleteGoodsImgSql = "DELETE FROM goods WHERE img_name = ?";
-				PreparedStatement deleteGoodsImgStmt = null;
-				deleteGoodsImgStmt = conn.prepareStatement(deleteGoodsImgSql);
-				deleteGoodsImgStmt.setString(1, getGoodsOfCategoryRs.getString("imgName"));
+			for(HashMap<String, String> m : imgNameListOfGoods) {
+				String imgName = m.get("imgName");	// 이미지 이름 
+				String imgPath = request.getServletContext().getRealPath("upload");	// 이미지 경로
 				
-				String imgPath = request.getServletContext().getRealPath("upload");
-				System.out.println("deleteGoodsAction - imgPath = " + imgPath);
-				
-			 	File deleteFile = new File(imgPath, getGoodsOfCategoryRs.getString("imgName"));
-			 	deleteFile.delete();
-			 	
-// 			 	getGoodsOfCategoryRs.beforeFirst();
-			}
+				// 해당 카테고리의 상품, 상품 이미지 삭제
+				int deleteGoodsOfCategoryRow = CategoryDAO.deleteGoodsOfCategory(imgPath, imgName);
 
-			deleteCategoryStmt = conn.prepareStatement(deleteCategorySql);
-			deleteCategoryStmt.setString(1, category);
-			
-			// 삭제됐는지
-			int row = deleteCategoryStmt.executeUpdate();
-			System.out.println("deleteCategoryAction - row = " + row);	// 삭제 됐는지 디버깅
+			}
+			// 카테고리 삭제
+			int deleteCategoryRow = CategoryDAO.deleteCategory(category, empId);
 			
 			response.sendRedirect("/shop/emp/category/categoryList.jsp");
+			
 		} else {
 			System.out.println("grade 0 아님 ");
 			// grade가 0이 아님

@@ -1,3 +1,4 @@
+<%@page import="shop.dao.CustomerDAO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -6,29 +7,8 @@
 	HashMap<String, Object> loginCustomerMember = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));	
 %>
 <%
-	// DB연결 및 초기화
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	// 고객 정보 가져오는 쿼리
-	String getCustomerInfoSql = "SELECT id, name, birth, gender, update_date updateDate, create_date createDate FROM customer WHERE id = ?";
-	PreparedStatement getCustomerInfoStmt = null;
-	ResultSet getCustomerInfoRs = null;
-	
-	getCustomerInfoStmt = conn.prepareStatement(getCustomerInfoSql);
-	getCustomerInfoStmt.setString(1, (String)(loginCustomerMember.get("customerId")));
-	getCustomerInfoRs = getCustomerInfoStmt.executeQuery();
-	
-	HashMap<String, Object> customerInfo = new HashMap<String, Object>();
-	if(getCustomerInfoRs.next()) {
-		customerInfo.put("customerId", getCustomerInfoRs.getString("id"));
-		customerInfo.put("customerName", getCustomerInfoRs.getString("name"));
-		customerInfo.put("customerBirth", getCustomerInfoRs.getString("birth"));
-		customerInfo.put("customerGender", getCustomerInfoRs.getString("gender"));
-		customerInfo.put("updateDate", getCustomerInfoRs.getString("updateDate"));
-		customerInfo.put("createDate", getCustomerInfoRs.getString("createDate"));
-	}
+	// 고객 정보 가져오기
+	HashMap<String, Object> customerInfo = CustomerDAO.getCustomerInfo((String)loginCustomerMember.get("customerId"));
 %>
 <!DOCTYPE html>
 <html>

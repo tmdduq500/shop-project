@@ -12,7 +12,6 @@
 
 	// 요청 값 디버깅
 	System.out.println("deleteCategoryForm - category = " + category);
-	
 %>
 <%
 	/* session의 정보 가져오기(grade별로 카테고리 삭제 권한 설정하기 위해) */

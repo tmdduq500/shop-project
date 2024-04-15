@@ -1,3 +1,4 @@
+<%@page import="shop.dao.CustomerDAO"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
@@ -15,36 +16,19 @@
 %>
 
 <%
-	// DB연결 및 초기화
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-
-	String customerLoginSql = "SELECT id customerId, name customerName FROM customer WHERE id = ? AND pw = PASSWORD(?)";
-	PreparedStatement customerLoginStmt = null;
-	ResultSet customerLoginRs = null;
+	// 고객 로그인
+	HashMap<String, Object> loginCustomer = CustomerDAO.loginCustomer(customerId, customerPw);
 	
-	customerLoginStmt = conn.prepareStatement(customerLoginSql);
-	customerLoginStmt.setString(1, customerId);
-	customerLoginStmt.setString(2, customerPw);
-	customerLoginRs = customerLoginStmt.executeQuery();
-	
-	if(customerLoginRs.next()) {
+	if(loginCustomer != null) {
 		// 성공 -> /shop/customer/goodsList.jsp
 		System.out.println("고객 로그인 성공");
-		
-		// 하나의 세션변수 안에 여러개의 값을 저장하기 위해 HashMap타입 사용
-		HashMap<String, Object> loginCustomer = new HashMap<String, Object>();
-		loginCustomer.put("customerId", customerLoginRs.getString("customerId"));
-		loginCustomer.put("customerName", customerLoginRs.getString("customerName"));
 
-		
 		session.setAttribute("loginCustomer", loginCustomer);
 		
 		// 디버깅(loginEmp 세션 변수)
-		HashMap<String, Object> checkCustomer = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));
-		System.out.println((String)(checkCustomer.get("customerId")));
-		System.out.println((String)(checkCustomer.get("customerName")));		
+// 		HashMap<String, Object> checkCustomer = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));
+// 		System.out.println((String)(checkCustomer.get("customerId")));
+// 		System.out.println((String)(checkCustomer.get("customerName")));		
 				
 		response.sendRedirect("/shop/customer/customerGoodsList.jsp");
 	} else {

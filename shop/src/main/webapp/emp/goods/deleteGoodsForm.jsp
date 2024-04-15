@@ -1,3 +1,4 @@
+<%@page import="shop.dao.GoodsDAO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -19,28 +20,8 @@
 %>
 
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	// [DB]shop.goods의 정보 일부분 가져오는 쿼리
-	String getGoodsInfoSql = "SELECT category, goods_title goodsTitle, img_name imgName FROM goods WHERE goods_no = ?";
-	PreparedStatement getGoodsInfoStmt = null;
-	ResultSet getGoodsInfoRs = null;
-	
-	getGoodsInfoStmt = conn.prepareStatement(getGoodsInfoSql);
-	getGoodsInfoStmt.setString(1, goodsNo);
-	getGoodsInfoRs = getGoodsInfoStmt.executeQuery();
-	
-	HashMap<String, Object> goodsInfo = new HashMap<String, Object>();
-	
-	if(getGoodsInfoRs.next()) {
-		goodsInfo.put("category", getGoodsInfoRs.getString("category"));
-		goodsInfo.put("goodsTitle", getGoodsInfoRs.getString("goodsTitle"));
-		goodsInfo.put("imgName", getGoodsInfoRs.getString("imgName"));
-	}
-	
+	// 상품 정보 일부분 가져오기
+	HashMap<String, Object> goodsInfo = GoodsDAO.getGoodsInfo(goodsNo);
 %>
 <!DOCTYPE html>
 <html>

@@ -1,44 +1,16 @@
+<%@page import="shop.dao.EmpDAO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- Controller Layer -->
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
-
 <%
+	// loginEmp 세션 변수 가져오기
 	HashMap<String, Object> loginMember = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
-%>
-<%
-	// 1. 특수한 형태의 데이터(RDBMS:mariaDB)
-	// 2. API 사용(JDBC API)해 자료구조(ResultSet) 획득
-	// 3. 일반화된 자료구조(ex. List, Set 등)로 변경 -> 모델 획득
 	
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-	
-	// [DB]shop.emp에서 empId의 모든 정보 가져오는 쿼리
-	String getEmpDataSql = "SELECT emp_id empId, grade, emp_name empName, emp_job empJob, hire_date hireDate, update_date updateDate, create_date createDate, active FROM emp WHERE emp_id = ?";
-	PreparedStatement getEmpDataStmt = null;
-	ResultSet getEmpDataRs = null;
-	
-	getEmpDataStmt = conn.prepareStatement(getEmpDataSql);
-	getEmpDataStmt.setString(1, (String)(loginMember.get("empId")));
-	getEmpDataRs = getEmpDataStmt.executeQuery();
-	
-	// ResultSet -> HashMap 변환
-	HashMap<String, Object> empInfo = new HashMap<String, Object>();
-	if(getEmpDataRs.next()) {
-		empInfo.put("empId", getEmpDataRs.getString("empId"));
-		empInfo.put("grade", getEmpDataRs.getString("grade"));
-		empInfo.put("empName", getEmpDataRs.getString("empName"));
-		empInfo.put("empJob", getEmpDataRs.getString("empJob"));
-		empInfo.put("hireDate", getEmpDataRs.getString("hireDate"));
-		empInfo.put("updateDate", getEmpDataRs.getString("updateDate"));
-		empInfo.put("createDate", getEmpDataRs.getString("createDate"));
-		empInfo.put("active", getEmpDataRs.getString("active"));
-	}
+	// emp 정보 가져오기
+	HashMap<String, Object> empInfo = EmpDAO.empInfo((String)loginMember.get("empId"));
 %>
 <!DOCTYPE html>
 <html>

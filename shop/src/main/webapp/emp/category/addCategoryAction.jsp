@@ -1,3 +1,4 @@
+<%@page import="shop.dao.CategoryDAO"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -14,7 +15,7 @@
 	// 요청 값 분석
 	String category = request.getParameter("category");
 
-	// 요청 값이  null일시
+	// 요청 값이 null일 경우
 	if(category == null) {
 		response.sendRedirect("/shop/emp/category/addCategoryForm.jsp");
 	}
@@ -23,24 +24,10 @@
 	System.out.println("addCategoryForm - category = " + category);	
 %>
 
-<!-- Controller Layer -->
 <%
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-
-	/* [DB]shop.category에 category에 추가하는 sql */
-	String addCategorySql = "INSERT INTO category(category, emp_id) VALUES (?, ?)";
-	PreparedStatement addCategoryStmt = null;
+	int addCategoryRow = CategoryDAO.addCategory(category, (String)loginMember.get("empId"));
 	
-	addCategoryStmt = conn.prepareStatement(addCategorySql);
-	addCategoryStmt.setString(1, category);
-	addCategoryStmt.setString(2, (String)(loginMember.get("empId")));
-
-	int row = addCategoryStmt.executeUpdate();
-	
-	if(row == 1) {
+	if(addCategoryRow == 1) {
 		// 카테고리 등록 성공
 		System.out.println("카테고리 등록 성공");
 		response.sendRedirect("/shop/emp/category/categoryList.jsp");
