@@ -17,7 +17,7 @@
 
 <%
 	// 고객 로그인
-	HashMap<String, Object> loginCustomer = CustomerDAO.loginCustomer(customerId, customerPw);
+	HashMap<String, String> loginCustomer = CustomerDAO.loginCustomer(customerId, customerPw);
 	
 	if(loginCustomer != null) {
 		// 성공 -> /shop/customer/goodsList.jsp
@@ -30,7 +30,7 @@
 // 		System.out.println((String)(checkCustomer.get("customerId")));
 // 		System.out.println((String)(checkCustomer.get("customerName")));		
 				
-		response.sendRedirect("/shop/customer/customerGoodsList.jsp");
+		response.sendRedirect("/shop/customer/goods/customerGoodsList.jsp");
 	} else {
 		// 실패 -> /emp/empLoginForm.jsp	
 		System.out.println("로그인 실패");

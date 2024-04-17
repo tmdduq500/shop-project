@@ -22,7 +22,7 @@
 		|| checkIdFirst.equals("") || checkIdMiddle.equals("") || checkIdLast.equals("")) {
 		
 		String errMsg = URLEncoder.encode("ID를 정확히 입력해주세요.", "UTF-8");
-		response.sendRedirect("/shop/customer/addCustomerForm.jsp?errMsg=" + errMsg);
+		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg);
 		return;
 	}
 	String checkCustomerId = checkIdFirst + checkIdMiddle + checkIdLast;
@@ -33,16 +33,17 @@
 
 <%
 	// 고객 아이디 중복 체크
-	HashMap<String, Object> checkDuplicatedIdMap = CustomerDAO.checkDuplicatedId(checkCustomerId);
+	boolean canUseId = CustomerDAO.checkDuplicatedId(checkCustomerId);
 	
-	if(checkDuplicatedIdMap != null) {
-		// 아이디가 중복
-		String errMsg = URLEncoder.encode("이미 존재하는 ID입니다.", "UTF-8");
-		response.sendRedirect("/shop/customer/addCustomerForm.jsp?errMsg=" + errMsg);
-	} else {
+	if(canUseId) {
 		// 아이디 사용 가능
 		String errMsg = URLEncoder.encode("사용 가능한 아이디 입니다", "UTF-8");
-		response.sendRedirect("/shop/customer/addCustomerForm.jsp?errMsg=" + errMsg + "&customerId=" + checkCustomerId);
+		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg + "&customerId=" + checkCustomerId);
+		
+	} else {
+		// 아이디가 중복
+		String errMsg = URLEncoder.encode("이미 존재하는 ID입니다.", "UTF-8");
+		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg);
 	}
 	
 %>

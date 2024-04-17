@@ -1633,3 +1633,22 @@ a {
 .w3-border-pale-blue, .w3-hover-border-pale-blue:hover {
 	border-color: #e7ffff !important
 }
+
+/* my css*/
+.a-to-button:link, .a-to-button:visited {
+		    background-color: #616161;
+		    color: #fff;
+		    padding: 15px 25px;
+		    text-align: center;
+		    text-decoration: none;
+	     	display: flex;
+	     	justify-content: center; 
+        	align-items: center;
+		    margin-top: 16px;
+		    margin-bottom: 16px;
+		    height: 38.5px;
+}
+
+.a-to-button:hover, .a-to-button:active {
+    background-color: #CCCCCC;
+}

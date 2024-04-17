@@ -15,7 +15,7 @@
 
 	// 요청 값 하나라도 null일 경우
 	if(customerId == null || customerPw == null ||customerName == null ||customerBirth == null ||customerGender == null) {
-		response.sendRedirect("/shop/customer/addCustomerForm.jsp");
+		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp");
 		return;
 	}
 	
@@ -42,6 +42,6 @@
 		// 회원가입 실패
 		System.out.println("회원가입 실패");
 		String errMsg = URLEncoder.encode("회원가입 실패하였습니다. 다시 가입해주세요.", "UTF-8");
-		response.sendRedirect("/shop/customer/addCustomerForm.jsp?errMsg=" + errMsg + "&customerId=" + customerId);
+		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg + "&customerId=" + customerId);
 	}
 %>

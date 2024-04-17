@@ -14,25 +14,6 @@
 	<title>로그인</title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		.sign-up:link, .sign-up:visited {
-		    background-color: #616161;
-		    color: #fff;
-		    padding: 15px 25px;
-		    text-align: center;
-		    text-decoration: none;
-	     	display: flex;
-	     	justify-content: center; 
-        	align-items: center;
-		    margin-top: 16px;
-		    margin-bottom: 16px;
-		    height: 38.5px;
-		}
-		
-		.sign-up:hover, .sign-up:active {
-		    background-color: #CCCCCC;
-		}
-	</style>
 </head>
 <body>
 	<!-- 에러 메시지 출력 -->
@@ -76,7 +57,7 @@
 					</button>
 				</div>
 				<div class="col">
-					<a class="sign-up" href="/shop/customer/addCustomerForm.jsp" style="width: 100%;">회원가입</a>
+					<a class="a-to-button" href="/shop/customer/signup/addCustomerForm.jsp" style="width: 100%;">회원가입</a>
 				</div>
 				
 			</div>

@@ -6,9 +6,9 @@ import java.util.HashMap;
 public class CustomerDAO {
 	
 	/* 고객 로그인 */
-	public static HashMap<String, Object> loginCustomer(String customerId, String customerPw) throws Exception{
+	public static HashMap<String, String> loginCustomer(String customerId, String customerPw) throws Exception{
 		
-		HashMap<String, Object> loginCustomerMap = null; 
+		HashMap<String, String> loginCustomerMap = null; 
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
@@ -21,7 +21,7 @@ public class CustomerDAO {
 		ResultSet customerLoginRs = customerLoginStmt.executeQuery();
 		
 		if(customerLoginRs.next()) {
-			loginCustomerMap = new HashMap<String, Object>();
+			loginCustomerMap = new HashMap<String, String>();
 			loginCustomerMap.put("customerId", customerLoginRs.getString("customerId"));
 			loginCustomerMap.put("customerName", customerLoginRs.getString("customerName"));
 		}
@@ -33,7 +33,7 @@ public class CustomerDAO {
 	/* 고객 정보 가져오기 */
 	public static HashMap<String, Object> getCustomerInfo(String customerId) throws Exception{
 		
-		HashMap<String, Object> customerInfo = new HashMap<String, Object>();
+		HashMap<String, Object> customerInfo = null;
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
@@ -45,6 +45,7 @@ public class CustomerDAO {
 		ResultSet getCustomerInfoRs = getCustomerInfoStmt.executeQuery();
 		
 		if(getCustomerInfoRs.next()) {
+			customerInfo = new HashMap<String, Object>();
 			customerInfo.put("customerId", getCustomerInfoRs.getString("id"));
 			customerInfo.put("customerName", getCustomerInfoRs.getString("name"));
 			customerInfo.put("customerBirth", getCustomerInfoRs.getString("birth"));
@@ -53,12 +54,13 @@ public class CustomerDAO {
 			customerInfo.put("createDate", getCustomerInfoRs.getString("createDate"));
 		}
 		
+		conn.close();
 		return customerInfo;
 	}
 	
 	/* 고객 회원가입 */
 	public static int addCustomer(String customerId, String customerPw, 
-			String customerName, String customerBirth, String customerGender) throws Exception{
+		String customerName, String customerBirth, String customerGender) throws Exception{
 		
 		int row = 0;
 		
@@ -77,29 +79,78 @@ public class CustomerDAO {
 		
 		row = addCustomerStmt.executeUpdate();
 		
+		conn.close();
 		return row;
 	}
 	
 	/* 고객 아이디 중복 확인 */
-	public static HashMap<String, Object> checkDuplicatedId(String checkCustomerId) throws Exception{
-		HashMap<String, Object> checkDuplicatedIdMap = null;
+	public static boolean checkDuplicatedId(String checkCustomerId) throws Exception{
+		boolean result = false;
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
 		String checkIdSql  = "SELECT id FROM customer WHERE id = ?";
-		PreparedStatement checkIdStmt = null;
-		ResultSet checkIdRs = null;
-		
-		checkIdStmt = conn.prepareStatement(checkIdSql);
+		PreparedStatement checkIdStmt = conn.prepareStatement(checkIdSql);		
 		checkIdStmt.setString(1, checkCustomerId);
-		checkIdRs = checkIdStmt.executeQuery();
+		ResultSet checkIdRs = checkIdStmt.executeQuery();
 		
-		if (checkIdRs.next()) {
-			checkDuplicatedIdMap = new HashMap<String, Object>();
-			checkDuplicatedIdMap.put("checkCustomerId", checkCustomerId);
+		if (!checkIdRs.next()) {
+			result = true;
 		}
 		
-		return checkDuplicatedIdMap;
+		conn.close();
+		return result;
 	}
+	
+	/* 회원 탈퇴 */
+	public static void deleteCustomer() {
+		
+	}
+	
+	/* 정보 수정 전 고객 id, pw 확인 */
+	public static boolean checkCustomerIdPw(String customerId, String customerPw) throws Exception{
+		boolean result = false;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		String checkIdPwSql = "SELECT id customerID FROM customer WHERE id = ? AND pw = PASSWORD(?)";
+		PreparedStatement checkIdPwStmt = conn.prepareStatement(checkIdPwSql);
+		checkIdPwStmt.setString(1, customerId);
+		checkIdPwStmt.setString(2, customerPw);
+		ResultSet checkIdPwRs = checkIdPwStmt.executeQuery();
+		
+		if(checkIdPwRs.next()) {
+			result = true;
+		}
+		
+		conn.close();
+		return result;
+	}
+	
+	/* 고객 정보 변경 */
+	public static int updateCustomer(String customerId, String customerName, String customerBirth, 
+			String customerGender, String oldCustomerPw, String newCustomerPw) throws Exception {
+		
+		int row = 0;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		String updateCustomerSql = "UPDATE customer SET name = ?, birth = ?, gender = ?, update_date = NOW(), pw = PASSWORD(?) WHERE id = ? AND pw = PASSWORD(?)";
+		PreparedStatement updateCustomerStmt = conn.prepareStatement(updateCustomerSql);
+		updateCustomerStmt.setString(1, customerName);
+		updateCustomerStmt.setString(2, customerBirth);
+		updateCustomerStmt.setString(3, customerGender);
+		updateCustomerStmt.setString(4, newCustomerPw);
+		updateCustomerStmt.setString(5, customerId);
+		updateCustomerStmt.setString(6, oldCustomerPw);
+		row = updateCustomerStmt.executeUpdate();
+		
+		conn.close();
+		return row;
+	}
+	
+	
 }

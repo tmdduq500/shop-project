@@ -4,7 +4,7 @@
 	// 세션 변수 이름 - loginCustomer
 	
 	if(session.getAttribute("loginCustomer") != null) {
-		response.sendRedirect("/shop/customer/customerGoodsList.jsp");
+		response.sendRedirect("/shop/customer/goods/customerGoodsList.jsp");
 		return;
 	}
 %>

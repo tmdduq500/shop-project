@@ -41,7 +41,7 @@
 			
 				<!-- 고객 아이디 중복 체크 -->
 				<div>
-					<form class="w3-container" action="/shop/customer/checkIdAction.jsp" method="post">
+					<form class="w3-container" action="/shop/customer/signup/checkIdAction.jsp" method="post">
 						<label>id 중복 확인</label>
 						<div class="input-group mb-3">
 							<input class="form-control" type="text" name="checkIdFirst" style="width: 45%;">
@@ -69,13 +69,12 @@
 				
 				<!-- 회원가입 폼 -->
 				<div>
-					<form class="w3-container" action="/shop/customer/addCustomerAction.jsp" method="post">
+					<form class="w3-container" action="/shop/customer/signup/addCustomerAction.jsp" method="post">
 						<div>
 							<div>
 								<label>id</label>
 								<input class="w3-input" type="text" value="<%=customerId %>" name="customerId" required="required">
 							</div>
-							
 							
 							<label>pw</label>
 							<input class="w3-input" type="password" name="customerPw" required="required">

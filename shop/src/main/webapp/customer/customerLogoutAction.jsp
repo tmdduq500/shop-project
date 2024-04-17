@@ -2,5 +2,5 @@
 <%
 	session.invalidate(); // 세션 공간 초기화(포맷)
 	
-	response.sendRedirect("/shop/customer/customerGoodsList.jsp");
+	response.sendRedirect("/shop/customer/goods/customerGoodsList.jsp");
 %>
