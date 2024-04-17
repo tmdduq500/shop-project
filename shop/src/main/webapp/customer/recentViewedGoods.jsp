@@ -21,30 +21,28 @@
 	<div class="col"></div>
 
 	<div class="col-8">
-		<h1>최근 본 상품</h1>
-		<div class="row">
-			<%
-				if(recentViewdGoods != null) {
-					for(String goodsNo : recentViewdGoods) {
-						HashMap<String,Object> goodsInfo = GoodsDAO.getGoodsInfo(goodsNo);
-			%>
-						<div class="col-md-3" style="height: 200px; margin: 20px 10px; width: 15%;">
-							<div class="w3-card-2" style="height: 100%;">
-						
-								<!-- 상품 이미지 -->
-								<div style="text-align: center; padding-bottom: 5%;">
-									<a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=goodsInfo.get("goodsNo")%>">
-										<img alt="" src="/shop/upload/<%=goodsInfo.get("imgName")%>" style="max-width: 100%; height: 100%;">
-									</a>	
-								</div>
-													
-							</div>
-						</div>
-			<%
-					}
+    <h1>최근 본 상품</h1>
+    <div class="row">
+        <% 
+	        if(recentViewdGoods != null) {
+	            for(String goodsNo : recentViewdGoods) {
+	                HashMap<String,Object> goodsInfo = GoodsDAO.getGoodsInfo(goodsNo);
+        %>
+		            <div class="col-md-3" style="height: 200px; margin: 20px 10px; width: 15%;">
+		                <div class="w3-card-2" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+		                    <!-- 상품 이미지 -->
+		                    <div style="text-align: center;">
+		                        <a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=goodsNo%>" style="display: inline-block;">
+		                            <img alt="" src="/shop/upload/<%=goodsInfo.get("imgName")%>" style="max-width: 100%; max-height: 100%;">
+		                        </a>   
+		                    </div>
+		                </div>
+		            </div>
+        <% 
 				}
-			%>
-		</div>
+       		} 
+        %>
+	    </div>
 	</div>
 	
 	<div class="col"></div>
