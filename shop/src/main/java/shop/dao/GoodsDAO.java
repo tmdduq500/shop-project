@@ -111,20 +111,21 @@ public class GoodsDAO {
 		
 		*/
 		
-		String getTotalGoodsSql = "SELECT goods_no goodsNo, category, goods_title goodsTitle, img_name imgName, goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount FROM goods ";
+		String getTotalGoodsSql = "SELECT goods_no goodsNo, category, goods_title goodsTitle, img_name imgName, "
+				+ "goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount FROM goods ";
 		PreparedStatement getTotalGoodsStmt = null;
 		
 		ResultSet getTotalGoodsRs = null;
 		
 		if(category.equals("all")) {
-			getTotalGoodsSql = getTotalGoodsSql + "ORDER BY create_date DESC LIMIT ?,?";
+			getTotalGoodsSql = getTotalGoodsSql + "ORDER BY create_date DESC offset ? rows fetch next ? rows only";
 			getTotalGoodsStmt = conn.prepareStatement(getTotalGoodsSql);
 			getTotalGoodsStmt.setInt(1, startRow);
 			getTotalGoodsStmt.setInt(2, rowPerPage);
 			getTotalGoodsRs = getTotalGoodsStmt.executeQuery();
 			
 		} else {
-			getTotalGoodsSql = getTotalGoodsSql + " " + "WHERE category = ? ORDER BY create_date DESC LIMIT ?,?";
+			getTotalGoodsSql = getTotalGoodsSql + " " + "WHERE category = ? ORDER BY create_date DESC offset ? rows fetch next ? rows only";
 			getTotalGoodsStmt = conn.prepareStatement(getTotalGoodsSql);
 			getTotalGoodsStmt.setString(1, category);
 			getTotalGoodsStmt.setInt(2, startRow);
@@ -156,7 +157,8 @@ public class GoodsDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		/* 상품 하나의 모든 정보 가져오는 쿼리 */
-		String getGoodsInfoSql = "SELECT category, emp_id empId, goods_title goodsTitle, img_name imgName, goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount, create_date createDate FROM goods WHERE goods_no = ?";
+		String getGoodsInfoSql = "SELECT category, emp_id empId, goods_title goodsTitle, img_name imgName, "
+				+ "goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount, create_date createDate FROM goods WHERE goods_no = ?";
 		PreparedStatement getGoodsInfoStmt = null;
 		ResultSet getGoodsInfoRs = null;
 		getGoodsInfoStmt = conn.prepareStatement(getGoodsInfoSql);
@@ -176,6 +178,7 @@ public class GoodsDAO {
 
 		}
 		
+		conn.close();
 		return goodsInfo;
 	}
 	
@@ -198,6 +201,7 @@ public class GoodsDAO {
 			categoryList.add(getCategoryRs.getString("category"));
 		}
 		
+		conn.close();
 		return categoryList;
 	}
 	
@@ -211,7 +215,8 @@ public class GoodsDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		/* [DB]shop.goods에 goods 추가하는 sql */
-		String addGoodsSql = "INSERT INTO goods(category, emp_id, goods_title, img_name, goods_content, goods_price, goods_amount) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String addGoodsSql = "INSERT INTO goods(goods_no, category, emp_id, goods_title, img_name, goods_content, goods_price, goods_amount, update_date, create_date) "
+				+ "VALUES (s_goods_no.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate, sysdate)";
 		PreparedStatement addGoodsStmt = null;
 		
 		addGoodsStmt = conn.prepareStatement(addGoodsSql);
@@ -225,6 +230,7 @@ public class GoodsDAO {
 		
 		row = addGoodsStmt.executeUpdate();
 		
+		conn.close();
 		return row;
 	}
 	
@@ -267,6 +273,7 @@ public class GoodsDAO {
 
 		}
 		
+		conn.close();
 		return goodsInfo; 
 		
 	}
@@ -278,7 +285,7 @@ public class GoodsDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
-		String checkEmpIdPwSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = PASSWORD(?)";
+		String checkEmpIdPwSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = ?";
 		PreparedStatement checkEmpIdPwStmt = conn.prepareStatement(checkEmpIdPwSql);
 		checkEmpIdPwStmt.setString(1, empId);
 		checkEmpIdPwStmt.setString(2, empPw);
@@ -315,6 +322,7 @@ public class GoodsDAO {
 	 	File deleteFile = new File(imgPath, imgName);
 	 	deleteFile.delete();
 	 	
+	 	conn.close();
 		return row;
 	}
 	
@@ -328,7 +336,7 @@ public class GoodsDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		/* 상품 하나의 정보를 업데이트 하는 쿼리 */
-		String updateGoodsSql = "UPDATE goods SET category = ?, goods_title = ?, goods_content = ?, goods_price = ?, goods_amount = ?, update_date = NOW()";
+		String updateGoodsSql = "UPDATE goods SET category = ?, goods_title = ?, goods_content = ?, goods_price = ?, goods_amount = ?, update_date = sysdate";
 		PreparedStatement updateGoodsStmt = null;
 		
 		// 새로운 이미지 업로드 x -> 기존 이미지 사용 ()
@@ -356,6 +364,7 @@ public class GoodsDAO {
 		
 		row = updateGoodsStmt.executeUpdate();
 		
+		conn.close();
 		return row;
 	}
 	

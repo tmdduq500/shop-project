@@ -16,7 +16,7 @@ public class CategoryDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		/* [DB]shop.category에서 category와 생성일 가져오는 쿼리 */
-		String getCategorySql = "SELECT category, emp_id empId, LEFT(create_date,16) createDate FROM category ORDER BY createDate DESC";
+		String getCategorySql = "SELECT category, emp_id empId, create_date createDate FROM category ORDER BY createDate DESC";
 		PreparedStatement getCategoryStmt = null;
 		ResultSet getCategoryRs = null;
 		
@@ -44,7 +44,7 @@ public class CategoryDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		/* [DB]shop.category에 category에 추가하는 sql */
-		String addCategorySql = "INSERT INTO category(category, emp_id) VALUES (?, ?)";
+		String addCategorySql = "INSERT INTO category(category, create_date, emp_id) VALUES (?, sysdate, ?)";
 		PreparedStatement addCategoryStmt = null;
 		
 		addCategoryStmt = conn.prepareStatement(addCategorySql);
@@ -64,7 +64,7 @@ public class CategoryDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
-		String checkEmpIdPwSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = PASSWORD(?)";
+		String checkEmpIdPwSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = ?";
 		PreparedStatement checkEmpIdPwStmt = conn.prepareStatement(checkEmpIdPwSql);
 		checkEmpIdPwStmt.setString(1, empId);
 		checkEmpIdPwStmt.setString(2, empPw);
@@ -99,6 +99,8 @@ public class CategoryDAO {
 			m.put("imgName", getGoodsOfCategoryRs.getString("imgName"));
 			imgNameListOfGoods.add(m);
 		}
+		
+		conn.close();
 		return imgNameListOfGoods;
 	}
 	
@@ -117,6 +119,7 @@ public class CategoryDAO {
 	 	File deleteFile = new File(imgPath, imgName);
 	 	deleteFile.delete();
 		
+	 	conn.close();
 		return row;
 	}
 	

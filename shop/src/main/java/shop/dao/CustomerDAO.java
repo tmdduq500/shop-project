@@ -13,7 +13,7 @@ public class CustomerDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
-		String customerLoginSql = "SELECT id customerId, name customerName FROM customer WHERE id = ? AND pw = PASSWORD(?)";
+		String customerLoginSql = "SELECT id customerId, name customerName FROM customer WHERE id = ? AND pw = ?";
 		PreparedStatement customerLoginStmt = conn.prepareStatement(customerLoginSql);
 		
 		customerLoginStmt.setString(1, customerId);
@@ -68,7 +68,7 @@ public class CustomerDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		//[DB]shop.customer에 INSERT쿼리로 data 삽입
-		String addCustomerSql = "INSERT INTO customer(id, pw, name, birth, gender) VALUES(?, PASSWORD(?), ?, ?, ?)";
+		String addCustomerSql = "INSERT INTO customer(id, pw, name, birth, gender, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
 		PreparedStatement addCustomerStmt = null;
 		addCustomerStmt = conn.prepareStatement(addCustomerSql);
 		addCustomerStmt.setString(1, customerId);
@@ -115,7 +115,7 @@ public class CustomerDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
-		String checkIdPwSql = "SELECT id customerID FROM customer WHERE id = ? AND pw = PASSWORD(?)";
+		String checkIdPwSql = "SELECT id customerID FROM customer WHERE id = ? AND pw = ?";
 		PreparedStatement checkIdPwStmt = conn.prepareStatement(checkIdPwSql);
 		checkIdPwStmt.setString(1, customerId);
 		checkIdPwStmt.setString(2, customerPw);
@@ -138,7 +138,7 @@ public class CustomerDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
-		String updateCustomerSql = "UPDATE customer SET name = ?, birth = ?, gender = ?, update_date = NOW(), pw = PASSWORD(?) WHERE id = ? AND pw = PASSWORD(?)";
+		String updateCustomerSql = "UPDATE customer SET name = ?, birth = ?, gender = ?, update_date = sysdate, pw = ? WHERE id = ? AND pw = ?";
 		PreparedStatement updateCustomerStmt = conn.prepareStatement(updateCustomerSql);
 		updateCustomerStmt.setString(1, customerName);
 		updateCustomerStmt.setString(2, customerBirth);

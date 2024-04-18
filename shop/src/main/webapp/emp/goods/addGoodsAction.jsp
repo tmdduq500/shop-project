@@ -42,12 +42,12 @@
 	}
 	
 	// 요청값 디버깅
-// 	System.out.println("addGoodsAction - category = " + category);
-// 	System.out.println("addGoodsAction - goodsTitle = " + goodsTitle);
-// 	System.out.println("addGoodsAction - goodsPrice = " + goodsPrice);
-// 	System.out.println("addGoodsAction - goodsAmount = " + goodsAmount);
-// 	System.out.println("addGoodsAction - goodsContent = " + goodsContent);
-// 	System.out.println("addGoodsAction - imgName = " + imgName);
+	System.out.println("addGoodsAction - category = " + category);
+	System.out.println("addGoodsAction - goodsTitle = " + goodsTitle);
+	System.out.println("addGoodsAction - goodsPrice = " + goodsPrice);
+	System.out.println("addGoodsAction - goodsAmount = " + goodsAmount);
+	System.out.println("addGoodsAction - goodsContent = " + goodsContent);
+	System.out.println("addGoodsAction - imgName = " + imgName);
 %>
 
 <!-- Controller Layer -->

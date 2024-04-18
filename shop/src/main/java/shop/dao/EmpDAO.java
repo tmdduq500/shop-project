@@ -1,24 +1,26 @@
 package shop.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EmpDAO {
 	
 	/* 관리자 추가 */
-	public static int addEmp(String empId, String empPw, String empName, String empJob) throws Exception {
+	public static int addEmp(String empId, String empPw, String empName, String empJob, String hireDate) throws Exception {
 		int row = 0;
 		
 		// DB 접근
 		Connection conn = DBHelper.getConnection();
 		
 		// [DB]sho.emp에 emp 추가하는 쿼리
-		String addEmpSql = "INSERT emp(emp_id, emp_pw, emp_name, emp_job) VALUES(?, ?, ?, ?)";
+		String addEmpSql = "INSERT emp(emp_id, emp_pw, emp_name, emp_job, hire_date, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
 		PreparedStatement addEmpStmt = conn.prepareStatement(addEmpSql);
 		addEmpStmt.setString(1, empId);
 		addEmpStmt.setString(2, empPw);
 		addEmpStmt.setString(3, empName);
 		addEmpStmt.setString(4, empJob);
+		addEmpStmt.setString(5, hireDate);
 		row = addEmpStmt.executeUpdate();
 		
 		System.out.println("EmpDAO - row = " + row);
@@ -43,9 +45,9 @@ public class EmpDAO {
 			
 			SELECT emp_id empId
 			FROM emp
-			WHERE active='ON' AND emp_id=? AND emp_pw = password(?)
+			WHERE active='ON' AND emp_id=? AND emp_pw = ?
 		*/
-		String loginSql = "SELECT emp_id empId, emp_name empName, grade FROM emp WHERE active='ON' AND emp_id=? AND emp_pw = password(?)";
+		String loginSql = "SELECT emp_id empId, emp_name empName, grade FROM emp WHERE active='ON' AND emp_id=? AND emp_pw = ?";
 		PreparedStatement loginStmt = conn.prepareStatement(loginSql);
 
 		loginStmt.setString(1, empId);
@@ -134,5 +136,68 @@ public class EmpDAO {
 	    
 	    conn.close();
 		return row;
+	}
+	
+	/* 전체 emp 수 구하기 */
+	public static int getTotalEmp() throws Exception{
+		int totalEmpRow = 0;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		// 전체 goods Row 구하기
+		String getTotalEmpRowSql = "SELECT COUNT(*) cnt FROM emp";
+		PreparedStatement getTotalEmpRowStmt = null;
+	
+		// category
+		getTotalEmpRowStmt = conn.prepareStatement(getTotalEmpRowSql);
+
+		ResultSet getTotalEmpRowRs = getTotalEmpRowStmt.executeQuery();
+		
+		if(getTotalEmpRowRs.next()) {
+			totalEmpRow = getTotalEmpRowRs.getInt("cnt");
+		}
+		
+		conn.close();
+		return totalEmpRow;
+	}
+	
+	/* 전체 emp 출력 */
+	public static ArrayList<HashMap<String, Object>> selectEmpList(int startRow, int rowPerPage) throws Exception{
+		ArrayList<HashMap<String, Object>> empList = new ArrayList<HashMap<String, Object>>();
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+				
+		/*
+		[DB]shop.emp 테이블 가져오는 SQL쿼리
+		
+		SELECT emp_id empId, emp_name empName, emp_job empJob, hire_date hireDate, active 
+		FROM emp
+		ORDER BY active ASC, hire_date DESC
+		*/
+		String getEmpSql = "SELECT emp_id empId, emp_name empName, emp_job empJob, hire_date hireDate, active FROM emp ORDER BY hire_date ASC offset ? rows fetch next ? rows only";
+		PreparedStatement getEmpStmt = null; 
+		ResultSet getEmpRs = null;
+		getEmpStmt = conn.prepareStatement(getEmpSql);
+		getEmpStmt.setInt(1, startRow);
+		getEmpStmt.setInt(2, rowPerPage);
+		getEmpRs = getEmpStmt.executeQuery();
+		
+		// JDBC API에 종속된 자료구조 모델인 ResultSet -> 기본 API (ArrayList)로 변경
+		// ResultSet -> ArrayList<HashMap<String, Object>>
+		while(getEmpRs.next()) {
+			HashMap<String, Object> empMap = new HashMap<String, Object>();
+			empMap.put("empId", getEmpRs.getString("empId"));
+			empMap.put("empName", getEmpRs.getString("empName"));
+			empMap.put("empJob", getEmpRs.getString("empJob"));
+			empMap.put("hireDate", getEmpRs.getString("hireDate"));
+			empMap.put("active", getEmpRs.getString("active"));
+			empList.add(empMap);
+		}
+		
+		conn.close();
+		return empList;
+		
 	}
 }

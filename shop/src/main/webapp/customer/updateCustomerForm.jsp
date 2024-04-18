@@ -19,6 +19,9 @@
 	}
 	// customer 정보
 	HashMap<String, Object> customerInfo =  CustomerDAO.getCustomerInfo(customerId);
+	String customerBirth = (String)customerInfo.get("customerBirth");
+	customerBirth = customerBirth.substring(0, 10);
+	
 %>
 <%
 	// msg 출력
@@ -69,7 +72,7 @@
 					
 					<div>
 						<label style="margin: 10px;">생년월일</label>
-						<input class="w3-input" type="date" name="customerBirth" value="<%=customerInfo.get("customerBirth")%>" required="required">
+						<input class="w3-input" type="date" name="customerBirth" value="<%=customerBirth %>" required="required">
 					</div>
 					
 					<div>

@@ -48,7 +48,7 @@
 	<a class="w3-bar-item w3-button w3-right" href="/shop/customer/customerCart.jsp">장바구니</a>
 	
 	<!-- 최근 본 상품 -->
-	<a class="w3-bar-item w3-button w3-right" href="/shop/customer/recentViewedGoods.jsp">최근</a>
+	<a class="w3-bar-item w3-button w3-right" href="/shop/customer/goods/recentViewedGoods.jsp">최근</a>
 	
 	
 </div>

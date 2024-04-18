@@ -1,3 +1,4 @@
+<%@page import="shop.dao.EmpDAO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
@@ -5,19 +6,6 @@
 
 <!-- Controller Layer -->
 <%@ include file ="/emp/inc/commonSessionCheck.jsp" %>
-
-<!-- Model Layer -->
-<%
-	// 1. 특수한 형태의 데이터(RDBMS:mariaDB)
-	// 2. API 사용(JDBC API)해 자료구조(ResultSet) 획득
-	// 3. 일반화된 자료구조(ex. List, Set 등)로 변경 -> 모델 획득
-	
-	/* DB 연결 및 초기화 */
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/shop", "root", "java1234");
-
-%>
 
 <%
 	/* emp목록 페이징 */
@@ -38,20 +26,14 @@
 // 	}
 
 	// 전체 emp 수 구하기
-	String getTotalRowSql = "SELECT COUNT(*) cnt FROM emp";
-	PreparedStatement getTotalRowStmt = null;
-	getTotalRowStmt = conn.prepareStatement(getTotalRowSql);
-	ResultSet getTotalRowRs = getTotalRowStmt.executeQuery();
 	
-	int totalRow = 0;
-	if(getTotalRowRs.next()) {
-		totalRow = getTotalRowRs.getInt("cnt");
-	}
-	System.out.println("empList - totalRow = " + totalRow);
+	
+	int TotalEmpRow = EmpDAO.getTotalEmp();
+	System.out.println("empList - TotalEmpRow = " + TotalEmpRow);
 	
 	// 마지막 페이지 구하기
-	int lastPage = totalRow / rowPerPage;
-	if(totalRow % rowPerPage != 0) {
+	int lastPage = TotalEmpRow / rowPerPage;
+	if(TotalEmpRow % rowPerPage != 0) {
 		lastPage += 1;
 	}
 	System.out.println("empList - lastPage = " + lastPage);
@@ -62,34 +44,8 @@
 %>
 
 <%
-	/*
-	[DB]shop.emp 테이블 가져오는 SQL쿼리
-	
-	SELECT emp_id empId, emp_name empName, emp_job empJob, hire_date hireDate, active 
-	FROM emp
-	ORDER BY active ASC, hire_date DESC
-	*/
-	String getEmpSql = "SELECT emp_id empId, emp_name empName, emp_job empJob, hire_date hireDate, active FROM emp ORDER BY hire_date ASC LIMIT ?,?";
-	PreparedStatement getEmpStmt = null; 
-	ResultSet getEmpRs = null;
-	getEmpStmt = conn.prepareStatement(getEmpSql);
-	getEmpStmt.setInt(1, startRow);
-	getEmpStmt.setInt(2, rowPerPage);
-	getEmpRs = getEmpStmt.executeQuery();
-	
-	// JDBC API에 종속된 자료구조 모델인 ResultSet -> 기본 API (ArrayList)로 변경
-	ArrayList<HashMap<String, Object>> empList = new ArrayList<HashMap<String,Object>>();
-	
-	// ResultSet -> ArrayList<HashMap<String, Object>>
-	while(getEmpRs.next()) {
-		HashMap<String, Object> empMap = new HashMap<String, Object>();
-		empMap.put("empId", getEmpRs.getString("empId"));
-		empMap.put("empName", getEmpRs.getString("empName"));
-		empMap.put("empJob", getEmpRs.getString("empJob"));
-		empMap.put("hireDate", getEmpRs.getString("hireDate"));
-		empMap.put("active", getEmpRs.getString("active"));
-		empList.add(empMap);
-	}
+	// 전체 emp 목록 가져오기
+	ArrayList<HashMap<String, Object>> empList = EmpDAO.selectEmpList(startRow, rowPerPage);
 %>
 
 <%
