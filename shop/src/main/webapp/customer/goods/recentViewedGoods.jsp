@@ -26,7 +26,7 @@
         <% 
 	        if(recentViewdGoods != null) {
 	            for(String goodsNo : recentViewdGoods) {
-	                HashMap<String,Object> goodsInfo = GoodsDAO.getGoodsInfo(goodsNo);
+	                HashMap<String,Object> goodsInfo = GoodsDAO.selectGoodsInfo(goodsNo);
         %>
 		            <div class="col-md-3" style="height: 200px; margin: 20px 10px; width: 15%;">
 		                <div class="w3-card-2" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">

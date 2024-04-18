@@ -22,7 +22,7 @@
 		|| checkIdFirst.equals("") || checkIdMiddle.equals("") || checkIdLast.equals("")) {
 		
 		String errMsg = URLEncoder.encode("ID를 정확히 입력해주세요.", "UTF-8");
-		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg);
+		response.sendRedirect("/shop/customer/signup/insertCustomerForm.jsp?errMsg=" + errMsg);
 		return;
 	}
 	String checkCustomerId = checkIdFirst + checkIdMiddle + checkIdLast;
@@ -38,12 +38,12 @@
 	if(canUseId) {
 		// 아이디 사용 가능
 		String errMsg = URLEncoder.encode("사용 가능한 아이디 입니다", "UTF-8");
-		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg + "&customerId=" + checkCustomerId);
+		response.sendRedirect("/shop/customer/signup/insertCustomerForm.jsp?errMsg=" + errMsg + "&customerId=" + checkCustomerId);
 		
 	} else {
 		// 아이디가 중복
 		String errMsg = URLEncoder.encode("이미 존재하는 ID입니다.", "UTF-8");
-		response.sendRedirect("/shop/customer/signup/addCustomerForm.jsp?errMsg=" + errMsg);
+		response.sendRedirect("/shop/customer/signup/insertCustomerForm.jsp?errMsg=" + errMsg);
 	}
 	
 %>

@@ -7,7 +7,7 @@
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
-	ArrayList<String> categoryList = GoodsDAO.getCategoryList();
+	ArrayList<String> categoryList = GoodsDAO.selectCategoryList();
 %>
 
 <!-- View Layer -->
@@ -33,7 +33,7 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding-top: 15px;">
-				<form class="w3-container" action="/shop/emp/goods/addGoodsAction.jsp" method="post" enctype="multipart/form-data">
+				<form class="w3-container" action="/shop/emp/goods/insertGoodsAction.jsp" method="post" enctype="multipart/form-data">
 				
 					<div>
 						<label>카테고리</label>

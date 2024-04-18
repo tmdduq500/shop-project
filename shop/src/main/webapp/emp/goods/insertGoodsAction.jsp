@@ -38,23 +38,23 @@
 	// 요청 값이 1개라도 null일시
 	if(category == null || goodsTitle == null || goodsPrice == null || 
 			goodsAmount == null || goodsContent == null) {
-		response.sendRedirect("/shop/emp/goods/addGoodsForm.jsp");
+		response.sendRedirect("/shop/emp/goods/insertGoodsForm.jsp");
 	}
 	
 	// 요청값 디버깅
-	System.out.println("addGoodsAction - category = " + category);
-	System.out.println("addGoodsAction - goodsTitle = " + goodsTitle);
-	System.out.println("addGoodsAction - goodsPrice = " + goodsPrice);
-	System.out.println("addGoodsAction - goodsAmount = " + goodsAmount);
-	System.out.println("addGoodsAction - goodsContent = " + goodsContent);
-	System.out.println("addGoodsAction - imgName = " + imgName);
+	System.out.println("insertGoodsAction - category = " + category);
+	System.out.println("insertGoodsAction - goodsTitle = " + goodsTitle);
+	System.out.println("insertGoodsAction - goodsPrice = " + goodsPrice);
+	System.out.println("insertGoodsAction - goodsAmount = " + goodsAmount);
+	System.out.println("insertGoodsAction - goodsContent = " + goodsContent);
+	System.out.println("insertGoodsAction - imgName = " + imgName);
 %>
 
 <!-- Controller Layer -->
 <%
 	
 
-	int row = GoodsDAO.addGoods(category, (String)loginMember.get("empId"), goodsTitle, 
+	int row = GoodsDAO.insertGoods(category, (String)loginMember.get("empId"), goodsTitle, 
 			imgName, goodsContent, Integer.parseInt(goodsPrice) , Integer.parseInt(goodsAmount));
 	
 	if(row == 1) {
@@ -72,7 +72,7 @@
 	} else {
 		// 상품 등록 실패
 		System.out.println("상품 등록 실패");
-		response.sendRedirect("/shop/emp/goods/addGoodsForm.jsp");
+		response.sendRedirect("/shop/emp/goods/insertGoodsForm.jsp");
 	}
 		
 %>

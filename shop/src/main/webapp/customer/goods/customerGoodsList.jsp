@@ -39,7 +39,7 @@
 	int totalGoodsRow = GoodsDAO.getTotalGoods();
 	
 	// 카테고리별 goods 수
-	int goodsPerCategoryRow = GoodsDAO.getGoodsPerCategory(category);
+	int goodsPerCategoryRow = GoodsDAO.selectGoodsPerCategory(category);
 	
 	// 카테고리별(전체 포함) 마지막 페이지 구하기
 	int lastPage = goodsPerCategoryRow / rowPerPage;
@@ -54,7 +54,7 @@
 
 <%	
 	/* 카테고리명, 카테고리 별 상품 수 구하기 */
-	ArrayList<HashMap<String, Object>> goodsCntPerCategory = GoodsDAO.getGoodsCntPerCategory();
+	ArrayList<HashMap<String, Object>> goodsCntPerCategory = GoodsDAO.selectGoodsCntPerCategory();
 %>
 
 <%

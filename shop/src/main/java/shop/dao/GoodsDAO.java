@@ -33,26 +33,26 @@ public class GoodsDAO {
 	}
 	
 	/* 카테고리별 goods Row 구하기 */
-	public static int getGoodsPerCategory(String category) throws Exception{
+	public static int selectGoodsPerCategory(String category) throws Exception{
 		int goodsPerCategoryRow = 0;
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
 		// 카테고리별 goods 수 구하기
-		String getgoodsPerCategoryRowSql = "SELECT COUNT(*) cnt FROM goods WHERE 1 = 1";
-		PreparedStatement getgoodsPerCategoryRowStmt = null;
+		String selectGoodsPerCategoryRowSql = "SELECT COUNT(*) cnt FROM goods WHERE 1 = 1";
+		PreparedStatement selectGoodsPerCategoryRowStmt = null;
 	
 		// category
 		if(category.equals("all")) {
-			getgoodsPerCategoryRowStmt = conn.prepareStatement(getgoodsPerCategoryRowSql);
+			selectGoodsPerCategoryRowStmt = conn.prepareStatement(selectGoodsPerCategoryRowSql);
 		} else {
-			getgoodsPerCategoryRowSql = getgoodsPerCategoryRowSql + " " + "AND category = ?";
-			getgoodsPerCategoryRowStmt = conn.prepareStatement(getgoodsPerCategoryRowSql);
-			getgoodsPerCategoryRowStmt.setString(1, category);
+			selectGoodsPerCategoryRowSql = selectGoodsPerCategoryRowSql + " " + "AND category = ?";
+			selectGoodsPerCategoryRowStmt = conn.prepareStatement(selectGoodsPerCategoryRowSql);
+			selectGoodsPerCategoryRowStmt.setString(1, category);
 		}
 		
-		ResultSet getTotalGoodsRowRs = getgoodsPerCategoryRowStmt.executeQuery();
+		ResultSet getTotalGoodsRowRs = selectGoodsPerCategoryRowStmt.executeQuery();
 		
 		if(getTotalGoodsRowRs.next()) {
 			goodsPerCategoryRow = getTotalGoodsRowRs.getInt("cnt");
@@ -63,7 +63,7 @@ public class GoodsDAO {
 	}
 	
 	/* 사이드바 카테고리, 카테고리 별 상품 수 구하기 */
-	public static ArrayList<HashMap<String, Object>> getGoodsCntPerCategory() throws Exception{
+	public static ArrayList<HashMap<String, Object>> selectGoodsCntPerCategory() throws Exception{
 		
 		ArrayList<HashMap<String, Object>> goodsCntPerCategory = null;
 		
@@ -90,6 +90,7 @@ public class GoodsDAO {
 		return goodsCntPerCategory;
 		
 	}
+
 	
 	
 	/* goods 목록 출력 */
@@ -149,41 +150,9 @@ public class GoodsDAO {
 		return goodsList;
 	}
 	
-	/* 상품 상세보기 */
-	public static HashMap<String, Object> selectGoodsInfo(String goodsNo) throws Exception{
-		HashMap<String, Object> goodsInfo = null;
-		
-		// DB 연결
-		Connection conn = DBHelper.getConnection();
-		
-		/* 상품 하나의 모든 정보 가져오는 쿼리 */
-		String getGoodsInfoSql = "SELECT category, emp_id empId, goods_title goodsTitle, img_name imgName, "
-				+ "goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount, create_date createDate FROM goods WHERE goods_no = ?";
-		PreparedStatement getGoodsInfoStmt = null;
-		ResultSet getGoodsInfoRs = null;
-		getGoodsInfoStmt = conn.prepareStatement(getGoodsInfoSql);
-		getGoodsInfoStmt.setString(1, goodsNo);
-		getGoodsInfoRs = getGoodsInfoStmt.executeQuery();
-		
-		while(getGoodsInfoRs.next()) {
-			goodsInfo = new HashMap<String, Object>();
-			goodsInfo.put("category", getGoodsInfoRs.getString("category"));
-			goodsInfo.put("empId", getGoodsInfoRs.getString("empId"));
-			goodsInfo.put("goodsTitle", getGoodsInfoRs.getString("goodsTitle"));
-			goodsInfo.put("imgName", getGoodsInfoRs.getString("imgName"));
-			goodsInfo.put("goodsContent", getGoodsInfoRs.getString("goodsContent"));
-			goodsInfo.put("goodsPrice", getGoodsInfoRs.getString("goodsPrice"));
-			goodsInfo.put("goodsAmount", getGoodsInfoRs.getString("goodsAmount"));
-			goodsInfo.put("createDate", getGoodsInfoRs.getString("createDate"));
-
-		}
-		
-		conn.close();
-		return goodsInfo;
-	}
 	
 	/* 카테고리 목록 얻기 */
-	public static ArrayList<String> getCategoryList() throws Exception{
+	public static ArrayList<String> selectCategoryList() throws Exception{
 		
 		ArrayList<String> categoryList = new ArrayList<String>();
 		
@@ -206,7 +175,7 @@ public class GoodsDAO {
 	}
 	
 	/* 상품 추가 */
-	public static int addGoods(String category, String empId, String goodsTitle, 
+	public static int insertGoods(String category, String empId, String goodsTitle, 
 			String imgName, String goodsContent, int goodsPrice, int goodsAmount) throws Exception{
 		
 		int row = 0;
@@ -215,20 +184,20 @@ public class GoodsDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		/* [DB]shop.goods에 goods 추가하는 sql */
-		String addGoodsSql = "INSERT INTO goods(goods_no, category, emp_id, goods_title, img_name, goods_content, goods_price, goods_amount, update_date, create_date) "
+		String insertGoodsSql = "INSERT INTO goods(goods_no, category, emp_id, goods_title, img_name, goods_content, goods_price, goods_amount, update_date, create_date) "
 				+ "VALUES (s_goods_no.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate, sysdate)";
-		PreparedStatement addGoodsStmt = null;
+		PreparedStatement insertGoodsStmt = null;
 		
-		addGoodsStmt = conn.prepareStatement(addGoodsSql);
-		addGoodsStmt.setString(1, category);
-		addGoodsStmt.setString(2, empId);
-		addGoodsStmt.setString(3, goodsTitle);
-		addGoodsStmt.setString(4, imgName);
-		addGoodsStmt.setString(5, goodsContent);
-		addGoodsStmt.setInt(6, goodsPrice);
-		addGoodsStmt.setInt(7, goodsAmount);
+		insertGoodsStmt = conn.prepareStatement(insertGoodsSql);
+		insertGoodsStmt.setString(1, category);
+		insertGoodsStmt.setString(2, empId);
+		insertGoodsStmt.setString(3, goodsTitle);
+		insertGoodsStmt.setString(4, imgName);
+		insertGoodsStmt.setString(5, goodsContent);
+		insertGoodsStmt.setInt(6, goodsPrice);
+		insertGoodsStmt.setInt(7, goodsAmount);
 		
-		row = addGoodsStmt.executeUpdate();
+		row = insertGoodsStmt.executeUpdate();
 		
 		conn.close();
 		return row;
@@ -247,29 +216,29 @@ public class GoodsDAO {
 	}
 	
 	/* 상품 정보 가져오기 */
-	public static HashMap<String, Object> getGoodsInfo(String goodsNo) throws Exception{
+	public static HashMap<String, Object> selectGoodsInfo(String goodsNo) throws Exception{
 		HashMap<String, Object> goodsInfo = new HashMap<String, Object>();
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
 		/* 상품 하나의 모든 정보 가져오는 쿼리 */
-		String getGoodsInfoSql = "SELECT category, emp_id empId, goods_title goodsTitle, img_name imgName, goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount, create_date createDate FROM goods WHERE goods_no = ?";
-		PreparedStatement getGoodsInfoStmt = null;
-		ResultSet getGoodsInfoRs = null;
-		getGoodsInfoStmt = conn.prepareStatement(getGoodsInfoSql);
-		getGoodsInfoStmt.setString(1, goodsNo);
-		getGoodsInfoRs = getGoodsInfoStmt.executeQuery();
+		String selectGoodsInfoSql = "SELECT category, emp_id empId, goods_title goodsTitle, img_name imgName, goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount, create_date createDate FROM goods WHERE goods_no = ?";
+		PreparedStatement selectGoodsInfoStmt = null;
+		ResultSet selectGoodsInfoRs = null;
+		selectGoodsInfoStmt = conn.prepareStatement(selectGoodsInfoSql);
+		selectGoodsInfoStmt.setString(1, goodsNo);
+		selectGoodsInfoRs = selectGoodsInfoStmt.executeQuery();
 		
-		while(getGoodsInfoRs.next()) {
-			goodsInfo.put("category", getGoodsInfoRs.getString("category"));
-			goodsInfo.put("empId", getGoodsInfoRs.getString("empId"));
-			goodsInfo.put("goodsTitle", getGoodsInfoRs.getString("goodsTitle"));
-			goodsInfo.put("imgName", getGoodsInfoRs.getString("imgName"));
-			goodsInfo.put("goodsContent", getGoodsInfoRs.getString("goodsContent"));
-			goodsInfo.put("goodsPrice", getGoodsInfoRs.getString("goodsPrice"));
-			goodsInfo.put("goodsAmount", getGoodsInfoRs.getString("goodsAmount"));
-			goodsInfo.put("createDate", getGoodsInfoRs.getString("createDate"));
+		while(selectGoodsInfoRs.next()) {
+			goodsInfo.put("category", selectGoodsInfoRs.getString("category"));
+			goodsInfo.put("empId", selectGoodsInfoRs.getString("empId"));
+			goodsInfo.put("goodsTitle", selectGoodsInfoRs.getString("goodsTitle"));
+			goodsInfo.put("imgName", selectGoodsInfoRs.getString("imgName"));
+			goodsInfo.put("goodsContent", selectGoodsInfoRs.getString("goodsContent"));
+			goodsInfo.put("goodsPrice", selectGoodsInfoRs.getString("goodsPrice"));
+			goodsInfo.put("goodsAmount", selectGoodsInfoRs.getString("goodsAmount"));
+			goodsInfo.put("createDate", selectGoodsInfoRs.getString("createDate"));
 
 		}
 		

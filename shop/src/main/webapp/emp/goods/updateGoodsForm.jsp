@@ -16,10 +16,10 @@
 
 <%
 	// 상품 정보 가져오기 
-	HashMap<String, Object> goodsInfo = GoodsDAO.getGoodsInfo(goodsNo);
+	HashMap<String, Object> goodsInfo = GoodsDAO.selectGoodsInfo(goodsNo);
 
 	// 카테고리 목록 가져오기
-	ArrayList<String> categoryList = GoodsDAO.getCategoryList();
+	ArrayList<String> categoryList = GoodsDAO.selectCategoryList();
 	
 %>
 <!DOCTYPE html>

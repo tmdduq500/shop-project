@@ -18,7 +18,7 @@
 		response.sendRedirect("/shop/customer/checkInfoUpdateCustomer.jsp?msg=" + msg);
 	}
 	// customer 정보
-	HashMap<String, Object> customerInfo =  CustomerDAO.getCustomerInfo(customerId);
+	HashMap<String, Object> customerInfo =  CustomerDAO.selectCustomerInfo(customerId);
 	String customerBirth = (String)customerInfo.get("customerBirth");
 	customerBirth = customerBirth.substring(0, 10);
 	

@@ -14,7 +14,7 @@
 //     System.out.println("modifyEmpActive - empId = " + empId);
 //     System.out.println("modifyEmpActive - active = " + active);
     
-    int row = EmpDAO.modifyEmpGrade(empId, active);
+    int row = EmpDAO.updateEmpGrade(empId, active);
     
     System.out.println("modifyEmpActive - row = " + row);
     

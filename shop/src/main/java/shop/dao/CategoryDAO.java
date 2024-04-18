@@ -37,21 +37,21 @@ public class CategoryDAO {
 	}
 	
 	/* 카테고리 추가 */
-	public static int addCategory(String category, String empId) throws Exception{
+	public static int insertCategory(String category, String empId) throws Exception{
 		int row = 0;
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
 		/* [DB]shop.category에 category에 추가하는 sql */
-		String addCategorySql = "INSERT INTO category(category, create_date, emp_id) VALUES (?, sysdate, ?)";
-		PreparedStatement addCategoryStmt = null;
+		String insertCategorySql = "INSERT INTO category(category, create_date, emp_id) VALUES (?, sysdate, ?)";
+		PreparedStatement insertCategoryStmt = null;
 		
-		addCategoryStmt = conn.prepareStatement(addCategorySql);
-		addCategoryStmt.setString(1, category);
-		addCategoryStmt.setString(2, empId);
+		insertCategoryStmt = conn.prepareStatement(insertCategorySql);
+		insertCategoryStmt.setString(1, category);
+		insertCategoryStmt.setString(2, empId);
 
-		row = addCategoryStmt.executeUpdate();
+		row = insertCategoryStmt.executeUpdate();
 		
 		conn.close();
 		return row;

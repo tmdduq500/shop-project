@@ -44,7 +44,7 @@
 	
 	// 회원정보 수정 성공 및 loginCustomer 세션 값 변경
 	HashMap<String, Object> newCustomer = new HashMap<String,Object>();
-	HashMap<String, Object> updateCustomer = CustomerDAO.getCustomerInfo(customerId);
+	HashMap<String, Object> updateCustomer = CustomerDAO.selectCustomerInfo(customerId);
 	newCustomer.put("customerId", updateCustomer.get("customerId"));
 	newCustomer.put("customerName", updateCustomer.get("customerName"));
 	session.setAttribute("loginCustomer", newCustomer);

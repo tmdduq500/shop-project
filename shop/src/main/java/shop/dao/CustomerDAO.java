@@ -31,7 +31,7 @@ public class CustomerDAO {
 	}
 	
 	/* 고객 정보 가져오기 */
-	public static HashMap<String, Object> getCustomerInfo(String customerId) throws Exception{
+	public static HashMap<String, Object> selectCustomerInfo(String customerId) throws Exception{
 		
 		HashMap<String, Object> customerInfo = null;
 		
@@ -39,19 +39,19 @@ public class CustomerDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		// 고객 정보 가져오는 쿼리
-		String getCustomerInfoSql = "SELECT id, name, birth, gender, update_date updateDate, create_date createDate FROM customer WHERE id = ?";
-		PreparedStatement getCustomerInfoStmt = conn.prepareStatement(getCustomerInfoSql);		
-		getCustomerInfoStmt.setString(1, customerId);
-		ResultSet getCustomerInfoRs = getCustomerInfoStmt.executeQuery();
+		String selectCustomerInfoSql = "SELECT id, name, birth, gender, update_date updateDate, create_date createDate FROM customer WHERE id = ?";
+		PreparedStatement selectCustomerInfoStmt = conn.prepareStatement(selectCustomerInfoSql);		
+		selectCustomerInfoStmt.setString(1, customerId);
+		ResultSet selectCustomerInfoRs = selectCustomerInfoStmt.executeQuery();
 		
-		if(getCustomerInfoRs.next()) {
+		if(selectCustomerInfoRs.next()) {
 			customerInfo = new HashMap<String, Object>();
-			customerInfo.put("customerId", getCustomerInfoRs.getString("id"));
-			customerInfo.put("customerName", getCustomerInfoRs.getString("name"));
-			customerInfo.put("customerBirth", getCustomerInfoRs.getString("birth"));
-			customerInfo.put("customerGender", getCustomerInfoRs.getString("gender"));
-			customerInfo.put("updateDate", getCustomerInfoRs.getString("updateDate"));
-			customerInfo.put("createDate", getCustomerInfoRs.getString("createDate"));
+			customerInfo.put("customerId", selectCustomerInfoRs.getString("id"));
+			customerInfo.put("customerName", selectCustomerInfoRs.getString("name"));
+			customerInfo.put("customerBirth", selectCustomerInfoRs.getString("birth"));
+			customerInfo.put("customerGender", selectCustomerInfoRs.getString("gender"));
+			customerInfo.put("updateDate", selectCustomerInfoRs.getString("updateDate"));
+			customerInfo.put("createDate", selectCustomerInfoRs.getString("createDate"));
 		}
 		
 		conn.close();
@@ -59,7 +59,7 @@ public class CustomerDAO {
 	}
 	
 	/* 고객 회원가입 */
-	public static int addCustomer(String customerId, String customerPw, 
+	public static int insertCustomer(String customerId, String customerPw, 
 		String customerName, String customerBirth, String customerGender) throws Exception{
 		
 		int row = 0;
@@ -68,16 +68,16 @@ public class CustomerDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		//[DB]shop.customer에 INSERT쿼리로 data 삽입
-		String addCustomerSql = "INSERT INTO customer(id, pw, name, birth, gender, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
-		PreparedStatement addCustomerStmt = null;
-		addCustomerStmt = conn.prepareStatement(addCustomerSql);
-		addCustomerStmt.setString(1, customerId);
-		addCustomerStmt.setString(2, customerPw);
-		addCustomerStmt.setString(3, customerName);
-		addCustomerStmt.setString(4, customerBirth);
-		addCustomerStmt.setString(5, customerGender);
+		String insertCustomerSql = "INSERT INTO customer(id, pw, name, birth, gender, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
+		PreparedStatement insertCustomerStmt = null;
+		insertCustomerStmt = conn.prepareStatement(insertCustomerSql);
+		insertCustomerStmt.setString(1, customerId);
+		insertCustomerStmt.setString(2, customerPw);
+		insertCustomerStmt.setString(3, customerName);
+		insertCustomerStmt.setString(4, customerBirth);
+		insertCustomerStmt.setString(5, customerGender);
 		
-		row = addCustomerStmt.executeUpdate();
+		row = insertCustomerStmt.executeUpdate();
 		
 		conn.close();
 		return row;
@@ -143,7 +143,13 @@ public class CustomerDAO {
 		updateCustomerStmt.setString(1, customerName);
 		updateCustomerStmt.setString(2, customerBirth);
 		updateCustomerStmt.setString(3, customerGender);
-		updateCustomerStmt.setString(4, newCustomerPw);
+		
+		if(newCustomerPw == null) {
+			updateCustomerStmt.setString(4, oldCustomerPw);
+		} else {
+			updateCustomerStmt.setString(4, newCustomerPw);
+		}
+		
 		updateCustomerStmt.setString(5, customerId);
 		updateCustomerStmt.setString(6, oldCustomerPw);
 		row = updateCustomerStmt.executeUpdate();

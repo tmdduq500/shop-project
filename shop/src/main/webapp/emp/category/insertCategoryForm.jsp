@@ -25,7 +25,7 @@
 			</div>
 			
 			<div class="w3-card-4" style="padding: 5%;">
-				<form class="w3-container" action="/shop/emp/category/addCategoryAction.jsp" method="post">
+				<form class="w3-container" action="/shop/emp/category/insertCategoryAction.jsp" method="post">
 					<label style="margin: 20px;">카테고리</label>
 					
 					<div style="margin: 10px;">

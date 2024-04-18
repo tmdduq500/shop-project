@@ -60,7 +60,7 @@
 	} else {
 		// 상품 등록 실패
 		System.out.println("상품 수정 실패");
-		response.sendRedirect("/shop/emp/goods/addGoodsForm.jsp");
+		response.sendRedirect("/shop/emp/goods/insertGoodsForm.jsp");
 		response.sendRedirect("/shop/emp/goods/goodsOne.jsp?goodsNo=" + goodsNo);
 	}
 	

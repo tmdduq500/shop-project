@@ -28,7 +28,7 @@
 	// 전체 emp 수 구하기
 	
 	
-	int TotalEmpRow = EmpDAO.getTotalEmp();
+	int TotalEmpRow = EmpDAO.selectTotalEmp();
 	System.out.println("empList - TotalEmpRow = " + TotalEmpRow);
 	
 	// 마지막 페이지 구하기

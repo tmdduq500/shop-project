@@ -21,7 +21,7 @@
 
 <%
 	// 상품 정보 일부분 가져오기
-	HashMap<String, Object> goodsInfo = GoodsDAO.getGoodsInfo(goodsNo);
+	HashMap<String, Object> goodsInfo = GoodsDAO.selectGoodsInfo(goodsNo);
 %>
 <!DOCTYPE html>
 <html>

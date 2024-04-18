@@ -10,7 +10,7 @@
 	HashMap<String, Object> loginMember = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
 	
 	// emp 정보 가져오기
-	HashMap<String, Object> empInfo = EmpDAO.empInfo((String)loginMember.get("empId"));
+	HashMap<String, Object> empInfo = EmpDAO.selectEmpInfo((String)loginMember.get("empId"));
 %>
 <!DOCTYPE html>
 <html>

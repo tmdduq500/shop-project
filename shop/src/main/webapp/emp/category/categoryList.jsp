@@ -37,7 +37,7 @@
 				</div>
 			
 				<div class="col" style="text-align: right;">
-					<form action="/shop/emp/category/addCategoryForm.jsp">
+					<form action="/shop/emp/category/insertCategoryForm.jsp">
 						<button type="submit" class="btn btn-outline-dark">카테고리 추가</button>
 					</form>
 				</div>

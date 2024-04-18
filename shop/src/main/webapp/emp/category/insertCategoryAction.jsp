@@ -17,24 +17,24 @@
 
 	// 요청 값이 null일 경우
 	if(category == null) {
-		response.sendRedirect("/shop/emp/category/addCategoryForm.jsp");
+		response.sendRedirect("/shop/emp/category/insertCategoryForm.jsp");
 	}
 	
 	// 요청값 디버깅
-	System.out.println("addCategoryForm - category = " + category);	
+	System.out.println("insertCategoryForm - category = " + category);	
 %>
 
 <%
-	int addCategoryRow = CategoryDAO.addCategory(category, (String)loginMember.get("empId"));
+	int insertCategoryRow = CategoryDAO.insertCategory(category, (String)loginMember.get("empId"));
 	
-	if(addCategoryRow == 1) {
+	if(insertCategoryRow == 1) {
 		// 카테고리 등록 성공
 		System.out.println("카테고리 등록 성공");
 		response.sendRedirect("/shop/emp/category/categoryList.jsp");
 	} else {
 		// 카테고리 등록 실패
 		System.out.println("카테고리 등록 실패");
-		response.sendRedirect("/shop/emp/category/addCategoryForm.jsp");
+		response.sendRedirect("/shop/emp/category/insertCategoryForm.jsp");
 	}
 	
 %>

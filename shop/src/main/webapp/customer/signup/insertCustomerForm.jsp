@@ -12,7 +12,7 @@
 		customerId = "";
 	}
 	// 요청 값 디버깅
-	System.out.println("addCustomerForm - customerId = " + customerId);
+	System.out.println("insertCustomerForm - customerId = " + customerId);
 	
 %>
 
@@ -69,7 +69,7 @@
 				
 				<!-- 회원가입 폼 -->
 				<div>
-					<form class="w3-container" action="/shop/customer/signup/addCustomerAction.jsp" method="post">
+					<form class="w3-container" action="/shop/customer/signup/insertCustomerAction.jsp" method="post">
 						<div>
 							<div>
 								<label>id</label>

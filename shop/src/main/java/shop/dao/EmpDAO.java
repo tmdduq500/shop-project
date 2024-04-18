@@ -7,21 +7,21 @@ import java.util.HashMap;
 public class EmpDAO {
 	
 	/* 관리자 추가 */
-	public static int addEmp(String empId, String empPw, String empName, String empJob, String hireDate) throws Exception {
+	public static int insertEmp(String empId, String empPw, String empName, String empJob, String hireDate) throws Exception {
 		int row = 0;
 		
 		// DB 접근
 		Connection conn = DBHelper.getConnection();
 		
 		// [DB]sho.emp에 emp 추가하는 쿼리
-		String addEmpSql = "INSERT emp(emp_id, emp_pw, emp_name, emp_job, hire_date, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
-		PreparedStatement addEmpStmt = conn.prepareStatement(addEmpSql);
-		addEmpStmt.setString(1, empId);
-		addEmpStmt.setString(2, empPw);
-		addEmpStmt.setString(3, empName);
-		addEmpStmt.setString(4, empJob);
-		addEmpStmt.setString(5, hireDate);
-		row = addEmpStmt.executeUpdate();
+		String insertEmpSql = "INSERT emp(emp_id, emp_pw, emp_name, emp_job, hire_date, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
+		PreparedStatement insertEmpStmt = conn.prepareStatement(insertEmpSql);
+		insertEmpStmt.setString(1, empId);
+		insertEmpStmt.setString(2, empPw);
+		insertEmpStmt.setString(3, empName);
+		insertEmpStmt.setString(4, empJob);
+		insertEmpStmt.setString(5, hireDate);
+		row = insertEmpStmt.executeUpdate();
 		
 		System.out.println("EmpDAO - row = " + row);
 		
@@ -66,7 +66,7 @@ public class EmpDAO {
 	}
 	
 	/* 관리자 상세보기 */
-	public static HashMap<String, Object> empInfo(String empId) throws Exception {
+	public static HashMap<String, Object> selectEmpInfo(String empId) throws Exception {
 				
 		HashMap<String, Object> resultMap = null;
 		
@@ -100,7 +100,7 @@ public class EmpDAO {
 	}
 	
 	/* 관리자 권한 수정 */
-	public static int modifyEmpGrade(String empId, String active) throws Exception{
+	public static int updateEmpGrade(String empId, String active) throws Exception{
 		int row = 0;
 		
 		// DB 접근
@@ -139,23 +139,23 @@ public class EmpDAO {
 	}
 	
 	/* 전체 emp 수 구하기 */
-	public static int getTotalEmp() throws Exception{
+	public static int selectTotalEmp() throws Exception{
 		int totalEmpRow = 0;
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
 		// 전체 goods Row 구하기
-		String getTotalEmpRowSql = "SELECT COUNT(*) cnt FROM emp";
-		PreparedStatement getTotalEmpRowStmt = null;
+		String selectTotalEmpRowSql = "SELECT COUNT(*) cnt FROM emp";
+		PreparedStatement selectTotalEmpRowStmt = null;
 	
 		// category
-		getTotalEmpRowStmt = conn.prepareStatement(getTotalEmpRowSql);
+		selectTotalEmpRowStmt = conn.prepareStatement(selectTotalEmpRowSql);
 
-		ResultSet getTotalEmpRowRs = getTotalEmpRowStmt.executeQuery();
+		ResultSet selectTotalEmpRowRs = selectTotalEmpRowStmt.executeQuery();
 		
-		if(getTotalEmpRowRs.next()) {
-			totalEmpRow = getTotalEmpRowRs.getInt("cnt");
+		if(selectTotalEmpRowRs.next()) {
+			totalEmpRow = selectTotalEmpRowRs.getInt("cnt");
 		}
 		
 		conn.close();

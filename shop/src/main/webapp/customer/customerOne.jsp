@@ -9,7 +9,7 @@
 %>
 <%
 	// 고객 정보 가져오기
-	HashMap<String, Object> customerInfo = CustomerDAO.getCustomerInfo((String)loginCustomerMember.get("customerId"));
+	HashMap<String, Object> customerInfo = CustomerDAO.selectCustomerInfo((String)loginCustomerMember.get("customerId"));
 %>
 <!DOCTYPE html>
 <html>

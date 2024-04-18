@@ -26,7 +26,7 @@
 	int totalGoodsRow = GoodsDAO.getTotalGoods();
 
 	/* 카테고리명, 카테고리 별 상품 수 구하기 */
-	ArrayList<HashMap<String, Object>> goodsCntPerCategory = GoodsDAO.getGoodsCntPerCategory();
+	ArrayList<HashMap<String, Object>> goodsCntPerCategory = GoodsDAO.selectGoodsCntPerCategory();
 
 	// 상품 상세보기
 	HashMap<String, Object> goodsInfo = GoodsDAO.selectGoodsInfo(goodsNo);

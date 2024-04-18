@@ -57,7 +57,7 @@
 					</button>
 				</div>
 				<div class="col">
-					<a class="a-to-button" href="/shop/customer/signup/addCustomerForm.jsp" style="width: 100%;">회원가입</a>
+					<a class="a-to-button" href="/shop/customer/signup/insertCustomerForm.jsp" style="width: 100%;">회원가입</a>
 				</div>
 				
 			</div>
