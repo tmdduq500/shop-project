@@ -337,4 +337,18 @@ public class GoodsDAO {
 		return row;
 	}
 	
+	/* 상품 주문 or 주문 취소할 경우 수량 수정하기 */
+	public static int updateGoodsAmount(int goodsNo, int amount) throws Exception {
+		int row = 0;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		String updateGoodsAmountSql = "UPDATE goods SET goods_amount = ?, update_date = sysdate WHERE goods_no = ?";
+		PreparedStatement updateGoodsAmountStmt = conn.prepareStatement(updateGoodsAmountSql);
+		row = updateGoodsAmountStmt.executeUpdate();
+		
+		return row;
+		
+	}
 }

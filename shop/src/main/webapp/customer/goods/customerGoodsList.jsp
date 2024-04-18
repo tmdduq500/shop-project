@@ -19,10 +19,15 @@
 	// 페이지당 보여줄 row 수
 	int rowPerPage = 30;
 	
-//  	// select 박스로 rowPerPage 구하기
-//  	if(request.getParameter("rowPerPage") != null) {
-//  		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
-//  	}
+ 	// select 박스로 rowPerPage 구하기
+ 	if(request.getParameter("rowPerPage") != null) {
+ 		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
+ 		session.setAttribute("customerGoodsRowPerPage", rowPerPage);
+ 	}
+ 	
+	if((session.getAttribute("customerGoodsRowPerPage")) != null) {
+		rowPerPage = (int)(session.getAttribute("customerGoodsRowPerPage"));
+	}
 	
 	// category 요청 값
 	String category = request.getParameter("category");
@@ -65,8 +70,9 @@
 <%
 	// 디버깅 코드
 // 	System.out.println("CustomerGoodsList - currentPage 세션 값 = " + session.getAttribute("currentPage"));	// currentPage 세션 값 체크
-// 	System.out.println("CustomerGoodsList - category = " + category);
-// 	System.out.println("CustomerGoodsList - category 세션 값 = " + session.getAttribute("category"));	// category 세션 값 체크
+	System.out.println("CustomerGoodsList - category = " + category);
+	System.out.println("CustomerGoodsList - category 세션 값 = " + session.getAttribute("category"));	// category 세션 값 체크
+	System.out.println("CustomerGoodsList - rowPerPage 세션 값 = " + session.getAttribute("rowPerPage"));	// rowPerPage 세션 값 체크
 // 	System.out.println("CustomerGoodsList - totalGoodsRow = " + totalGoodsRow);
 // 	System.out.println("CustomerGoodsList - goodsPerCategoryRow = " + goodsPerCategoryRow);
 // 	System.out.println("CustomerGoodsList - lastPage = " + lastPage);
@@ -109,8 +115,23 @@
 		
 		<!-- goodsList 본문 -->
 		<div style="margin-left:15%; ">
-			<div style="padding:20px 5%;">
-				<h1 style="display: inline-block;">상품 목록</h1>
+			<div class="row" style="padding:20px 5%;">
+				<div class="col-9">
+					<h1 style="display: inline-block;">상품 목록</h1>
+				</div>
+				
+				<div class="col" style="display: inline-block;">
+					<form action="/shop/customer/goods/customerGoodsList.jsp">
+						<select name="rowPerPage">
+							<option value="">선택</option>
+							<option value="10">10개씩 보기</option>
+							<option value="30">30개씩 보기</option>
+							<option value="50">50개씩 보기</option>
+						</select>
+						<input type="hidden" value="<%=category%>" name="category">
+						<button type="submit">보기</button>
+					</form>
+				</div>
 			</div>
 			
 			<!-- goods 목록 출력 -->
@@ -121,7 +142,7 @@
 						for(HashMap<String, Object> m : goodsList) {
 					%>
 							
-							<div class="col-md-3" style="height: 250px; margin: 20px 10px; width: 15%;">
+							<div class="col-md-3" style="height: 300px; margin: 20px 10px; width: 17%;">
 							
 								<div class="w3-card-2" style="height: 100%;">
 							

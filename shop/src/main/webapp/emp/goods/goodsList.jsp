@@ -21,10 +21,15 @@
 	// 페이지당 보여줄 row 수
 	int rowPerPage = 30;
 	
-//  	// select 박스로 rowPerPage 구하기
-//  	if(request.getParameter("rowPerPage") != null) {
-//  		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
-//  	}
+ 	// select 박스로 rowPerPage 구하기
+ 	if(request.getParameter("rowPerPage") != null) {
+ 		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
+ 		session.setAttribute("empGoodsRowPerPage", rowPerPage);
+ 	}
+ 	
+	if((session.getAttribute("empGoodsRowPerPage")) != null) {
+// 		rowPerPage = (int)(session.getAttribute("empGoodsRowPerPage"));
+	}
 	
 	// category 요청 값
 	String category = request.getParameter("category");
@@ -112,9 +117,23 @@
 		
 		<!-- goodsList 본문 -->
 		<div style="margin-left:15%; ">
-			<div style="padding:20px 5%;">
-				<h1 style="display: inline-block;">상품 목록</h1>
-				<div class="w3-right">
+			<div class="row" style="padding:20px 5%;">
+				<div class="col-9">
+					<h1 style="display: inline-block;">상품 목록</h1>
+				</div>
+				
+				<div class="col-2" style="display: inline-block; text-align: right;">
+					<form action="/shop/emp/goods/goodsList.jsp">
+						<select name="rowPerPage">
+							<option value="">선택</option>
+							<option value="10">10개씩 보기</option>
+							<option value="30">30개씩 보기</option>
+							<option value="50">50개씩 보기</option>
+						</select>
+						<button type="submit">보기</button>
+					</form>
+				</div>
+				<div class="col">
 					<a href="/shop/emp/goods/insertGoodsForm.jsp">상품 등록</a>
 				</div>
 			</div>
@@ -127,7 +146,7 @@
 						for(HashMap<String, Object> m : goodsList) {
 					%>
 							
-							<div class="col-md-3" style="height: 250px; margin: 20px 10px; width: 15%;">
+							<div class="col-md-3" style="height: 300px; margin: 20px 10px; width: 17%;">
 							
 								<div class="w3-card-2" style="height: 100%;">
 							
