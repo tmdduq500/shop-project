@@ -43,7 +43,7 @@
 	}
 	
 	// 전체 goods 수
-	int totalGoodsRow = GoodsDAO.getTotalGoods();
+	int totalGoodsRow = GoodsDAO.selectTotalGoods();
 	
 	// 카테고리별 goods 수
 	int goodsPerCategoryRow = GoodsDAO.selectGoodsPerCategory(category);

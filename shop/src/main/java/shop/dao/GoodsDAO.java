@@ -9,23 +9,23 @@ import java.util.HashMap;
 public class GoodsDAO {
 	
 	/* 전체 goods 수 구하기 */
-	public static int getTotalGoods() throws Exception{
+	public static int selectTotalGoods() throws Exception{
 		int totalGoodsRow = 0;
 		
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 		
 		// 전체 goods Row 구하기
-		String getTotalGoodsRowSql = "SELECT COUNT(*) cnt FROM goods";
-		PreparedStatement getTotalGoodsRowStmt = null;
+		String selectTotalGoodsRowSql = "SELECT COUNT(*) cnt FROM goods";
+		PreparedStatement selectTotalGoodsRowStmt = null;
 	
 		// category
-		getTotalGoodsRowStmt = conn.prepareStatement(getTotalGoodsRowSql);
+		selectTotalGoodsRowStmt = conn.prepareStatement(selectTotalGoodsRowSql);
 
-		ResultSet getTotalGoodsRowRs = getTotalGoodsRowStmt.executeQuery();
+		ResultSet selectTotalGoodsRowRs = selectTotalGoodsRowStmt.executeQuery();
 		
-		if(getTotalGoodsRowRs.next()) {
-			totalGoodsRow = getTotalGoodsRowRs.getInt("cnt");
+		if(selectTotalGoodsRowRs.next()) {
+			totalGoodsRow = selectTotalGoodsRowRs.getInt("cnt");
 		}
 		
 		conn.close();
@@ -52,10 +52,10 @@ public class GoodsDAO {
 			selectGoodsPerCategoryRowStmt.setString(1, category);
 		}
 		
-		ResultSet getTotalGoodsRowRs = selectGoodsPerCategoryRowStmt.executeQuery();
+		ResultSet selectTotalGoodsRowRs = selectGoodsPerCategoryRowStmt.executeQuery();
 		
-		if(getTotalGoodsRowRs.next()) {
-			goodsPerCategoryRow = getTotalGoodsRowRs.getInt("cnt");
+		if(selectTotalGoodsRowRs.next()) {
+			goodsPerCategoryRow = selectTotalGoodsRowRs.getInt("cnt");
 		}
 
 		conn.close();
@@ -112,37 +112,37 @@ public class GoodsDAO {
 		
 		*/
 		
-		String getTotalGoodsSql = "SELECT goods_no goodsNo, category, goods_title goodsTitle, img_name imgName, "
+		String selectTotalGoodsSql = "SELECT goods_no goodsNo, category, goods_title goodsTitle, img_name imgName, "
 				+ "goods_content goodsContent, goods_price goodsPrice, goods_amount goodsAmount FROM goods ";
-		PreparedStatement getTotalGoodsStmt = null;
+		PreparedStatement selectTotalGoodsStmt = null;
 		
-		ResultSet getTotalGoodsRs = null;
+		ResultSet selectTotalGoodsRs = null;
 		
 		if(category.equals("all")) {
-			getTotalGoodsSql = getTotalGoodsSql + "ORDER BY create_date DESC offset ? rows fetch next ? rows only";
-			getTotalGoodsStmt = conn.prepareStatement(getTotalGoodsSql);
-			getTotalGoodsStmt.setInt(1, startRow);
-			getTotalGoodsStmt.setInt(2, rowPerPage);
-			getTotalGoodsRs = getTotalGoodsStmt.executeQuery();
+			selectTotalGoodsSql = selectTotalGoodsSql + "ORDER BY create_date DESC offset ? rows fetch next ? rows only";
+			selectTotalGoodsStmt = conn.prepareStatement(selectTotalGoodsSql);
+			selectTotalGoodsStmt.setInt(1, startRow);
+			selectTotalGoodsStmt.setInt(2, rowPerPage);
+			selectTotalGoodsRs = selectTotalGoodsStmt.executeQuery();
 			
 		} else {
-			getTotalGoodsSql = getTotalGoodsSql + " " + "WHERE category = ? ORDER BY create_date DESC offset ? rows fetch next ? rows only";
-			getTotalGoodsStmt = conn.prepareStatement(getTotalGoodsSql);
-			getTotalGoodsStmt.setString(1, category);
-			getTotalGoodsStmt.setInt(2, startRow);
-			getTotalGoodsStmt.setInt(3, rowPerPage);
-			getTotalGoodsRs = getTotalGoodsStmt.executeQuery();
+			selectTotalGoodsSql = selectTotalGoodsSql + " " + "WHERE category = ? ORDER BY create_date DESC offset ? rows fetch next ? rows only";
+			selectTotalGoodsStmt = conn.prepareStatement(selectTotalGoodsSql);
+			selectTotalGoodsStmt.setString(1, category);
+			selectTotalGoodsStmt.setInt(2, startRow);
+			selectTotalGoodsStmt.setInt(3, rowPerPage);
+			selectTotalGoodsRs = selectTotalGoodsStmt.executeQuery();
 		}
 		
-		while(getTotalGoodsRs.next()) {
+		while(selectTotalGoodsRs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
-			m.put("goodsNo", getTotalGoodsRs.getString("goodsNo"));
-			m.put("category", getTotalGoodsRs.getString("category"));
-			m.put("goodsTitle", getTotalGoodsRs.getString("goodsTitle"));
-			m.put("imgName", getTotalGoodsRs.getString("imgName"));
-			m.put("goodsContent", getTotalGoodsRs.getString("goodsContent"));
-			m.put("goodsPrice", getTotalGoodsRs.getString("goodsPrice"));
-			m.put("goodsAmount", getTotalGoodsRs.getString("goodsAmount"));
+			m.put("goodsNo", selectTotalGoodsRs.getString("goodsNo"));
+			m.put("category", selectTotalGoodsRs.getString("category"));
+			m.put("goodsTitle", selectTotalGoodsRs.getString("goodsTitle"));
+			m.put("imgName", selectTotalGoodsRs.getString("imgName"));
+			m.put("goodsContent", selectTotalGoodsRs.getString("goodsContent"));
+			m.put("goodsPrice", selectTotalGoodsRs.getString("goodsPrice"));
+			m.put("goodsAmount", selectTotalGoodsRs.getString("goodsAmount"));
 			goodsList.add(m);
 		}
 		
