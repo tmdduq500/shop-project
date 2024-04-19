@@ -25,27 +25,30 @@
 			<!-- 로그아웃 -->
 			<a class="w3-bar-item w3-button w3-right" href="/shop/customer/customerLogoutAction.jsp">로그아웃</a>
 			
+			<!-- 인사 글 -->
 			<span class="w3-bar-item w3-right"><%=(String)(loginCustomerMember.get("customerName"))%>님 반갑습니다</span>
 			
+			<!-- 프로필 사진 -->
 			<a href="/shop/customer/customerOne.jsp" class="w3-bar-item w3-button w3-white w3-right">
 				<img src="/shop/upload/profile_basic.jpg" alt="프로필사진" style="width:40px;" class="rounded-pill">	
 			</a>
+			
+			<!-- 장바구니 -->
+			<a class="w3-bar-item w3-button w3-right" href="/shop/customer/customerOrdersList.jsp">주문 목록</a>
 	<%
 		} else {
 	%>
-			<!-- 비회원의 경우 회원가입 폼으로 -->
+			<!-- 비회원의 경우 로그인 폼으로 -->
 			<span class="w3-bar-item w3-right">비회원님 반갑습니다.</span>
 			<a href="/shop/customer/customerLoginForm.jsp" class="w3-bar-item w3-button w3-white w3-right">
 				<img src="/shop/upload/profile_basic.jpg" alt="프로필사진" style="width:40px;" class="rounded-pill">	
 			</a>
+			
+			<!-- 장바구니 -->
+			<a class="w3-bar-item w3-button w3-right" href="/shop/customer/customerLoginForm.jsp">주문 목록</a>
 	<%
 		}
 	%>
-	
-	
-	
-	<!-- 장바구니 -->
-	<a class="w3-bar-item w3-button w3-right" href="/shop/customer/customerCart.jsp">장바구니</a>
 	
 	<!-- 최근 본 상품 -->
 	<a class="w3-bar-item w3-button w3-right" href="/shop/customer/goods/recentViewedGoods.jsp">최근</a>

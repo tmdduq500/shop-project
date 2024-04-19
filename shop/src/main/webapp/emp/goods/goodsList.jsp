@@ -118,7 +118,7 @@
 		<!-- goodsList 본문 -->
 		<div style="margin-left:15%; ">
 			<div class="row" style="padding:20px 5%;">
-				<div class="col-9">
+				<div class="col-8">
 					<h1 style="display: inline-block;">상품 목록</h1>
 				</div>
 				
@@ -134,7 +134,7 @@
 					</form>
 				</div>
 				<div class="col">
-					<a href="/shop/emp/goods/insertGoodsForm.jsp">상품 등록</a>
+					<a class="a-to-button" href="/shop/emp/goods/insertGoodsForm.jsp" style="margin: 0; width: 50%; padding: 0;">상품 등록</a>
 				</div>
 			</div>
 			
@@ -161,7 +161,8 @@
 									<div style="height: 30%; text-align: center;">
 									
 										<div style="margin-top: 10%;">
-											<a href="/shop/emp/goods/goodsOne.jsp?goodsNo=<%=m.get("goodsNo") %>">
+											<a href="/shop/emp/goods/goodsOne.jsp?goodsNo=<%=m.get("goodsNo") %>"
+												style="text-decoration: none; color: black;">
 												<%=m.get("goodsTitle") %>
 											</a>
 										</div>

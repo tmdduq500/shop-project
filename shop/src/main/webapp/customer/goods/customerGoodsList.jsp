@@ -39,9 +39,7 @@
 	} else {
 		session.setAttribute("category", category);
 	}
-	
-	// 전체 goods 수
-	int totalGoodsRow = GoodsDAO.selectTotalGoods();
+
 	
 	// 카테고리별 goods 수
 	int goodsPerCategoryRow = GoodsDAO.selectGoodsPerCategory(category);
@@ -57,11 +55,6 @@
 	
 %>
 
-<%	
-	/* 카테고리명, 카테고리 별 상품 수 구하기 */
-	ArrayList<HashMap<String, Object>> goodsCntPerCategory = GoodsDAO.selectGoodsCntPerCategory();
-%>
-
 <%
 	/* 상품 목록 출력하기(category, page조건을 맞춰서) */
 	ArrayList<HashMap<String, Object>> goodsList = GoodsDAO.selectGoodsList(startRow, rowPerPage, category);
@@ -70,9 +63,9 @@
 <%
 	// 디버깅 코드
 // 	System.out.println("CustomerGoodsList - currentPage 세션 값 = " + session.getAttribute("currentPage"));	// currentPage 세션 값 체크
-	System.out.println("CustomerGoodsList - category = " + category);
-	System.out.println("CustomerGoodsList - category 세션 값 = " + session.getAttribute("category"));	// category 세션 값 체크
-	System.out.println("CustomerGoodsList - rowPerPage 세션 값 = " + session.getAttribute("rowPerPage"));	// rowPerPage 세션 값 체크
+// 	System.out.println("CustomerGoodsList - category = " + category);
+// 	System.out.println("CustomerGoodsList - category 세션 값 = " + session.getAttribute("category"));	// category 세션 값 체크
+// 	System.out.println("CustomerGoodsList - rowPerPage 세션 값 = " + session.getAttribute("rowPerPage"));	// rowPerPage 세션 값 체크
 // 	System.out.println("CustomerGoodsList - totalGoodsRow = " + totalGoodsRow);
 // 	System.out.println("CustomerGoodsList - goodsPerCategoryRow = " + goodsPerCategoryRow);
 // 	System.out.println("CustomerGoodsList - lastPage = " + lastPage);
@@ -91,27 +84,11 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<!-- 메인 메뉴 -->
-	<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
+<!-- 메인 메뉴 -->
+<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
 	<div>
-		<!-- 사이드바 - 서브메뉴 카테고리별 상품리스트 -->
-		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-			<h3 class="w3-bar-item">카테고리</h3>
-
-			<a href="/shop/customer/goods/customerGoodsList.jsp" class="w3-bar-item w3-button">전체(<%=totalGoodsRow%>)</a>
-			<%
-				for(HashMap m : goodsCntPerCategory) {
-			%>
-
-					<a href="/shop/customer/goods/customerGoodsList.jsp?category=<%=(String)(m.get("category")) %>" class="w3-bar-item w3-button">
-						<%=(String)(m.get("category")) %>
-						(<%=(Integer)(m.get("cnt")) %>)
-					</a>
-
-			<% 
-				}
-			%>
-		</div>
+	<!-- 사이드바 - 서브메뉴 카테고리별 상품리스트 -->
+	<jsp:include page="/customer/inc/customerSideBar.jsp"></jsp:include>
 		
 		<!-- goodsList 본문 -->
 		<div style="margin-left:15%; ">
@@ -157,7 +134,8 @@
 									<div style="height: 30%; text-align: center;">
 									
 										<div style="margin-top: 10%;">
-											<a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>">
+											<a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>"
+												style="text-decoration: none; color: black;">
 												<%=m.get("goodsTitle") %>
 											</a>
 										</div>

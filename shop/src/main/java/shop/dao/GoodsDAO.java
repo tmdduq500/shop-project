@@ -346,8 +346,11 @@ public class GoodsDAO {
 		
 		String updateGoodsAmountSql = "UPDATE goods SET goods_amount = ?, update_date = sysdate WHERE goods_no = ?";
 		PreparedStatement updateGoodsAmountStmt = conn.prepareStatement(updateGoodsAmountSql);
+		updateGoodsAmountStmt.setInt(1, amount);
+		updateGoodsAmountStmt.setInt(2, goodsNo);
 		row = updateGoodsAmountStmt.executeUpdate();
 		
+		conn.close();
 		return row;
 		
 	}
