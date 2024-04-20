@@ -77,7 +77,7 @@
 						<a class="a-to-button" href="/shop/customer/checkInfoUpdateCustomer.jsp" style="width: 100%;">회원정보 수정</a>
 					</td>
 					<td width="50%;">
-						<a class="a-to-button" href="/shop/customer/deleteCustomerForm.jsp?customerId=<%=(String)loginCustomerMember.get("customerId") %>" style="width: 100%;">회원 탈퇴</a>
+						<a class="a-to-button" href="/shop/customer/deleteCustomerForm.jsp" style="width: 100%;">회원 탈퇴</a>
 					</td>
 					
 				</tr>
