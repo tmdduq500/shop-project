@@ -1,15 +1,8 @@
 <%@page import="shop.dao.GoodsDAO"%>
-<%@page import="shop.dao.OrdersDAO"%>
 <%@page import="java.util.*"%>
+<%@page import="shop.dao.OrdersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
-<%
-	// loginCutomer 세션 변수 가져오기
-	HashMap<String, Object> loginCustomerMember = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));
-
-	// 고객 id
-	String customerId = (String)loginCustomerMember.get("customerId");
-%>
+<%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 <%
 	//현재 페이지 구하기
 	int currentPage = 1;	// 현재페이지
@@ -33,12 +26,12 @@
 		rowPerPage = (int)(session.getAttribute("customerOrdersRowPerPage"));
 	}
 	
-	// 고객이 주문한 개수
-	int ordersNumOfCustomer = OrdersDAO.selectOrdersNumOfCustomer(customerId);
+	// 모든 고객이 주문한 개수
+	int ordersNum = OrdersDAO.selectTotalOrdersNum();
 	
 	// 마지막 페이지 구하기
-	int lastPage = ordersNumOfCustomer / rowPerPage;
-	if(ordersNumOfCustomer % rowPerPage != 0) {
+	int lastPage = ordersNum / rowPerPage;
+	if(ordersNum % rowPerPage != 0) {
 		lastPage += 1;
 	}
 		
@@ -46,7 +39,7 @@
 	int startRow = (currentPage - 1) * rowPerPage;
 
 	// 고객의 주문 목록
-	ArrayList<HashMap<String, Object>> ordersListByCustomer = OrdersDAO.selectOrdersListByCustomer(customerId, startRow, rowPerPage);
+	ArrayList<HashMap<String, Object>> ordersList = OrdersDAO.selectTotalOrdersList(startRow, rowPerPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -59,17 +52,18 @@
 <body>
 <div class="row">
 <!-- 메인 메뉴 -->
-<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
+<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 
 	<div class="col"></div>
 
 	<div class="col-8">
-		<h1>주문 목록</h1>
+		<h1>전체 고객 주문 목록</h1>
 		<table class="w3-table w3-centered w3-card-4 w3-bordered" style="margin-top: 50px; width: 100%;">
 			<thead class="w3-dark-grey">
 				<tr>
 					<th>상품정보</th>
 					<th>주문일자</th>
+					<th>주문고객</th>
 					<th>주문번호</th>
 					<th>주문금액</th>
 					<th colspan="2">주문상태</th>
@@ -77,20 +71,21 @@
 			</thead>
 			<tbody>
 				<%
-					for(HashMap<String, Object> m : ordersListByCustomer) {
+					for(HashMap<String, Object> m : ordersList) {
 						String imgName = (String)GoodsDAO.selectGoodsInfo((String)m.get("goodsNo")).get("imgName");
 				%>
 						<tr>
 							<td>
-								<a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=(String)(m.get("goodsNo"))%>" 
+								<a href="/shop/emp/goods/goodsOne.jsp?goodsNo=<%=(String)(m.get("goodsNo"))%>" 
 									style="text-decoration: none; color: black;">
 									<img alt="" src="/shop/upload/<%=imgName%>" width="80px;">
 									<%=m.get("goodsTitle")%>
 								</a>
 							</td>
 							<td style="vertical-align: middle;"><%=m.get("ordersDate")%></td>
+							<td style="vertical-align: middle;"><%=m.get("customerId")%></td>
 							<td style="vertical-align: middle;">
-								<a href="/shop/customer/customerOrdersOne.jsp?ordersNo=<%=m.get("ordersNo")%>"
+								<a href="/shop/emp/empOrdersOne.jsp?ordersNo=<%=m.get("ordersNo")%>"
 									style="text-decoration: none; color: black;">
 									<%=m.get("ordersNo")%>
 								</a>
@@ -99,10 +94,10 @@
 							<td style="vertical-align: middle;"><%=m.get("totalPrice")%>원</td>
 							<td style="vertical-align: middle;"><%=m.get("ordersState")%></td>
 							<%
-								if(((String)(m.get("ordersState"))).equals("배송중")) {
+								if(((String)(m.get("ordersState"))).equals("결제완료")) {
 							%>	
 									<td style="width: 10%;">
-										<a class="a-to-button" href="/shop/customer/updateCustomerOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">구매확정</a>
+										<a class="a-to-button" href="/shop/emp/updateOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">구매확정</a>
 									</td>
 							<%
 								}

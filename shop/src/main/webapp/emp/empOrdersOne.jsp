@@ -1,22 +1,19 @@
-<%@page import="java.util.HashMap"%>
 <%@page import="shop.dao.OrdersDAO"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 <%
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
-
-	// 요청 값 디버깅
-	System.out.println("customerOrdersOne - ordersNo = " + ordersNo);
 %>
 <%
-	HashMap<String, Object> customerOrdersOne = OrdersDAO.selectOrdersOneByCustomer(ordersNo);
+	HashMap<String, Object> ordersOneByEmp = OrdersDAO.selectOrdersOneByEmp(ordersNo);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>주문 상세보기</title>
+	<title>고객 주문 상세보기</title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -32,7 +29,7 @@
 			<thead class="w3-dark-grey">
 				<tr>
 					<td colspan="2">
-						<h1>주문번호 <%=customerOrdersOne.get("ordersNo")%>의 상세 내역</h1>
+						<h1>주문번호 <%=ordersOneByEmp.get("ordersNo")%>의 상세 내역</h1>
 					</td>
 				</tr>
 			</thead>
@@ -40,47 +37,53 @@
 				<tr>
 					<th style="vertical-align: middle;">상품명</th>
 					<td>
-						<%=customerOrdersOne.get("goodsTitle")%>
+						<%=ordersOneByEmp.get("goodsTitle")%>
+					</td>
+				</tr>
+				<tr>
+					<th style="vertical-align: middle;">주문고객</th>
+					<td>
+						<%=ordersOneByEmp.get("customerId")%>
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align: middle;">상품사진</th>
 					<td>
-						<img alt="" src="/shop/upload/<%=customerOrdersOne.get("imgName")%>">
+						<img alt="" src="/shop/upload/<%=ordersOneByEmp.get("imgName")%>">
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align: middle;">주문수량</th>
 					<td>
-						<%=customerOrdersOne.get("totalAmount")%>
+						<%=ordersOneByEmp.get("totalAmount")%>
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align: middle;">주문금액</th>
 					<td>
-						<%=customerOrdersOne.get("totalPrice")%>
+						<%=ordersOneByEmp.get("totalPrice")%>
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align: middle;">배달주소</th>
 					<td>
-						<%=customerOrdersOne.get("orderAdderess")%>
+						<%=ordersOneByEmp.get("orderAdderess")%>
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align: middle;">주문일자</th>
 					<td>
-						<%=customerOrdersOne.get("ordersDate")%>
+						<%=ordersOneByEmp.get("ordersDate")%>
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align: middle;">주문상태</th>
 					<td>
-						<%=customerOrdersOne.get("ordersState")%>
+						<%=ordersOneByEmp.get("ordersState")%>
 						<%
-							if(((String)(customerOrdersOne.get("ordersState"))).equals("배송중")) {
+							if(((String)(ordersOneByEmp.get("ordersState"))).equals("결제완료")) {
 						%>	
-								<a class="a-to-button" href="/shop/customer/updateCustomerOrdersState.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">구매확정</a>
+								<a class="a-to-button" href="/shop/emp/updateOrdersState.jsp?ordersNo=<%=ordersOneByEmp.get("ordersNo")%>" style="width: 100%;">배송 시작</a>
 						<%
 							}
 						%>	

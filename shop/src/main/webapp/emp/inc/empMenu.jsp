@@ -14,6 +14,7 @@
 	<!-- category CRUD -->
 	<a class="w3-bar-item w3-button" href="/shop/emp/category/categoryList.jsp">카테고리 관리</a>
 	<a class="w3-bar-item w3-button" href="/shop/emp/goods/goodsList.jsp">상품 관리</a>
+	<a class="w3-bar-item w3-button" href="/shop/emp/empOrdersList.jsp">주문 관리</a>
 	
 	
 	

@@ -26,7 +26,7 @@
 	<div class="col-4">
 		<div class="w3-border w3-round" style="margin-top: 20px;">
 			<div class="w3-container w3-dark-grey" style="padding: 10px;">
-				<h1>카테고리 삭제</h1>
+				<h1>회원 탈퇴</h1>
 			</div>	
 			
 			<div class="w3-card-4" style="padding: 5%;">
