@@ -20,7 +20,7 @@
 <body>
 <div class="row">
 <!-- 메인 메뉴 -->
-<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
+<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 
 	<div class="col"></div>
 
@@ -34,6 +34,12 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<th style="vertical-align: middle;">상품번호</th>
+					<td>
+						<%=ordersOneByEmp.get("goodsNo")%>
+					</td>
+				</tr>
 				<tr>
 					<th style="vertical-align: middle;">상품명</th>
 					<td>

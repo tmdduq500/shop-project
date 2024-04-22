@@ -1652,3 +1652,30 @@ a {
 .a-to-button:hover, .a-to-button:active {
     background-color: #CCCCCC;
 }
+
+/* 리뷰 - 별점 */
+.score-star {
+	display: flex;
+	flex-direction: row-reverse;
+	font-size: 2.0em;
+	justify-content: space-around;
+	text-align: center;
+	width: 5em;
+}
+
+.score-star input {
+	display: none;
+}
+
+.score-star label {
+	color: #ccc;
+	cursor: pointer;
+}
+
+.score-star :checked ~ label {
+	color: #f90;
+}
+
+.score-star label:hover, .score-star label:hover ~ label {
+	color: #fc0;
+}

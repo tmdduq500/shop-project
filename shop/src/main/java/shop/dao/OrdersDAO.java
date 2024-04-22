@@ -7,20 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrdersDAO {
-	/* 고객이 구매확정 눌렀을 경우 구매확정으로 상태 변경 */
-	public static int updateOrdersStateByCustomer(String ordersNo) throws Exception{
-		int row = 0;
-		
-		Connection conn = DBHelper.getConnection();
-		
-		String updateOrdersStateSql = "UPDATE orders SET state = '구매확정' WHERE orders_no = ?";
-		PreparedStatement updateOrdersStateStmt = conn.prepareStatement(updateOrdersStateSql);
-		updateOrdersStateStmt.setString(1, ordersNo);
-		row = updateOrdersStateStmt.executeUpdate();
-		
-		conn.close();
-		return row;
-	}
 	
 	/* 고객이 주문한 것의 상세정보 확인 기능 */
 	public static HashMap<String, Object> selectOrdersOneByCustomer(String ordersNo) throws Exception{
@@ -123,14 +109,15 @@ public class OrdersDAO {
 	}
 	
 	/* emp가 배송시작 버튼 눌렀을 경우 배송중으로 상태 변경 */
-	public static int updateOrdersStateByEmp(String ordersNo) throws Exception{
+	public static int updateOrdersState(String ordersNo, String state) throws Exception{
 		int row = 0;
 		
 		Connection conn = DBHelper.getConnection();
 		
-		String updateOrdersStateSql = "UPDATE orders SET state = '배송중' WHERE orders_no = ?";
+		String updateOrdersStateSql = "UPDATE orders SET state = ? WHERE orders_no = ?";
 		PreparedStatement updateOrdersStateStmt = conn.prepareStatement(updateOrdersStateSql);
-		updateOrdersStateStmt.setString(1, ordersNo);
+		updateOrdersStateStmt.setString(1, state);
+		updateOrdersStateStmt.setString(2, ordersNo);
 		row = updateOrdersStateStmt.executeUpdate();
 		
 		conn.close();
@@ -154,6 +141,7 @@ public class OrdersDAO {
 		if(ordersOneRs.next()) {
 			ordersOne.put("ordersNo", ordersOneRs.getString("ordersNo"));
 			ordersOne.put("customerId", ordersOneRs.getString("customerId"));
+			ordersOne.put("goodsNo", ordersOneRs.getString("goodsNo"));
 			ordersOne.put("goodsTitle", ordersOneRs.getString("goodsTitle"));
 			ordersOne.put("imgName", ordersOneRs.getString("imgName"));
 			ordersOne.put("totalAmount", ordersOneRs.getString("totalAmount"));

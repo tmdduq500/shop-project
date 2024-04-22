@@ -14,7 +14,8 @@
 %>
 <%
 	// 주문 상태 배송중으로 변경
-	int updateOrdersStateRow = OrdersDAO.updateOrdersStateByEmp(ordersNo);
+	String updateState = "배송중";
+	int updateOrdersStateRow = OrdersDAO.updateOrdersState(ordersNo, updateState);
 	System.out.println("updateOrdersState - updateOrdersStateRow = " + updateOrdersStateRow);
 	
 	// 주문 상태 변경 후 주문 목록 리스트로 redirect

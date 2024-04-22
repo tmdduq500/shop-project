@@ -10,6 +10,7 @@
 	System.out.println("customerOrdersOne - ordersNo = " + ordersNo);
 %>
 <%
+	// 고객의 주문 목록 상세 내용 가져오기
 	HashMap<String, Object> customerOrdersOne = OrdersDAO.selectOrdersOneByCustomer(ordersNo);
 %>
 <!DOCTYPE html>
@@ -82,10 +83,19 @@
 						%>	
 								<a class="a-to-button" href="/shop/customer/updateCustomerOrdersState.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">구매확정</a>
 						<%
+							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("구매확정")) {
+						%>
+								<a class="a-to-button" href="/shop/customer/customerReviewForm.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
+						<%
+							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("리뷰완료")) {
+								%>
+								<td style="width: 10%;">
+									<a class="a-to-button" href="/shop/customer/customerReviewOne.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
+								</td>
+						<%
 							}
-						%>	
+						%>
 					</td>
-						
 				</tr>
 			</tbody>
 		</table>

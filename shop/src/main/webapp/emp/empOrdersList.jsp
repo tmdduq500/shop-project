@@ -97,7 +97,7 @@
 								if(((String)(m.get("ordersState"))).equals("결제완료")) {
 							%>	
 									<td style="width: 10%;">
-										<a class="a-to-button" href="/shop/emp/updateOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">구매확정</a>
+										<a class="a-to-button" href="/shop/emp/updateOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">배송시작</a>
 									</td>
 							<%
 								}

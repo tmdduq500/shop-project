@@ -16,6 +16,7 @@
 	if(!isCustomer) {
 		String msg = URLEncoder.encode("id, pw를 다시 확인해주세요", "UTF-8");
 		response.sendRedirect("/shop/customer/checkInfoUpdateCustomer.jsp?msg=" + msg);
+		return;
 	}
 	// customer 정보
 	HashMap<String, Object> customerInfo =  CustomerDAO.selectCustomerInfo(customerId);
@@ -54,7 +55,7 @@
 		</div>
 		<div class="w3-border w3-round" style="margin-top: 20px;">
 			<div class="w3-container w3-dark-grey" style="padding: 10px;">
-				<h1>비밀번호 변경</h1>
+				<h1>회원정보 수정</h1>
 			</div>
 			
 			<div class="w3-card-4">

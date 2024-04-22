@@ -155,7 +155,7 @@ public class CustomerDAO {
 		updateCustomerStmt.setString(2, customerBirth);
 		updateCustomerStmt.setString(3, customerGender);
 
-		if (newCustomerPw == null) {
+		if (newCustomerPw.equals("")) {
 			updateCustomerStmt.setString(4, oldCustomerPw);
 		} else {
 			updateCustomerStmt.setString(4, newCustomerPw);

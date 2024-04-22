@@ -105,6 +105,18 @@
 										<a class="a-to-button" href="/shop/customer/updateCustomerOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">구매확정</a>
 									</td>
 							<%
+								} else if(((String)(m.get("ordersState"))).equals("구매확정")) {
+							%>
+									<td style="width: 10%;">
+										<a class="a-to-button" href="/shop/customer/customerReviewForm.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
+									</td>
+							<%
+								} else if(((String)(m.get("ordersState"))).equals("리뷰완료")) {
+							%>
+									<td style="width: 10%;">
+										<a class="a-to-button" href="/shop/customer/customerReviewOne.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
+									</td>
+							<%
 								}
 							%>
 							

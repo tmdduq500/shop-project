@@ -44,7 +44,7 @@
 					<!-- 상품의 정보 일부분 -->
 					<!-- customerId값은 action쪽에서 세션변수에서 넘겨주기 -->
 					<div>
-						<h5>상품명</h5>
+						<h5>상품 정보</h5>
 					</div>
 					<input type="hidden" name="goodsNo" value="<%=goodsNo%>">
 					

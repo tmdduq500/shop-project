@@ -10,13 +10,16 @@
 	// 주문 번호가 null일 경우(페이지 바로 접속 시)
 	if(ordersNo == null) {
 		response.sendRedirect("/shop/customer/customerOrdersList.jsp");
+		return;
 	}
 %>
 
 <%
-	int updateOrdersStateByCustomerRow = OrdersDAO.updateOrdersStateByCustomer(ordersNo);
+	// 구매확정으로 주문 상태 변경하기
+	String updateState = "구매확정";
+	int updateOrdersStateRow = OrdersDAO.updateOrdersState(ordersNo, updateState);
 	
-	System.out.println("updateCustomerOrdersState - updateOrdersStateByCustomerRow = " + updateOrdersStateByCustomerRow);
+	System.out.println("updateCustomerOrdersState - updateOrdersStateRow = " + updateOrdersStateRow);
 	
 	response.sendRedirect("/shop/customer/customerOrdersList.jsp");
 %>
