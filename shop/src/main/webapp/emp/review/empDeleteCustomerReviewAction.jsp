@@ -19,7 +19,7 @@
 	
 	// 해당 jsp 바로 실행했을 경우
 	if(empId == null && empPw == null) {
-		response.sendRedirect("/shop/emp/empDeleteCustomerReviewForm.jsp");
+		response.sendRedirect("/shop/emp/review/empDeleteCustomerReviewForm.jsp");
 		return;
 	}
 %>
@@ -40,11 +40,11 @@
 		
 		// 리뷰삭제 디버깅
 		System.out.println("empDeleteCustomerReviewAction - deleteCustomerReviewRow = " + deleteCustomerReviewRow);
-		response.sendRedirect("/shop/emp/empReviewList.jsp");
+		response.sendRedirect("/shop/emp/review/empReviewList.jsp");
 	} else {
 		// emp 정보 일치하지 않을 경우
 		String msg = URLEncoder.encode("리뷰 삭제에 실패헀습니다. 다시 입력 해주세요", "UTF-8");
-		response.sendRedirect("/shop/emp/empDeleteCustomerReviewForm.jsp?msg=" + msg);
+		response.sendRedirect("/shop/emp/review/empDeleteCustomerReviewForm.jsp?msg=" + msg);
 		return;
 	}
 	

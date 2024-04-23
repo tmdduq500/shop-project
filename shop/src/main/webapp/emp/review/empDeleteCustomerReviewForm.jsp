@@ -50,7 +50,7 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding: 5%;">
-				<form class="w3-container" action="/shop/emp/empDeleteCustomerReviewAction.jsp" method="post">
+				<form class="w3-container" action="/shop/emp//review/empDeleteCustomerReviewAction.jsp" method="post">
 					<div>
 						<%=customerId %> 고객님의 리뷰를 삭제하려면 ID와 PW를 입력하세요.
 					</div>

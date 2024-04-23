@@ -38,7 +38,7 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding-top: 15px;">
-				<form class="w3-container" action="/shop/emp/empDeleteCustomerReviewForm.jsp" method="post">
+				<form class="w3-container" action="/shop/emp/review/empDeleteCustomerReviewForm.jsp" method="post">
 					
 					<!-- 주문 및 상품 정보 일부분 -->
 					<div>

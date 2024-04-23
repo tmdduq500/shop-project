@@ -109,7 +109,7 @@
 								</div>
 							</td>
 							<td>
-								<a class="a-to-button" href="/shop/emp/empReviewOne.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">고객 리뷰보기</a>
+								<a class="a-to-button" href="/shop/emp/review/empReviewOne.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">고객 리뷰보기</a>
 							</td>
 							
 						</tr>
@@ -126,25 +126,25 @@
 			<%
 				if(empReviewCurrentPage > 1) {
 			%>	
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=1">처음페이지</a>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=<%=empReviewCurrentPage-1%>">이전페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=1">처음페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=<%=empReviewCurrentPage-1%>">이전페이지</a>
 			<%		
 				} else {
 			%>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=1">처음페이지</a>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=1">이전페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=1">처음페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=1">이전페이지</a>
 			<%		
 				}
 	
 				if(empReviewCurrentPage < empReviewLastPage) {
 			%>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=<%=empReviewCurrentPage+1%>">다음페이지</a>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=<%=empReviewLastPage%>">마지막페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=<%=empReviewCurrentPage+1%>">다음페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=<%=empReviewLastPage%>">마지막페이지</a>
 			<%		
 				} else {
 			%>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=<%=empReviewLastPage%>">다음페이지</a>
-					<a class="w3-button" href="/shop/emp/empReviewList.jsp?empReviewCurrentPage=<%=empReviewLastPage%>">마지막페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=<%=empReviewLastPage%>">다음페이지</a>
+					<a class="w3-button" href="/shop/emp/review/empReviewList.jsp?empReviewCurrentPage=<%=empReviewLastPage%>">마지막페이지</a>
 			<%
 				}
 			%>
