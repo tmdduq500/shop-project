@@ -21,7 +21,7 @@
 	session.setAttribute("currentPage", currentPage);
 	
 	// 페이지당 보여줄 row 수
-	int rowPerPage = 30;
+	int rowPerPage = 10;
 	
 	// select 박스로 rowPerPage 구하기
 	if(request.getParameter("rowPerPage") != null) {
@@ -90,7 +90,7 @@
 							</td>
 							<td style="vertical-align: middle;"><%=m.get("ordersDate")%></td>
 							<td style="vertical-align: middle;">
-								<a href="/shop/customer/customerOrdersOne.jsp?ordersNo=<%=m.get("ordersNo")%>"
+								<a href="/shop/customer/orders/customerOrdersOne.jsp?ordersNo=<%=m.get("ordersNo")%>"
 									style="text-decoration: none; color: black;">
 									<%=m.get("ordersNo")%>
 								</a>
@@ -102,19 +102,19 @@
 								if(((String)(m.get("ordersState"))).equals("배송중")) {
 							%>	
 									<td style="width: 10%;">
-										<a class="a-to-button" href="/shop/customer/updateCustomerOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">구매확정</a>
+										<a class="a-to-button" href="/shop/customer/orders/updateCustomerOrdersState.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">구매확정</a>
 									</td>
 							<%
 								} else if(((String)(m.get("ordersState"))).equals("구매확정")) {
 							%>
 									<td style="width: 10%;">
-										<a class="a-to-button" href="/shop/customer/customerReviewForm.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
+										<a class="a-to-button" href="/shop/customer/review/customerReviewForm.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
 									</td>
 							<%
 								} else if(((String)(m.get("ordersState"))).equals("리뷰완료")) {
 							%>
 									<td style="width: 10%;">
-										<a class="a-to-button" href="/shop/customer/customerReviewOne.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
+										<a class="a-to-button" href="/shop/customer/review/customerReviewOne.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
 									</td>
 							<%
 								}
@@ -127,8 +127,39 @@
 				
 			</tbody>
 		</table>
-	</div>
+		
+		<!-- 페이징 버튼 -->	
+		<div class="w3-bar w3-center">
 	
+			<%
+				if(currentPage > 1) {
+			%>	
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=1">처음페이지</a>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+			<%		
+				} else {
+			%>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=1">처음페이지</a>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=1">이전페이지</a>
+			<%		
+				}
+	
+				if(currentPage < lastPage) {
+			%>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+			<%		
+				} else {
+			%>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=<%=lastPage%>">다음페이지</a>
+					<a class="w3-button" href="/shop/customer/orders/customerOrdersList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+			<%
+				}
+			%>
+	
+		</div>
+	</div>
+
 	<div class="col"></div>
 </div>
 </body>

@@ -7,22 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GoodsDAO {
-	/* 리뷰테이블과 상품 상세보기 조인 */
-	public static ArrayList<HashMap<String, Object>> selectReviewJoinGoods(int startRow, int rowPerPage) throws Exception{
-		ArrayList<HashMap<String, Object>> reviewJoinGoodsList = new ArrayList<HashMap<String, Object>>();
-		
-		Connection conn = DBHelper.getConnection();
-		
-		String selectReviewJoinSql = "SELECT o.goods_no, c.score, c.content"
-				+ " FROM COMMENT c INNER JOIN orders o"
-				+ " ON c.orders_no = o.orders_no"
-				+ " WHERE o.goods_no = 1"
-				+ " offset ? rows fetch next ? rows only";
-		
-		
-		conn.close();
-		return reviewJoinGoodsList;
-	}
+	
 	/* 전체 goods 수 구하기 */
 	public static int selectTotalGoods() throws Exception{
 		int totalGoodsRow = 0;

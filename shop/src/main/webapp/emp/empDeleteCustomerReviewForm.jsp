@@ -1,14 +1,19 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file="/emp/inc/commonSessionCheck.jsp"%>
+
 <%
-	// loginCutomer 세션 변수 가져오기
-	HashMap<String, Object> loginCustomerMember = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));	
-	// 로그인 돼있는 고객의 id
-	String customerId = (String)loginCustomerMember.get("customerId");
+	// loginEmp 세션 변수 가져오기
+	HashMap<String, Object> loginEmp = (HashMap<String, Object>)(session.getAttribute("loginEmp"));	
+	// 로그인 돼있는 emp의 id
+	String empId = (String)loginEmp.get("empId");
 	
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
+	String customerId = request.getParameter("customerId");
+	
+	System.out.println("empDeleteCustomerReviewForm - ordersNo = " + ordersNo);
+	System.out.println("empDeleteCustomerReviewForm - customerId = " + customerId);
 %>
 <%
 	// msg 출력
@@ -18,14 +23,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>리뷰 삭제</title>
+	<title>title</title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="row">
 <!-- 메인 메뉴 -->
-<jsp:include page="/customer/inc/customerMenu.jsp"></jsp:include>
+<jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
 
 	<div class="col"></div>
 
@@ -45,23 +50,25 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding: 5%;">
-				<form class="w3-container" action="/shop/customer/deleteCustomerReviewAction.jsp" method="post">
+				<form class="w3-container" action="/shop/emp/empDeleteCustomerReviewAction.jsp" method="post">
 					<div>
-						리뷰를 삭제하시려면 ID와 PW를 입력해주세요:(
+						<%=customerId %> 고객님의 리뷰를 삭제하려면 ID와 PW를 입력하세요.
 					</div>
+					
 					<input type="hidden" name="ordersNo" value="<%=ordersNo%>">
+					
 					<div style="margin-top: 20px;">
 						<label>ID</label>
-						<input class="w3-input" type="text" name="customerId" value="<%=customerId %>" readonly="readonly">
+						<input class="w3-input" type="text" name="empId" value="<%=empId %>" readonly="readonly">
 					</div>
 					
 					<div>
 						<label>PW</label>
-						<input class="w3-input" type="password" name="customerPw" required="required">
+						<input class="w3-input" type="password" name="empPw" required="required">
 					</div>
 							
 					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" type="submit">리뷰 삭제하기</button>
+						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" type="submit">고객 리뷰 삭제하기</button>
 					</div>
 				</form>
 			</div>

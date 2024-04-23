@@ -17,7 +17,7 @@
 	
 	// 해당 jsp 바로 실행했을 경우
 	if(customerId == null && customerPw == null) {
-		response.sendRedirect("/shop/customer/deleteCustomerReviewForm.jsp");
+		response.sendRedirect("/shop/customer/review/deleteCustomerReviewForm.jsp");
 		return;
 	}
 %>
@@ -31,14 +31,18 @@
 	if(canDeleteCustomer) {
 		// 리뷰 삭제
 		deleteCustomerReviewRow = ReviewDAO.deleteReview(ordersNo);	
+		
+		// 리뷰 삭제 시 주문상태 다시 구매확정으로 변경(리뷰 작성 가능하도록)
 		String updateState = "구매확정";
 		OrdersDAO.updateOrdersState(ordersNo, updateState);
+		
+		// 리뷰삭제 디버깅
 		System.out.println("deleteCustomerReviewAction - deleteCustomerReviewRow = " + deleteCustomerReviewRow);
-		response.sendRedirect("/shop/customer/customerOrdersList.jsp");
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
 	} else {
 		// 회원 정보 일치하지 않을 경우
 		String msg = URLEncoder.encode("리뷰 삭제에 실패헀습니다. 다시 입력 해주세요", "UTF-8");
-		response.sendRedirect("/shop/customer/deleteCustomerReviewForm.jsp?msg=" + msg);
+		response.sendRedirect("/shop/customer/deletereview/customerReviewForm.jsp?msg=" + msg);
 		return;
 	}
 	

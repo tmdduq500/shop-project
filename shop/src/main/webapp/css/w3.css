@@ -1679,3 +1679,26 @@ a {
 .score-star label:hover, .score-star label:hover ~ label {
 	color: #fc0;
 }
+
+/* 리뷰 읽기 전용 */
+.score-star-read {
+	display: flex;
+	flex-direction: row-reverse;
+	font-size: 2.0em;
+	justify-content: flex-end;
+	text-align: center;
+	width: 5em;
+}
+
+.score-star-read input {
+	display: none;
+}
+
+.score-star-read label {
+	color: #ccc;
+	pointer-events: none; /* 이 부분을 추가하여 hover 및 클릭 이벤트를 비활성화합니다. */
+}
+
+.score-star-read :checked ~ label {
+	color: #f90;
+}

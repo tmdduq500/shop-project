@@ -34,7 +34,7 @@
 			</a>
 			
 			<!-- 장바구니 -->
-			<a class="w3-bar-item w3-button w3-right" href="/shop/customer/customerOrdersList.jsp">주문 목록</a>
+			<a class="w3-bar-item w3-button w3-right" href="/shop/customer/orders/customerOrdersList.jsp">주문 목록</a>
 	<%
 		} else {
 	%>

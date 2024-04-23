@@ -81,17 +81,15 @@
 						<%
 							if(((String)(customerOrdersOne.get("ordersState"))).equals("배송중")) {
 						%>	
-								<a class="a-to-button" href="/shop/customer/updateCustomerOrdersState.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">구매확정</a>
+								<a class="a-to-button" href="/shop/customer/orders/updateCustomerOrdersState.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">구매확정</a>
 						<%
 							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("구매확정")) {
 						%>
-								<a class="a-to-button" href="/shop/customer/customerReviewForm.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
+								<a class="a-to-button" href="/shop/customer/review/customerReviewForm.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
 						<%
 							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("리뷰완료")) {
-								%>
-								<td style="width: 10%;">
-									<a class="a-to-button" href="/shop/customer/customerReviewOne.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
-								</td>
+						%>
+								<a class="a-to-button" href="/shop/customer/review/customerReviewOne.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
 						<%
 							}
 						%>

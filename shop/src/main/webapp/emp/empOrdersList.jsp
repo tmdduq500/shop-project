@@ -14,7 +14,7 @@
 	session.setAttribute("currentPage", currentPage);
 	
 	// 페이지당 보여줄 row 수
-	int rowPerPage = 30;
+	int rowPerPage = 10;
 	
 	// select 박스로 rowPerPage 구하기
 	if(request.getParameter("rowPerPage") != null) {
@@ -45,7 +45,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>주문 목록</title>
+	<title>전체 고객 주문 목록</title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -110,6 +110,37 @@
 				
 			</tbody>
 		</table>
+		
+		<!-- 페이징 버튼 -->	
+		<div class="w3-bar w3-center">
+	
+			<%
+				if(currentPage > 1) {
+			%>	
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=1">처음페이지</a>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+			<%		
+				} else {
+			%>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=1">처음페이지</a>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=1">이전페이지</a>
+			<%		
+				}
+	
+				if(currentPage < lastPage) {
+			%>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+			<%		
+				} else {
+			%>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=<%=lastPage%>">다음페이지</a>
+					<a class="w3-button" href="/shop/emp/empOrdersList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+			<%
+				}
+			%>
+	
+		</div>
 	</div>
 	
 	<div class="col"></div>

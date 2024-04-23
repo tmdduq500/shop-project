@@ -21,6 +21,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>title</title>
+	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="row">
@@ -36,7 +38,7 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding-top: 15px;">
-				<form class="w3-container" action="/shop/customer/deleteCustomerReviewForm.jsp" method="post">
+				<form class="w3-container" action="/shop/customer/review/deleteCustomerReviewForm.jsp" method="post">
 					
 					<!-- 상품의 정보 일부분 -->
 					<div>
@@ -52,7 +54,7 @@
 					<div>
 						<label>별점</label>
 						
-						<div class="score-star">
+						<div class="score-star-read">
 							<%
 								for(int i = 5; i >= 1; i--) {
 									if(i > (int)(reviewOne.get("score"))) {

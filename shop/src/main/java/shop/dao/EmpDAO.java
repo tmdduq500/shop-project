@@ -200,4 +200,25 @@ public class EmpDAO {
 		return empList;
 		
 	}
+	
+	/* emp id, pw 검증 */
+	public static boolean checkEmpIdPw(String empId, String empPw) throws Exception {
+		boolean result = false;
+
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+
+		String checkIdPwSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = ?";
+		PreparedStatement checkIdPwStmt = conn.prepareStatement(checkIdPwSql);
+		checkIdPwStmt.setString(1, empId);
+		checkIdPwStmt.setString(2, empPw);
+		ResultSet checkIdPwRs = checkIdPwStmt.executeQuery();
+
+		if (checkIdPwRs.next()) {
+			result = true;
+		}
+
+		conn.close();
+		return result;
+	}
 }

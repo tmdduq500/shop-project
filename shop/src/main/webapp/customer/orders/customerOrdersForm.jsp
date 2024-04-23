@@ -39,7 +39,7 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding-top: 15px;">
-				<form class="w3-container" action="/shop/customer/customerOrdersAction.jsp" method="post">
+				<form class="w3-container" action="/shop/customer/orders/customerOrdersAction.jsp" method="post">
 					
 					<!-- 상품의 정보 일부분 -->
 					<!-- customerId값은 action쪽에서 세션변수에서 넘겨주기 -->

@@ -40,7 +40,7 @@
 		System.out.println("customerOrdersAction - insertOrderRow = " + insertOrderRow);
 		
 		// 주문 목록으로 redirect
-		response.sendRedirect("/shop/customer/customerOrdersList.jsp");
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
 		return;
 	} else {
 		// 예외 발생

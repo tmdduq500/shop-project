@@ -9,7 +9,7 @@
 	
 	// 주문 번호가 null일 경우(페이지 바로 접속 시)
 	if(ordersNo == null) {
-		response.sendRedirect("/shop/customer/customerOrdersList.jsp");
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
 		return;
 	}
 %>
@@ -21,5 +21,5 @@
 	
 	System.out.println("updateCustomerOrdersState - updateOrdersStateRow = " + updateOrdersStateRow);
 	
-	response.sendRedirect("/shop/customer/customerOrdersList.jsp");
+	response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
 %>

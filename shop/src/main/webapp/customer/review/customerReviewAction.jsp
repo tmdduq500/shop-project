@@ -12,7 +12,7 @@
 
 	// 주문 번호가 null일 경우 주문 목록으로 이동
 	if(ordersNo == null) {
-		response.sendRedirect("/shop/customer/customerOrdersList.jsp");
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
 		return;
 	}
 	
@@ -34,11 +34,11 @@
 		int updateStateRow = OrdersDAO.updateOrdersState(ordersNo, updateState);		
 		System.out.println("customerReviewAction - updateStateRow = " + updateStateRow);
 		
-		response.sendRedirect("/shop/customer/customerOrdersList.jsp");	
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");	
 		return;
 	} else {
 		// 쿼리 실행 실패
-		response.sendRedirect("/shop/customer/customerOrdersForm.jsp?ordersNo=" + ordersNo);
+		response.sendRedirect("/shop/customer/orders/customerOrdersForm.jsp?ordersNo=" + ordersNo);
 		return;
 	}
 	
