@@ -79,7 +79,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>title</title>
+	<title>더나와</title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
