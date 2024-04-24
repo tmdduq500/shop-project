@@ -42,7 +42,7 @@
 	} else {
 		// 회원 정보 일치하지 않을 경우
 		String msg = URLEncoder.encode("리뷰 삭제에 실패헀습니다. 다시 입력 해주세요", "UTF-8");
-		response.sendRedirect("/shop/customer/deletereview/customerReviewForm.jsp?msg=" + msg);
+		response.sendRedirect("/shop/customer/review/deleteCustomerReviewForm.jsp?msg=" + msg);
 		return;
 	}
 	

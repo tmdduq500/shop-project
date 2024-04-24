@@ -5,28 +5,20 @@
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 <%
 	//현재 페이지 구하기
-	int currentPage = 1;	// 현재페이지
+	int currentPage = 1;
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	
-	// currentPage 세션 값 설정
-	session.setAttribute("currentPage", currentPage);
-	
+
 	// 페이지당 보여줄 row 수
 	int rowPerPage = 10;
 	
 	// select 박스로 rowPerPage 구하기
 	if(request.getParameter("rowPerPage") != null) {
 		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
-		session.setAttribute("customerOrdersRowPerPage", rowPerPage);
 	}
 	
-	if((session.getAttribute("customerOrdersRowPerPage")) != null) {
-		rowPerPage = (int)(session.getAttribute("customerOrdersRowPerPage"));
-	}
-	
-	// 모든 고객이 주문한 개수
+	// 모든 주문들의 개수
 	int ordersNum = OrdersDAO.selectTotalOrdersNum();
 	
 	// 마지막 페이지 구하기
@@ -72,6 +64,7 @@
 			<tbody>
 				<%
 					for(HashMap<String, Object> m : ordersList) {
+						// 이미지를 출력하기 위해 상품 데이터를 가져오는 메서드 실행
 						String imgName = (String)GoodsDAO.selectGoodsInfo((String)m.get("goodsNo")).get("imgName");
 				%>
 						<tr>

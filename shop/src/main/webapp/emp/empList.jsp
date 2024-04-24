@@ -8,13 +8,15 @@
 <%@ include file ="/emp/inc/commonSessionCheck.jsp" %>
 
 <%
-	/* emp목록 페이징 */
-	
-	// 현재 페이지
+	/* emp목록 페이징 */	
+	// 현재 페이지 변수 설정(페이지 바로 실행시 페이지 1로 설정)
 	int currentPage = 1;
+
+	// 현재페이지 요청 값으로 변경
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
+	// 디버깅
 	System.out.println("empList - currentPage = " + currentPage);
 	
 	// 페이지당 보여줄 row 수
@@ -26,8 +28,6 @@
 // 	}
 
 	// 전체 emp 수 구하기
-	
-	
 	int TotalEmpRow = EmpDAO.selectTotalEmp();
 	System.out.println("empList - TotalEmpRow = " + TotalEmpRow);
 	
@@ -36,10 +36,12 @@
 	if(TotalEmpRow % rowPerPage != 0) {
 		lastPage += 1;
 	}
+	// 디버깅
 	System.out.println("empList - lastPage = " + lastPage);
 	
 	// 페이지당 시작할 row
 	int startRow = (currentPage - 1) * rowPerPage;
+	// 디버깅
 	System.out.println("empList - startRow = " + startRow);
 %>
 
@@ -65,15 +67,11 @@
 <div class="row">
 <!-- 메인 메뉴 -->
 <jsp:include page="/emp/inc/empMenu.jsp"></jsp:include>
-	<div class="col">
-	
-	</div>
+	<div class="col"></div>
 	
 	<div class="col-8">
 		<!-- empMenu.jsp include : 주체(서버) vs redirect(주체: 클라이언트) -->
 		<!-- 주체가 서버이기때문에 include할때는 절대주소가 /shop/...으로 시작하지 않는다 -->
-		
-		
 		
 		<!-- emp목록 출력 -->
 		<div class="w3-panel w3-border w3-round-small">
@@ -155,46 +153,42 @@
 				</tbody>
 			</table>	
 				
-				
-				<!-- 페이징 버튼 -->	
-				<div class="w3-bar w3-center" style="margin-bottom: 10px;">
-			
-					<%
-						if(currentPage > 1) {
-					%>	
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
-					<%		
-						} else {
-					%>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">이전페이지</a>
-					<%		
-						}
-			
-						if(currentPage < lastPage) {
-					%>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
-					<%		
-						} else {
-					%>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">다음페이지</a>
-							<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
-					<%
-						}
-					%>
-			
-				</div>
+			<!-- 페이징 버튼 -->	
+			<div class="w3-bar w3-center" style="margin-bottom: 10px;">
+		
+				<%
+					if(currentPage > 1) {
+				%>	
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+				<%		
+					} else {
+				%>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">처음페이지</a>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=1">이전페이지</a>
+				<%		
+					}
+		
+					if(currentPage < lastPage) {
+				%>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+				<%		
+					} else {
+				%>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">다음페이지</a>
+						<a class="w3-button" href="/shop/emp/empList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+				<%
+					}
+				%>
+		
 			</div>
+		</div>
 			
 			
 	</div>
 	
-	<div class="col">
-	
-	</div>
+	<div class="col"></div>
 </div>
-	
 </body>
 </html>

@@ -5,8 +5,17 @@
 <%
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
+	
+	System.out.println("empOrdersOne - ordersNo = " + ordersNo);
+	
+	// 해당 jsp 파일 바로 실행시 ordersNo가 null이므로 고객 주문 목록 페이지로 redirect
+	if(ordersNo == null) {
+		response.sendRedirect("/shop/emp/empOrdersList.jsp");
+		return;
+	}
 %>
 <%
+	// 해당 주문 목록의 정보들과 상품명, 상품이미지 데이터
 	HashMap<String, Object> ordersOneByEmp = OrdersDAO.selectOrdersOneByEmp(ordersNo);
 %>
 <!DOCTYPE html>
@@ -25,6 +34,7 @@
 	<div class="col"></div>
 
 	<div class="col-4">
+		<!-- 주문 및 상품 정보, 고객 리뷰 내용 출력 -->
 		<table class="w3-table w3-centered w3-card-4 w3-bordered" style="margin-top: 50px; width: 100%;">
 			<thead class="w3-dark-grey">
 				<tr>
@@ -93,8 +103,7 @@
 						<%
 							}
 						%>	
-					</td>
-						
+					</td>	
 				</tr>
 			</tbody>
 		</table>

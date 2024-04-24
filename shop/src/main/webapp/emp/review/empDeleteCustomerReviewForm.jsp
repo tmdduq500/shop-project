@@ -12,11 +12,18 @@
 	String ordersNo = request.getParameter("ordersNo");
 	String customerId = request.getParameter("customerId");
 	
+	// 디버깅
 	System.out.println("empDeleteCustomerReviewForm - ordersNo = " + ordersNo);
 	System.out.println("empDeleteCustomerReviewForm - customerId = " + customerId);
+	
+	// 요청 값 null일 경우 페이지 redirect
+	if(ordersNo == null || customerId == null) {
+		response.sendRedirect("/shop/emp/review/empReviewList.jsp");
+		return;
+	}
 %>
 <%
-	// msg 출력
+	// msg 요청 값
 	String msg = request.getParameter("msg");
 %>
 <!DOCTYPE html>

@@ -57,7 +57,7 @@ public class OrdersDAO {
 		return row;
 	}
 	
-	/* 해당 고객의 주문 개수 */
+	/* 전체 주문 개수 */
 	public static int selectTotalOrdersNum() throws Exception{
 		int row = 0;
 		
@@ -74,7 +74,7 @@ public class OrdersDAO {
 		return row;
 	}
 	
-	/* 고객이 주문한 것(일부 정보)을 확인할수 있는 기능(페이징 가능) */
+	/* 고객이 주문한 것(일부 정보)들을 확인할수 있는 기능(페이징 가능) - customer에서 사용 */
 	public static ArrayList<HashMap<String, Object>> selectOrdersListByCustomer(String id, int startRow, int rowPerPage) throws Exception{
 		
 		ArrayList<HashMap<String, Object>> ordersList = new ArrayList<HashMap<String, Object>>();
@@ -124,7 +124,7 @@ public class OrdersDAO {
 		return row;
 	}
 	
-	/* 고객이 주문한 것의 상세정보 확인 기능(emp) */
+	/* 해당 주문 목록의 정보들과 상품명, 상품이미지 가져오는 메서드(join 사용)- emp의 empOrdersOne.jsp에서 사용 */
 	public static HashMap<String, Object> selectOrdersOneByEmp(String ordersNo) throws Exception{
 		HashMap<String, Object> ordersOne = new HashMap<>();
 		

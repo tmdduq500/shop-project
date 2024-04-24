@@ -28,6 +28,7 @@
 	<div class="col"></div>
 
 	<div class="col-4">
+		<!-- emp 마이페이지 -->
 		<table class="w3-table w3-centered w3-card-4 w3-bordered" style="margin-top: 50px; width: 100%;">
 			<thead class="w3-dark-grey">
 				<tr>

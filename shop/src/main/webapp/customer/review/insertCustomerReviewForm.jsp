@@ -36,7 +36,7 @@
 			</div>	
 			
 			<div class="w3-card-4" style="padding-top: 15px;">
-				<form class="w3-container" action="/shop/customer/review/customerReviewAction.jsp" method="post">
+				<form class="w3-container" action="/shop/customer/review/insertCustomerReviewAction.jsp" method="post">
 					
 					<!-- 상품의 정보 일부분 -->
 					<div>

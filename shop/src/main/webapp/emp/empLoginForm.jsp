@@ -3,7 +3,7 @@
 <!-- Controller Layer -->
 <%@ include file="/emp/inc/loginSessionCheck.jsp"%>
 <%
-	/* 에러 메시지 */
+	// 요청 값(에러 메시지 출력을 위한)
 	String errMsg = request.getParameter("errMsg");
 	
 %>

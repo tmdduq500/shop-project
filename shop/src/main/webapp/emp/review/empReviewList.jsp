@@ -11,21 +11,14 @@
 		empReviewCurrentPage = Integer.parseInt(request.getParameter("empReviewCurrentPage"));
 	}
 	
-	// currentPage 세션 값 설정
-	session.setAttribute("empReviewCurrentPage", empReviewCurrentPage);
-	
 	// 페이지당 보여줄 row 수
 	int empReviewRowPerPage = 10;
 	
 	// select 박스로 rowPerPage 구하기
 	if(request.getParameter("empReviewRowPerPage") != null) {
 		empReviewRowPerPage = Integer.parseInt(request.getParameter("empReviewRowPerPage"));
-		session.setAttribute("empReviewRowPerPage", empReviewRowPerPage);
 	}
 	
-	if((session.getAttribute("empReviewRowPerPage")) != null) {
-		empReviewRowPerPage = (int)(session.getAttribute("empReviewRowPerPage"));
-	}
 	
 	// 모든 리뷰 개수
 	int totalReveiwsNum = ReviewDAO.selectTotalReviewRow();
@@ -73,7 +66,9 @@
 			<tbody>
 				<%
 					for(HashMap<String, Object> m : reviewList) {
+						// 고객 리뷰 목록에 이미지 출력을 위해 상품 이미지 이름 가져오기
 						String imgName = (String)GoodsDAO.selectGoodsInfo(String.valueOf(m.get("goodsNo"))).get("imgName");
+						// 상품 이름 가져오기
 						String goodsTitle = (String)GoodsDAO.selectGoodsInfo(String.valueOf(m.get("goodsNo"))).get("goodsTitle");
 				%>
 						<tr>

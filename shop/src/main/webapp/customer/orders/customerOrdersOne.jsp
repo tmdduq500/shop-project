@@ -85,7 +85,7 @@
 						<%
 							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("구매확정")) {
 						%>
-								<a class="a-to-button" href="/shop/customer/review/customerReviewForm.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
+								<a class="a-to-button" href="/shop/customer/review/insertCustomerReviewForm.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰작성</a>
 						<%
 							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("리뷰완료")) {
 						%>

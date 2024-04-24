@@ -7,7 +7,14 @@
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
 
+	// 디버깅 
 	System.out.println("empReviewOne - ordersNo = " + ordersNo);
+	
+	// 요청값 null일 경우 페이지 redirect
+	if(ordersNo == null) {
+		response.sendRedirect("/shop/emp/review/empReviewList.jsp");
+		return;
+	}
 %>
 <%
 	// 작성된 리뷰 가져오기
@@ -55,7 +62,7 @@
 						</div>
 					</div>
 
-					<!-- 고객 리뷰 작성 부분 -->
+					<!-- 고객이 작성한 리뷰 부분 -->
 					<div>
 						<label>리뷰 작성일</label>
 						<input class="w3-input" type="text" name="createDate" value="<%=reviewOne.get("createDate")%>" readonly="readonly">
