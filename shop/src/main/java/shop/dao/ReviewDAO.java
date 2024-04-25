@@ -51,7 +51,7 @@ public class ReviewDAO {
 		
 		Connection conn = DBHelper.getConnection();
 		
-		String selectReviewJoinSql = "SELECT o.goods_no goodsNo, o.id, RPAD(SUBSTR(o.id, 1, 2), LENGTH(o.id), '*') reviewCustomerId,"
+		String selectReviewJoinSql = "SELECT o.goods_no goodsNo, o.orders_no ordersNo, o.id, RPAD(SUBSTR(o.id, 1, 2), LENGTH(o.id), '*') reviewCustomerId,"
 				+ " r.score, r.content, r.create_date createDate, SUBSTR(r.create_date, 1, 10) reviewCreateDate"
 				+ " FROM review r INNER JOIN orders o"
 				+ " ON r.orders_no = o.orders_no"
@@ -66,6 +66,7 @@ public class ReviewDAO {
 		while (selectReviewJoinRs.next()) {
 			HashMap<String, Object> m = new HashMap<>();
 			m.put("goodsNo", selectReviewJoinRs.getInt("goodsNo"));
+			m.put("ordersNo", selectReviewJoinRs.getString("ordersNo"));
 			m.put("customerId", selectReviewJoinRs.getString("id"));
 			m.put("reviewCustomerId", selectReviewJoinRs.getString("reviewCustomerId"));
 			m.put("score", selectReviewJoinRs.getInt("score"));

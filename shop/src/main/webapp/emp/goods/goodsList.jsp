@@ -118,19 +118,19 @@
 		<!-- goodsList 본문 -->
 		<div style="margin-left:15%; ">
 			<div class="row" style="padding:20px 5%;">
-				<div class="col-8">
+				<div class="col-7">
 					<h1 style="display: inline-block;">상품 목록</h1>
 				</div>
 				
-				<div class="col-2" style="display: inline-block; text-align: right;">
+				<div class="col-3" style="display: inline-block; text-align: right;">
 					<form action="/shop/emp/goods/goodsList.jsp">
-						<select name="rowPerPage">
-							<option value="">선택</option>
+						<select class="form-control" name="rowPerPage" style="width: 70%; display: inline-block; vertical-align: middle;">
 							<option value="10">10개씩 보기</option>
-							<option value="30">30개씩 보기</option>
+							<option value="30" selected="selected">30개씩 보기</option>
 							<option value="50">50개씩 보기</option>
 						</select>
-						<button type="submit">보기</button>
+						<input type="hidden" value="<%=category%>" name="category">
+						<button class="btn btn-outline-secondary" type="submit" style="width: 20%; display: inline-block;">보기</button>
 					</form>
 				</div>
 				<div class="col">
