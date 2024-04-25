@@ -19,6 +19,7 @@
 	String updateState = "구매확정";
 	int updateOrdersStateRow = OrdersDAO.updateOrdersState(ordersNo, updateState);
 	
+	// 주문 상태 변경 디버깅
 	System.out.println("updateCustomerOrdersState - updateOrdersStateRow = " + updateOrdersStateRow);
 	
 	response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");

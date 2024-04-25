@@ -11,6 +11,12 @@
 	// 고객 id 세션에서 가져오기
 	String customerId = (String)loginCustomerMember.get("customerId");
 
+	// goodsNo 요청 값 null일 경우 상품 리스트 redirect
+	if(request.getParameter("goodsNo") == null) {
+		response.sendRedirect("/shop/customer/goods/customerGoodsList.jsp");
+		return;
+	}
+
 	// 요청 값
 	int customerOrderGoodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));

@@ -25,6 +25,7 @@
 		response.sendRedirect("/shop/customer/signup/insertCustomerForm.jsp?errMsg=" + errMsg);
 		return;
 	}
+	// customerID 종합해서 추가
 	String checkCustomerId = checkIdFirst + checkIdMiddle + checkIdLast;
 	// 요청 값 디버깅
 	System.out.println("checkIdAction - checkCustomerId = " + checkCustomerId); 

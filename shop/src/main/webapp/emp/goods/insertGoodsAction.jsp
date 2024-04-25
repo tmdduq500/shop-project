@@ -25,11 +25,12 @@
 	
 	// 이미지 파일 업로드
 	Part part = request.getPart("goodsImg");
+	// 원본 이미지 이름 가져오기
 	String originalName = part.getSubmittedFileName();
 	// 원본 이름에서 확장자만 분리
 	int dotIndex = originalName.lastIndexOf(".");
 	String ext = originalName.substring(dotIndex);	// 확장자(ex. jpg, png ...)
-	
+	// 이미지 이름 중복을 방지하기 위해 랜덤 UUID 생성
 	UUID uuid = UUID.randomUUID();
 	String imgName = uuid.toString().replace("-", "");
 	imgName = imgName + ext;
@@ -53,11 +54,13 @@
 <!-- Controller Layer -->
 <%
 	
-
-	int row = GoodsDAO.insertGoods(category, (String)loginMember.get("empId"), goodsTitle, 
+	// goods테이블에 상품 추가 메서드 실행
+	int insertGoodsRow = GoodsDAO.insertGoods(category, (String)loginMember.get("empId"), goodsTitle, 
 			imgName, goodsContent, Integer.parseInt(goodsPrice) , Integer.parseInt(goodsAmount));
+	// 상품 INSERT 디버깅
+	System.out.println("insertGoodsAction - insertGoodsRow = " + insertGoodsRow);
 	
-	if(row == 1) {
+	if(insertGoodsRow == 1) {
 		// 상품 등록 성공
 		// part -> 1. inputStream -> 2. outputStream -> 3. 빈 파일 생성
 		

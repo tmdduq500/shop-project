@@ -12,6 +12,12 @@
 
 	// 요청값 디버깅
 // 	System.out.println("customerOrdersForm - goodsNo = " + goodsNo);
+	
+	// goodsNo가 null일경우 상품 목록으로 redirect
+	if(goodsNo == null) {
+		response.sendRedirect("/shop/customer/goods/customerGoodsList.jsp");
+		return;
+	}
 %>
 <%
 	// 상품의 일부 정보를 보여주기

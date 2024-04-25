@@ -15,20 +15,20 @@
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	// currentPage 세션 값 설정
+	// currentPage 세션 값 설정(카테고리 선택 시에도 페이징 하기위해)
 	session.setAttribute("currentPage", currentPage);
 	
-	// 페이지당 보여줄 row 수
+	// 페이지당 보여줄 row 수(기본값 : 30개)
 	int rowPerPage = 30;
 	
- 	// select 박스로 rowPerPage 구하기
+ 	// select 박스로 rowPerPage 설정(session변수에 설정)
  	if(request.getParameter("rowPerPage") != null) {
  		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
  		session.setAttribute("empGoodsRowPerPage", rowPerPage);
  	}
- 	
+ 	// rowPerPage 세션 변수에서 가져와 설정하기
 	if((session.getAttribute("empGoodsRowPerPage")) != null) {
-// 		rowPerPage = (int)(session.getAttribute("empGoodsRowPerPage"));
+		rowPerPage = (int)(session.getAttribute("empGoodsRowPerPage"));
 	}
 	
 	// category 요청 값
@@ -184,9 +184,7 @@
 	
 				</div>
 			</div>
-			
-			
-			
+
 			<!-- 페이징 버튼 -->	
 			<div class="w3-bar w3-center">
 		

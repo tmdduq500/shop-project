@@ -30,7 +30,11 @@
 	// id, pw가 일치한다면
 	if(checkIdPw != null) {
 		// grade가 0이 아니면 삭제
+		
+		// grade값 디버깅
 		System.out.println("deleteCategoryAction - grade = " + (int)(loginMember.get("grade")));
+		
+		// emp의 grade가 0보다 커야 삭제 가능
 		if((int)(loginMember.get("grade")) > 0) {
 			
 			/* 카테고리와 연관된 상품들의 img 삭제하기 */

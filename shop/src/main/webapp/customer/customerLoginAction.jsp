@@ -11,6 +11,7 @@
 	String customerId = request.getParameter("customerId");
 	String customerPw = request.getParameter("customerPw");
 	
+	// 디버깅
 	System.out.println("customerLoginAction - customerId = " + customerId);
 	System.out.println("customerLoginAction - customerPw = " + customerPw);
 %>

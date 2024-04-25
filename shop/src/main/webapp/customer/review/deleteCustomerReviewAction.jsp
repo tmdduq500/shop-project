@@ -26,11 +26,10 @@
 	// 회원정보 일치 검증
 	boolean canDeleteCustomer = CustomerDAO.checkCustomerIdPw(customerId, customerPw);
 
-	int deleteCustomerReviewRow = 0;
 	// 회원 정보 일치할 경우
 	if(canDeleteCustomer) {
 		// 리뷰 삭제
-		deleteCustomerReviewRow = ReviewDAO.deleteReview(ordersNo);	
+		int deleteCustomerReviewRow = ReviewDAO.deleteReview(ordersNo);	
 		
 		// 리뷰 삭제 시 주문상태 다시 구매확정으로 변경(리뷰 작성 가능하도록)
 		String updateState = "구매확정";
@@ -38,6 +37,7 @@
 		
 		// 리뷰삭제 디버깅
 		System.out.println("deleteCustomerReviewAction - deleteCustomerReviewRow = " + deleteCustomerReviewRow);
+		
 		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
 	} else {
 		// 회원 정보 일치하지 않을 경우

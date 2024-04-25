@@ -29,9 +29,10 @@
 		
 		// 이미지 삭제
 		String imgPath = request.getServletContext().getRealPath("upload");
-		int row = GoodsDAO.deleteGoods(goodsNo, imgPath, imgName);
+		int deleteGoodsRow = GoodsDAO.deleteGoods(goodsNo, imgPath, imgName);
 		
-		System.out.println("deleteGoodsAction - row = " + row);
+		// 상품 삭제 쿼리 디버깅
+		System.out.println("deleteGoodsAction - row = " + deleteGoodsRow);
 		System.out.println("상품 삭제 성공");
 		response.sendRedirect("/shop/emp/goods/goodsList.jsp");
 		

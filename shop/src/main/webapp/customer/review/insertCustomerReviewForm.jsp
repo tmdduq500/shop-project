@@ -8,6 +8,12 @@
 
 	// 디버깅
 	System.out.println("customerReviewForm - ordersNo = " + ordersNo);
+	
+	// 주문 번호가 null일 경우 주문 목록으로 이동
+	if(ordersNo == null) {
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
+		return;
+	}
 %>
 <%
 	// 해당 주문번호의 상품 정보 가져오기

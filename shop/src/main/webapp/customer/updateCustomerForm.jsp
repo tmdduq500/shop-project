@@ -7,19 +7,22 @@
 	// 요청값
 	String customerId = request.getParameter("customerId");
 	String customerPw = request.getParameter("customerPw");
+	// 디버깅
 	System.out.println("udpateCustomerForm - customerId = " + customerId);
 	System.out.println("udpateCustomerForm - customerPw = " + customerPw);
 %>
 <%
 	// ID, PW 체크
 	boolean isCustomer = CustomerDAO.checkCustomerIdPw(customerId, customerPw);	
+	//id,pw가 불일치할 경우
 	if(!isCustomer) {
 		String msg = URLEncoder.encode("id, pw를 다시 확인해주세요", "UTF-8");
 		response.sendRedirect("/shop/customer/checkInfoUpdateCustomer.jsp?msg=" + msg);
 		return;
 	}
-	// customer 정보
+	// customer 정보 가져오기
 	HashMap<String, Object> customerInfo =  CustomerDAO.selectCustomerInfo(customerId);
+	// customer 생일 가져오기(DB의 날짜 데이터 년/월/일만 출력하기위해)
 	String customerBirth = (String)customerInfo.get("customerBirth");
 	customerBirth = customerBirth.substring(0, 10);
 	

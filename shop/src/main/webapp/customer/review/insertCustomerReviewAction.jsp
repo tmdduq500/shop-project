@@ -30,8 +30,10 @@
 	if(insertReviewRow == 1 ) {
 		System.out.println("customerReviewAction - insertReviewRow = " + insertReviewRow);
 		
+		// 주문 상태 변환
 		String updateState = "리뷰완료";
-		int updateStateRow = OrdersDAO.updateOrdersState(ordersNo, updateState);		
+		int updateStateRow = OrdersDAO.updateOrdersState(ordersNo, updateState);	
+		// 디버깅
 		System.out.println("customerReviewAction - updateStateRow = " + updateStateRow);
 		
 		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");	

@@ -8,6 +8,12 @@
 
 	// 요청 값 디버깅
 	System.out.println("customerOrdersOne - ordersNo = " + ordersNo);
+	
+	// 요청 값 null일 경우 주문 목록 페이지 redirect
+	if(ordersNo == null) {
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
+		return;
+	}
 %>
 <%
 	// 고객의 주문 목록 상세 내용 가져오기

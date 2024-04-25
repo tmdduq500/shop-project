@@ -17,6 +17,7 @@
 	String newCustomerPw = request.getParameter("newCustomerPw");
 	String newCustomerPwCheck = request.getParameter("newCustomerPwCheck");
 	
+	// 디버깅
 	System.out.println("updateCustomerAction - customerId = " + customerId);
 	System.out.println("updateCustomerAction - customerName = " + customerName);
 	System.out.println("updateCustomerAction - customerBirth = " + customerBirth);
@@ -32,17 +33,18 @@
 		response.sendRedirect("/shop/customer/checkInfoUpdateCustomer.jsp?msg=" + msg);
 		return;
 	}
-
+	
+	// 고객 정보 수정
 	int updateCustomerRow = CustomerDAO.updateCustomer(customerId, customerName, customerBirth, customerGender, oldCustomerPw, newCustomerPw);
 	
-	// 회원정보 수정 실패
+	// 고객 정보 수정 실패
 	if(updateCustomerRow == 0) {
 		String msg = URLEncoder.encode("회원정보 수정에 실패했습니다. 다시 입력 해주세요", "UTF-8");
 		response.sendRedirect("/shop/customer/checkInfoUpdateCustomer.jsp?msg=" + msg);
 		return;
 	}
 	
-	// 회원정보 수정 성공 및 loginCustomer 세션 값 변경
+	// 고객 정보 수정 성공 및 loginCustomer 세션 값 변경
 	HashMap<String, Object> newCustomer = new HashMap<String,Object>();
 	HashMap<String, Object> updateCustomer = CustomerDAO.selectCustomerInfo(customerId);
 	newCustomer.put("customerId", updateCustomer.get("customerId"));

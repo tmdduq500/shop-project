@@ -9,6 +9,14 @@
 	
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
+	// 디버깅
+	System.out.println("deleteCustomerReviewForm - ordersNo = " + ordersNo);
+	
+	// 주문 번호가 null일 경우 주문 목록으로 이동
+	if(ordersNo == null) {
+		response.sendRedirect("/shop/customer/orders/customerOrdersList.jsp");
+		return;
+	}
 %>
 <%
 	// msg 출력

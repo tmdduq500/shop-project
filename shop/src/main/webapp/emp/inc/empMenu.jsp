@@ -3,6 +3,7 @@
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
+	// 세션 변수인 loginEmp 가져오기(empId, empName, grade)
 	HashMap<String, Object> loginMember = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
 %>
 
@@ -24,9 +25,8 @@
 	<a class="w3-bar-item w3-button w3-right" href="/shop/emp/empLogoutAction.jsp">로그아웃</a>
 	
 	<!-- 개인정보 페이지 -->
-	
 	<span class="w3-bar-item w3-right"><%=(String)(loginMember.get("empName"))%>님 반갑습니다</span>
-	
+	<<!-- emp 마이페이지 -->
 	<a href="/shop/emp/empOne.jsp" class="w3-bar-item w3-button w3-white w3-right">
 		<img src="/shop/upload/profile_basic.jpg" alt="프로필사진" style="width:40px;" class="rounded-pill">	
 	</a>

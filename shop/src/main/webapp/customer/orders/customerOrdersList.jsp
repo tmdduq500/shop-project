@@ -16,21 +16,13 @@
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	
-	// currentPage 세션 값 설정
-	session.setAttribute("currentPage", currentPage);
-	
+
 	// 페이지당 보여줄 row 수
 	int rowPerPage = 10;
 	
 	// select 박스로 rowPerPage 구하기
 	if(request.getParameter("rowPerPage") != null) {
 		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
-		session.setAttribute("customerOrdersRowPerPage", rowPerPage);
-	}
-	
-	if((session.getAttribute("customerOrdersRowPerPage")) != null) {
-		rowPerPage = (int)(session.getAttribute("customerOrdersRowPerPage"));
 	}
 	
 	// 고객이 주문한 개수

@@ -47,15 +47,17 @@
 							<input class="form-control" type="text" name="checkIdFirst" style="width: 45%;">
 							<input class="form-control" type="text" value="@" readonly="readonly" name="checkIdMiddle" style="width: 5%;">
 							<input class="form-control" list="email" name="checkIdLast" placeholder="email을 입력해주세요" style="width: 45%;">
-								<datalist id="email">
-								  <option value="naver.com">
-								  <option value="google.com">
-								  <option value="daum.net">
-								  <option value="nate.com">
-								</datalist>
+								<select id="email">
+									<option value="">선택</option>
+									<option value="naver.com">naver.com</option>
+									<option value="google.com">google.com</option>
+									<option value="daum.net">daum.net</option>
+									<option value="nate.com">nate.com</option>
+								</select>
 						</div>
 						
 						<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit">중복확인</button>
+						<!-- 에러 메시지 출력 -->
 						<%
 							if(errMsg != null) { 
 						%>

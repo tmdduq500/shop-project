@@ -20,9 +20,11 @@
 	String goodsAmount = request.getParameter("goodsAmount");
 	String goodsContent = request.getParameter("goodsContent");
 	
+	// 새로운 이미지 업로드 할 경우 이미지 이름 생성
 	String newImgName = "";
 	Part part = request.getPart("newGoodsImg");
 	
+	// 파일을 아무것도 올리지 않았을경우 기존 상품의 이미지 이름 사용하기
 	if(part != null && part.getSize() > 0) {
 		newImgName = existImgName;
 	}
@@ -41,9 +43,10 @@
 %>
 
 <%
-	int row = GoodsDAO.updateGoods(category, goodsTitle, goodsContent, goodsPrice, goodsAmount, goodsNo, newImgName);
+	// 상품 수정 메서드
+	int updateGoodsRow = GoodsDAO.updateGoods(category, goodsTitle, goodsContent, goodsPrice, goodsAmount, goodsNo, newImgName);
 
-	if(row == 1) {
+	if(updateGoodsRow == 1) {
 		// 상품 등록 성공
 		
 		// part -> 1. inputStream -> 2. outputStream -> 3. 빈 파일 생성

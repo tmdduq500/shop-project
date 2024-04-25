@@ -25,6 +25,7 @@
 %>
 
 <%
+	// 카레고리 INSERT 메서드
 	int insertCategoryRow = CategoryDAO.insertCategory(category, (String)loginMember.get("empId"));
 	
 	if(insertCategoryRow == 1) {

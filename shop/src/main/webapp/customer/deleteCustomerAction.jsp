@@ -22,11 +22,12 @@
 	// 회원정보 일치 검증
 	boolean canDeleteCustomer = CustomerDAO.checkCustomerIdPw(customerId, customerPw);
 
-	int deleteCustomerRow = 0;
 	// 회원 정보 일치할 경우
 	if(canDeleteCustomer) {
 		// 회원 삭제
-		deleteCustomerRow = CustomerDAO.deleteCustomer(customerId, customerPw);	
+		int deleteCustomerRow = CustomerDAO.deleteCustomer(customerId, customerPw);	
+		// 회원 삭제 쿼리 실행 디버깅
+		System.out.println("deleteCustomerAction - deleteCustomerRow = " + deleteCustomerRow);
 	} else {
 		// 회원 정보 일치하지 않을 경우
 		String msg = URLEncoder.encode("회원 탈퇴에 실패헀습니다. 다시 입력 해주세요", "UTF-8");
@@ -34,7 +35,6 @@
 		return;
 	}
 	
-	System.out.println("deleteCustomerAction - deleteCustomerRow = " + deleteCustomerRow);
 	// 회원 탈퇴시 로그인돼있던 회원 세션 초기화
 	session.invalidate();
 	response.sendRedirect("/shop/customer/goods/customerGoodsList.jsp");

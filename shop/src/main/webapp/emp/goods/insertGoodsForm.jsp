@@ -7,6 +7,7 @@
 <%@ include file="/emp/inc/commonSessionCheck.jsp"%>
 
 <%
+	// 카테고리 목록 가져오기(상품 등록시 카테고리 설정을 위해)
 	ArrayList<String> categoryList = GoodsDAO.selectCategoryList();
 %>
 
