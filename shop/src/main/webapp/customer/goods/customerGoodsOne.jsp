@@ -110,44 +110,44 @@
 			<!-- 상품 상세 출력 -->
 			<div style="display: flex; justify-content: center;">
 				<div class="row" style="margin: 0 3%; align-items: center; width: 60%;">		
-					<div class="col-6">
-						<img alt="" src="/shop/upload/<%=goodsInfo.get("imgName") %>" style="width: 100%;">	
+					<div class="col-6" style="width: 50%; height: 100%;">
+						<img alt="" src="/shop/upload/<%=goodsInfo.get("imgName") %>" >	
 					</div>
-					<div class="col-6">
+					<div class="col-6" style="width: 50%; height: 100%;">
 						<div style="width: 90%;">
 							<div>
 								<div style="display: inline-block; width: 20%;">카테고리</div>
 								<div style="display: inline-block;"><%=goodsInfo.get("category") %></div>
 							</div>
 							
-							<div>
+							<div style="margin-top: 10px;">
 								<div style="display: inline-block; width: 20%;">판매자</div>
 								<div style="display: inline-block;"><%=goodsInfo.get("empId") %></div>
 							</div>
 							
-							<div>
+							<div style="margin-top: 10px;">
 								<div style="display: inline-block; width: 20%;">상품명</div>
 								<div style="display: inline-block;"><%=goodsInfo.get("goodsTitle") %></div>
 							</div>
 							
-							<div>
+							<div style="margin-top: 10px;">
 								<div style="display: inline-block; width: 20%;">설명</div>
 								<div style="display: inline-block;"><%=goodsInfo.get("goodsContent") %></div>
 							</div>
 							
-							<div>
+							<div style="margin-top: 10px;">
 								<div style="display: inline-block; width: 20%;">가격</div>
 								<div style="display: inline-block;"><%=goodsInfo.get("goodsPrice") %></div>
 							</div>
 							
-							<div>
+							<div style="margin-top: 10px;">
 								<div style="display: inline-block; width: 20%;">수량</div>
 								<div style="display: inline-block;"><%=goodsInfo.get("goodsAmount") %></div>
 							</div>
 							
-							<div>
+							<div style="margin-top: 10px;">
 								<div style="display: inline-block; width: 20%;">등록일</div>
-								<div style="display: inline-block;"><%=goodsInfo.get("createDate") %></div>
+								<div style="display: inline-block;"><%=((String)goodsInfo.get("createDate")).substring(0, 10)%></div>
 							</div>
 							
 							<!-- 주문 하기 -->

@@ -46,14 +46,13 @@
 						<div class="input-group mb-3">
 							<input class="form-control" type="text" name="checkIdFirst" style="width: 45%;">
 							<input class="form-control" type="text" value="@" readonly="readonly" name="checkIdMiddle" style="width: 5%;">
-							<input class="form-control" list="email" name="checkIdLast" placeholder="email을 입력해주세요" style="width: 45%;">
-								<select id="email">
-									<option value="">선택</option>
-									<option value="naver.com">naver.com</option>
-									<option value="google.com">google.com</option>
-									<option value="daum.net">daum.net</option>
-									<option value="nate.com">nate.com</option>
-								</select>
+							<select class="form-control" style="width: 45%;" id="email" name="checkIdLast">
+								<option value="">email을 선택해주세요</option>
+								<option value="naver.com">naver.com</option>
+								<option value="google.com">google.com</option>
+								<option value="daum.net">daum.net</option>
+								<option value="nate.com">nate.com</option>
+							</select>
 						</div>
 						
 						<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit">중복확인</button>
@@ -75,7 +74,7 @@
 						<div>
 							<div>
 								<label>id</label>
-								<input class="w3-input" type="text" value="<%=customerId %>" name="customerId" required="required">
+								<input class="w3-input" type="text" value="<%=customerId %>" name="customerId" required="required" readonly="readonly">
 							</div>
 							
 							<label>pw</label>

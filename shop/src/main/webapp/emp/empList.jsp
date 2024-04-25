@@ -21,11 +21,6 @@
 	
 	// 페이지당 보여줄 row 수
 	int rowPerPage = 10;
-	
-// 	// select 박스로 rowPerPage 구하기
-// 	if(request.getParameter("rowPerPage") != null) {
-// 		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
-// 	}
 
 	// 전체 emp 수 구하기
 	int TotalEmpRow = EmpDAO.selectTotalEmp();
@@ -52,7 +47,7 @@
 
 <%
 	/* session의 정보 가져오기(어떤 emp가 로그인 돼있고, grade로 권한 부여 설정하기 위해) */
-	HashMap<String, Object> getSessionMap = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
+	HashMap<String, Object> loginEmp = (HashMap<String, Object>)(session.getAttribute("loginEmp"));
 %>
 <!-- View Layer : 모델(ArrayList<HashMap<String, Object>>) 출력 -->
 <!DOCTYPE html>
@@ -76,8 +71,22 @@
 		<!-- emp목록 출력 -->
 		<div class="w3-panel w3-border w3-round-small">
 		
-			<div style="margin: 20px auto;">
-				<h1>사원 목록</h1>
+			<div style="margin: 20px auto; ">
+				<div style="display: inline-block; width: 100%;">
+					<h1 style="display: inline-block; width: 80%;">
+						사원 목록
+					</h1>
+					<%
+						if(((int)loginEmp.get("grade")) > 0){
+					%>
+							<a class="a-to-button" href="/shop/emp/insertEmpForm.jsp" style="display: inline-block; vertical-align: middle;">
+								emp 추가
+							</a>	
+					<%
+						}
+					%>
+				</div>
+				
 			</div>
 				
 			<table class="table table-hover" style="table-layout: fixed;">
@@ -108,7 +117,7 @@
 									<input type="hidden" name="active" value="<%=m.get("active") %>">
 									<%
 										// grade가 0보다 클 경우 active ON,OFF 권한 부여
-										if((Integer)(getSessionMap.get("grade")) > 0) {
+										if((Integer)(loginEmp.get("grade")) > 0) {
 									%>
 											<div class="form-check form-switch">
 												<%

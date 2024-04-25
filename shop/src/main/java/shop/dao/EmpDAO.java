@@ -6,6 +6,45 @@ import java.util.HashMap;
 
 public class EmpDAO {
 	
+	// 직급 리스트 가져오기 메서드
+	public static ArrayList<String> selectEmpJobList() throws Exception {
+		ArrayList<String> list = new ArrayList<>();
+		
+		Connection conn = DBHelper.getConnection();
+		
+		String sql = "SELECT emp_job empJob"
+				+ " FROM empjob";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		while (rs.next()) {
+			list.add(rs.getString("empJob"));
+		}
+		
+		conn.close();
+		return list;
+	}
+	
+	/* emp 아이디 중복 확인 */
+	public static boolean checkDuplicatedEmpId(String empId) throws Exception {
+		boolean result = false;
+
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+
+		String checkIdSql = "SELECT emp_id empId FROM emp WHERE emp_id = ?";
+		PreparedStatement checkIdStmt = conn.prepareStatement(checkIdSql);
+		checkIdStmt.setString(1, empId);
+		ResultSet checkIdRs = checkIdStmt.executeQuery();
+
+		if (!checkIdRs.next()) {
+			result = true;
+		}
+
+		conn.close();
+		return result;
+	}
+	
 	/* 관리자 추가 */
 	public static int insertEmp(String empId, String empPw, String empName, String empJob, String hireDate) throws Exception {
 		int row = 0;
@@ -14,7 +53,7 @@ public class EmpDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		// [DB]sho.emp에 emp 추가하는 쿼리
-		String insertEmpSql = "INSERT emp(emp_id, emp_pw, emp_name, emp_job, hire_date, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
+		String insertEmpSql = "INSERT INTO emp(emp_id, emp_pw, emp_name, emp_job, hire_date, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
 		PreparedStatement insertEmpStmt = conn.prepareStatement(insertEmpSql);
 		insertEmpStmt.setString(1, empId);
 		insertEmpStmt.setString(2, empPw);
@@ -47,7 +86,10 @@ public class EmpDAO {
 			FROM emp
 			WHERE active='ON' AND emp_id=? AND emp_pw = ?
 		*/
-		String loginSql = "SELECT emp_id empId, emp_name empName, grade FROM emp WHERE active='ON' AND emp_id=? AND emp_pw = ?";
+		String loginSql = "SELECT e.emp_id empId, e.emp_name empName, j.grade "
+				+ " FROM emp e INNER JOIN empjob j"
+				+ " ON e.emp_job = j.emp_job"
+				+ " WHERE active='ON' AND emp_id=? AND emp_pw = ?";
 		PreparedStatement loginStmt = conn.prepareStatement(loginSql);
 
 		loginStmt.setString(1, empId);
@@ -74,7 +116,10 @@ public class EmpDAO {
 		Connection conn = DBHelper.getConnection();
 		
 		// [DB]shop.emp에서 empId의 모든 정보 가져오는 쿼리
-		String getEmpDataSql = "SELECT emp_id empId, grade, emp_name empName, emp_job empJob, hire_date hireDate, update_date updateDate, create_date createDate, active FROM emp WHERE emp_id = ?";
+		String getEmpDataSql = "SELECT e.emp_id empId, j.grade, e.emp_name empName, e.emp_job empJob, e.hire_date hireDate, e.update_date updateDate, e.create_date createDate, e.active "
+				+ " FROM emp e INNER JOIN empjob j"
+				+ " ON e.emp_job = j.emp_job"
+				+ " WHERE emp_id = ?";
 		PreparedStatement getEmpDataStmt = null;
 		ResultSet getEmpDataRs = null;
 		

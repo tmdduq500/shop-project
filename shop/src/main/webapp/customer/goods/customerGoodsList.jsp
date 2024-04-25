@@ -79,7 +79,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>더나와</title>
+	<title>하이마켓</title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -89,26 +89,24 @@
 	<div>
 	<!-- 사이드바 - 서브메뉴 카테고리별 상품리스트 -->
 	<jsp:include page="/customer/inc/customerSideBar.jsp"></jsp:include>
-		
+	
 		<!-- goodsList 본문 -->
 		<div style="margin-left:15%; ">
 			<div class="row" style="padding:20px 5%;">
-				<div class="col-9">
-					<h1 style="display: inline-block;">상품 목록</h1>
-				</div>
+				<div class="col-8"></div>
 				
-				<div class="col" style="display: inline-block;">
+				<div class="col-3" style="display: inline-block;">
 					<form action="/shop/customer/goods/customerGoodsList.jsp">
-						<select name="rowPerPage">
-							<option value="">선택</option>
+						<select class="form-control" name="rowPerPage" style="width: 70%; display: inline-block; vertical-align: middle;">
 							<option value="10">10개씩 보기</option>
-							<option value="30">30개씩 보기</option>
+							<option value="30" selected="selected">30개씩 보기</option>
 							<option value="50">50개씩 보기</option>
 						</select>
 						<input type="hidden" value="<%=category%>" name="category">
-						<button type="submit">보기</button>
+						<button class="btn btn-outline-secondary" type="submit" style="width: 20%; display: inline-block;">보기</button>
 					</form>
 				</div>
+				<div class="col-1"></div>
 			</div>
 			
 			<!-- goods 목록 출력 -->
@@ -121,7 +119,7 @@
 							
 							<div class="col-md-3" style="height: 300px; margin: 20px 10px; width: 17%;">
 							
-								<div class="w3-card-2" style="height: 100%;">
+								<div class="w3-card" style="height: 100%;">
 							
 									<!-- 상품 이미지 -->
 									<div class="w3-border-bottom" style="text-align: center; height: 70%; padding-bottom: 5%;">
@@ -134,8 +132,8 @@
 									<div style="height: 30%; text-align: center;">
 									
 										<div style="margin-top: 10%;">
-											<a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>"
-												style="text-decoration: none; color: black;">
+											<a href="/shop/customer/goods/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>" 
+												style="text-decoration: none; color: #000000;">
 												<%=m.get("goodsTitle") %>
 											</a>
 										</div>

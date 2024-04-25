@@ -26,7 +26,7 @@
 	
 	<!-- 개인정보 페이지 -->
 	<span class="w3-bar-item w3-right"><%=(String)(loginMember.get("empName"))%>님 반갑습니다</span>
-	<<!-- emp 마이페이지 -->
+	<!-- emp 마이페이지 -->
 	<a href="/shop/emp/empOne.jsp" class="w3-bar-item w3-button w3-white w3-right">
 		<img src="/shop/upload/profile_basic.jpg" alt="프로필사진" style="width:40px;" class="rounded-pill">	
 	</a>

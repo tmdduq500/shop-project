@@ -14,9 +14,7 @@
 	
 <div class="w3-bar w3-black w3-large">
 	<!-- 쇼핑몰 홈 이동 -->
-	<a class="w3-bar-item w3-button" href="/shop/customer/goods/customerGoodsList.jsp">Home</a>
-
-	
+	<a class="w3-bar-item w3-button" href="/shop/customer/goods/customerGoodsList.jsp">하이마켓</a>
 	
 	<!-- 개인정보 페이지 -->
 	<%
