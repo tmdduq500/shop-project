@@ -1,7 +1,7 @@
 <%@page import="shop.dao.OrdersDAO"%>
 <%@page import="shop.dao.ReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 

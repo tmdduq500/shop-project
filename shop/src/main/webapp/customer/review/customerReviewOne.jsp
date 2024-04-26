@@ -2,7 +2,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="shop.dao.ReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
@@ -87,8 +87,8 @@
 						<textarea class="w3-input" rows="5" cols="50" name="reviewContent" readonly="readonly"><%=reviewOne.get("content")%></textarea>
 					</div>
 					
-					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" style="width: 60%; margin: 0 auto;" type="submit">리뷰 삭제하기</button>
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" style="width: 60%; margin: 0 auto;" type="submit">리뷰 삭제하기</button>
 					</div>
 				</form>
 			</div>

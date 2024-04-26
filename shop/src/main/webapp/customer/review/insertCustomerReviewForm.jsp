@@ -1,7 +1,7 @@
 <%@page import="shop.dao.OrdersDAO"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
@@ -83,7 +83,7 @@
 					</div>
 					
 					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" style="width: 60%; margin: 0 auto;" type="submit">리뷰 작성하기</button>
+						<button class="btn btn-outline-secondary" style="width: 60%; margin: 0 auto;" type="submit">리뷰 작성하기</button>
 					</div>
 				</form>
 			</div>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Controller Layer -->
-<%@ include file ="/customer/inc/CustomerLoginSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerLoginSessionCheck.jsp" %>
 
 <%
 	// 요청 값 
@@ -55,7 +55,7 @@
 							</select>
 						</div>
 						
-						<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit">중복확인</button>
+						<button class="btn btn-outline-secondary" type="submit">중복확인</button>
 						<!-- 에러 메시지 출력 -->
 						<%
 							if(errMsg != null) { 
@@ -94,8 +94,8 @@
 							<label>여</label>
 						</div>
 						
-						<div>
-							<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit">회원가입</button>
+						<div style="text-align: center; margin: 10px auto;">
+							<button class="btn btn-outline-secondary" type="submit" style="width: 60%;">회원가입</button>
 						</div>
 						
 					</form>

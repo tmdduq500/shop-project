@@ -64,8 +64,8 @@
 						<input class="w3-input" type="password" name="empPw">
 					</div>
 							
-					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" type="submit">카테고리 삭제</button>
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" type="submit">카테고리 삭제</button>
 					</div>
 				</form>
 			</div>

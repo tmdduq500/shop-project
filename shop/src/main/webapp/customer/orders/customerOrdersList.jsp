@@ -2,7 +2,7 @@
 <%@page import="shop.dao.OrdersDAO"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// loginCutomer 세션 변수 가져오기
 	HashMap<String, Object> loginCustomerMember = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));
@@ -107,6 +107,12 @@
 							%>
 									<td style="width: 10%;">
 										<a class="a-to-button" href="/shop/customer/review/customerReviewOne.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
+									</td>
+							<%
+								} else if(((String)(m.get("ordersState"))).equals("결제완료")) {
+							%>
+									<td style="width: 10%;">
+										<a class="a-to-button" href="#" style="width: 100%;">주문취소</a>
 									</td>
 							<%
 								}

@@ -91,10 +91,10 @@
 					<div style="width: 90%;">
 						<div>
 							<div style="display: inline-block; width: 20%;">상품 번호</div>
-							<div style="display: inline-block;"><%=goodsInfo.get("goodsNo") %></div>
+							<div style="display: inline-block;"><%=goodsNo %></div>
 						</div>
 					
-						<div>
+						<div style="margin-top: 10px;">
 							<div style="display: inline-block; width: 20%;">카테고리</div>
 							<div style="display: inline-block;"><%=goodsInfo.get("category") %></div>
 						</div>
@@ -146,7 +146,7 @@
 								</div>
 						<%
 							}
-						%>					
+						%>
 					</div>
 				</div>
 			</div>
@@ -159,8 +159,8 @@
 			<%
 				for(HashMap<String, Object> m : reviewJoinGoodsList) {
 			%>
-					<div style="padding: 10px;">
-						<div>
+					<div class="row">
+						<div class="col">
 							<span class="score-star-read">
 							<%=m.get("score") %>&nbsp;
 								<%
@@ -179,18 +179,18 @@
 										}
 									}
 								%>
-							
 							</span>
-							<span><%=m.get("reviewCustomerId") %></span>
+						</div>
+						<div class="col" style="text-align: right; vertical-align: middle;">
+							<span><%=m.get("customerId") %></span>
 							<span>|</span>
-							<span><%=m.get("reviewCreateDate") %></span>
-
-							<a href="/shop/emp/review/empDeleteCustomerReviewForm.jsp?ordersNo=<%=m.get("ordersNo")%>&customerId=<%=m.get("customerId")%>"
-								style="text-align: right;">
-								삭제
-							</a>
-
-							
+							<span><%=m.get("createDate") %></span>
+							<div>
+								<a href="/shop/emp/review/empDeleteCustomerReviewForm.jsp?ordersNo=<%=m.get("ordersNo")%>&customerId=<%=m.get("customerId")%>"
+									style="text-align: right; text-decoration: none; color: gray;">
+									삭제
+								</a>
+							</div>
 						</div>
 						<div style="padding-top: 10px;"><%=m.get("content") %></div>
 					</div>	

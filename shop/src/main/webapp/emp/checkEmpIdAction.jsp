@@ -12,10 +12,10 @@
 
 
 	// 요청 값 하나라도 null이거나 공백일 경우
-	if(empId == null) {
+	if(empId == null || empId.equals("")) {
 		
 		String errMsg = URLEncoder.encode("ID를 정확히 입력해주세요.", "UTF-8");
-		response.sendRedirect("/shop/customer/signup/insertCustomerForm.jsp?errMsg=" + errMsg);
+		response.sendRedirect("/shop/emp/insertEmpForm.jsp?errMsg=" + errMsg);
 		return;
 	}
 	

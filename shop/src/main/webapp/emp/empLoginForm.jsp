@@ -33,8 +33,14 @@
 	<div class="col-2 w3-container w3-half w3-margin-top" style="height: 90vh; width: 25%;">
 		<form class="w3-container w3-card-4 w3-border w3-round-large" action="/shop/emp/empLoginAction.jsp" method="post" style="margin: 50% auto; height: 330px;">
 		
-			<div style="margin-top: 30px; text-align: center;">
-				<h1>관리자 로그인</h1>
+			<div class="row" style="margin-top: 30px; text-align: center;">
+				<div class="col"></div>
+				<div class="col">
+					<h1>로그인</h1>
+				</div>
+				<div class="col">
+					<a href="/shop/customer/customerLoginForm.jsp">고객용</a>
+				</div>
 			</div>
 			
 			<div class="form-floating mb-3 mt-3" style="margin-top: 30px;">
@@ -49,7 +55,7 @@
 			</div>
 			
 			<div style="margin-top: 20px;">
-				<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit" style="width: 100%;">
+				<button class="btn btn-outline-secondary" type="submit" style="width: 100%;">
 					로그인
 				</button>
 			</div>

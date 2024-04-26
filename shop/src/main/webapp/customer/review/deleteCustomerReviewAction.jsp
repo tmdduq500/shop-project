@@ -3,7 +3,7 @@
 <%@page import="java.net.URLEncoder"%>
 <%@page import="shop.dao.CustomerDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// 요청 값
 	String customerId = request.getParameter("customerId");

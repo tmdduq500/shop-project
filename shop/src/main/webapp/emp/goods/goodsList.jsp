@@ -133,8 +133,8 @@
 						<button class="btn btn-outline-secondary" type="submit" style="width: 20%; display: inline-block;">보기</button>
 					</form>
 				</div>
-				<div class="col">
-					<a class="a-to-button" href="/shop/emp/goods/insertGoodsForm.jsp" style="margin: 0; width: 50%; padding: 0;">상품 등록</a>
+				<div class="col" style="vertical-align: middle;">
+					<a class="a-to-button" href="/shop/emp/goods/insertGoodsForm.jsp" style="margin: 0; width: 50%;">상품 등록</a>
 				</div>
 			</div>
 			
@@ -176,8 +176,6 @@
 								</div>
 							
 							</div>
-							
-			
 					<%
 						}
 					%>

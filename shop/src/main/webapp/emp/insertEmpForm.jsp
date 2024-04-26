@@ -50,7 +50,7 @@
 						<label>id 중복 확인</label>
 						<div>
 							<input class="form-control" type="text" name="empId" style="width: 70%; display: inline-block;">
-							<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit">중복확인</button>
+							<button class="btn btn-outline-secondary" type="submit">중복확인</button>
 						</div>
 						
 						<!-- 에러 메시지 출력 -->
@@ -96,8 +96,8 @@
 							
 						</div>
 						
-						<div>
-							<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit">emp 추가하기</button>
+						<div style="text-align: center; margin: 10px auto;">
+							<button class="btn btn-outline-secondary" type="submit">emp 추가하기</button>
 						</div>
 						
 					</form>

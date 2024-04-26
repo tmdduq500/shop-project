@@ -1,7 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="shop.dao.OrdersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// 요청 값
 	String ordersNo = request.getParameter("ordersNo");
@@ -53,7 +53,7 @@
 				<tr>
 					<th style="vertical-align: middle;">상품사진</th>
 					<td>
-						<img alt="" src="/shop/upload/<%=customerOrdersOne.get("imgName")%>">
+						<img alt="" src="/shop/upload/<%=customerOrdersOne.get("imgName")%>" style="width: 400px;">
 					</td>
 				</tr>
 				<tr>
@@ -96,6 +96,10 @@
 							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("리뷰완료")) {
 						%>
 								<a class="a-to-button" href="/shop/customer/review/customerReviewOne.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">리뷰보기</a>
+						<%
+							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("결제완료")) {
+						%>
+								<a class="a-to-button" href="#" style="width: 100%;">주문취소</a>
 						<%
 							}
 						%>

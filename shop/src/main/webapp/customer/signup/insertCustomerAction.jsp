@@ -3,7 +3,7 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Controller Layer -->
-<%@ include file ="/customer/inc/CustomerLoginSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerLoginSessionCheck.jsp" %>
 
 <%
 	// 요청 값 

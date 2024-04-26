@@ -32,8 +32,8 @@
 						<input class="w3-input" type="text" name="category" placeholder="카테고리를 입력해주세요">
 					</div>
 					
-					<div style="text-align: center;">
-						<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit" style="width: 80%; margin: 20px;">
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" type="submit" style="width: 80%; margin: 20px;">
 							카테고리 추가
 						</button>
 					</div>

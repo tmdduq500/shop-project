@@ -1,6 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// loginCutomer 세션 변수 가져오기
 	HashMap<String, Object> loginCustomerMember = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));	
@@ -68,8 +68,8 @@
 						<input class="w3-input" type="password" name="customerPw" required="required">
 					</div>
 							
-					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" type="submit">리뷰 삭제하기</button>
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" type="submit">리뷰 삭제하기</button>
 					</div>
 				</form>
 			</div>

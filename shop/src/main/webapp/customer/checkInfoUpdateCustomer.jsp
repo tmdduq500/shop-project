@@ -1,7 +1,7 @@
 <%-- <%@page import="java.util.HashMap"%> --%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// loginCutomer 세션 변수 가져오기
 	HashMap<String, Object> loginCustomerMember = (HashMap<String, Object>)(session.getAttribute("loginCustomer"));	
@@ -51,8 +51,8 @@
 			</div>
 
 			<div class="row" style="margin-top: 20px;">
-				<div class="col">
-					<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit" style="width: 100%;">
+				<div class="col" style="text-align: center; margin: 10px auto;">
+					<button class="btn btn-outline-secondary" type="submit" style="width: 100%;">
 						정보 수정하기
 					</button>
 				</div>				

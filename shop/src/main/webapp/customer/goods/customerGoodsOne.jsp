@@ -153,19 +153,23 @@
 							<!-- 주문 하기 -->
 							<div>
 							<%
+								// loginCustomer 세션이 null아닐경우(로그인이 돼있는 경우)
 								if(loginCustomer != null) {
+									// 상품 개수가 1개 이상일때
 									if(Integer.parseInt((String)goodsInfo.get("goodsAmount")) > 0) {
 							%>
-										<a class="a-to-button" href="/shop/customer/orders/customerOrdersForm.jsp?goodsNo=<%=goodsNo %>" style="width: 100%;">
-											주문 하기
-										</a>
+										<form action="/shop/customer/orders/customerOrdersForm.jsp?goodsNo=<%=goodsNo %>" method="post" style="display: inline-block; width: 90%;">
+											<button type="submit" class="btn btn-outline-secondary" style="width: 100%;">주문 하기</button>
+										</form>
 							<%
 									} else {
+										// 상품 개수가 0일때(품절)
 							%>
 										<a class="a-to-button" href="#" style="width: 100%;">품절입니다</a>
 							<%
 									}
 								} else {
+									// loginCustomer 세션이 null일 경우(로그인 안돼있는 경우)
 							%>
 									<a class="a-to-button" href="/shop/customer/customerLoginForm.jsp" style="width: 100%;">주문 하기</a>
 							<%
@@ -184,8 +188,8 @@
 				<%
 					for(HashMap<String, Object> m : reviewJoinGoodsList) {
 				%>
-						<div style="padding: 10px;">
-							<div>
+						<div class="row">
+							<div class="col">
 								<span class="score-star-read">
 								<%=m.get("score") %>&nbsp;
 									<%
@@ -204,13 +208,24 @@
 											}
 										}
 									%>
-									
 								</span>
-								
-								<span>|</span>
+							</div>
+							<div class="col" style="text-align: right; vertical-align: middle;">
 								<span><%=m.get("reviewCustomerId") %></span>
 								<span>|</span>
 								<span><%=m.get("reviewCreateDate") %></span>
+								<%
+									if(loginCustomer != null && loginCustomer.get("customerId").equals(m.get("customerId"))) {
+								%>
+										<div>
+											<a href="/shop/customer/review/deleteCustomerReviewForm.jsp?ordersNo=<%=m.get("ordersNo")%>&customerId=<%=m.get("customerId")%>"
+												style="text-align: right; text-decoration: none; color: gray;">
+												삭제
+											</a>
+										</div>
+								<%
+									}
+								%>
 							</div>
 							<div style="padding-top: 10px;"><%=m.get("content") %></div>
 						</div>	

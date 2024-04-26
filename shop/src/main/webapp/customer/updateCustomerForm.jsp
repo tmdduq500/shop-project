@@ -2,7 +2,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="shop.dao.CustomerDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/customer/inc/CustomerCommonSessionCheck.jsp" %>
+<%@ include file ="/customer/inc/customerCommonSessionCheck.jsp" %>
 <%
 	// 요청값
 	String customerId = request.getParameter("customerId");
@@ -115,8 +115,8 @@
 						</div>
 					</div>
 					
-					<div style="text-align: center;">
-						<button class="w3-button w3-section w3-dark-grey w3-ripple" type="submit" style="width: 80%; margin: 20px;">
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" type="submit" style="width: 80%; margin: 20px;">
 							변경하기
 						</button>
 					</div>

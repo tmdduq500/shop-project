@@ -74,8 +74,8 @@
 						<input class="w3-input" type="password" name="empPw" required="required">
 					</div>
 							
-					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" type="submit">고객 리뷰 삭제하기</button>
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" type="submit">고객 리뷰 삭제하기</button>
 					</div>
 				</form>
 			</div>

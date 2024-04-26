@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="shop.dao.EmpDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file ="/emp/inc/commonSessionCheck.jsp" %>
@@ -15,6 +16,13 @@
 	System.out.println("insertEmpAction - empName = " + empName);
 	System.out.println("insertEmpAction - empJob = " + empJob);
 	System.out.println("insertEmpAction - empHireDate = " + empHireDate);
+	
+	// 요청 값이 하나라도 null일 경우 insertEmpForm으로 redirect
+	if(empId == null || empId.equals("") || empPw == null || empName == null || empJob == null || empHireDate == null) {
+		String errMsg = URLEncoder.encode("다시 입력해주세요.", "UTF-8");
+		response.sendRedirect("/shop/emp/insertEmpForm.jsp?errMsg=" + errMsg);
+		return;
+	}
 	
 	// emp INSERT 메서드
 	int insertEmpRow = EmpDAO.insertEmp(empId, empPw, empName, empJob, empHireDate);

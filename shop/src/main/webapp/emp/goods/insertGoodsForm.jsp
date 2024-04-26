@@ -76,8 +76,8 @@
 						<textarea class="w3-input" rows="5" cols="50" name="goodsContent" required="required"></textarea>
 					</div>
 					
-					<div>
-						<button class="w3-button w3-section w3-block w3-dark-grey w3-ripple" style="width: 60%; margin: 0 auto;" type="submit">상품 등록</button>
+					<div style="text-align: center; margin: 10px auto;">
+						<button class="btn btn-outline-secondary" style="width: 60%; margin: 0 auto;" type="submit">상품 등록</button>
 					</div>
 				</form>
 			</div>
