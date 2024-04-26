@@ -99,7 +99,7 @@
 						<%
 							} else if(((String)(customerOrdersOne.get("ordersState"))).equals("결제완료")) {
 						%>
-								<a class="a-to-button" href="#" style="width: 100%;">주문취소</a>
+								<a class="a-to-button" href="/shop/customer/orders/cancelCustomerOrdersForm.jsp?ordersNo=<%=customerOrdersOne.get("ordersNo")%>" style="width: 100%;">주문취소</a>
 						<%
 							}
 						%>

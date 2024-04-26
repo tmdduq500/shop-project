@@ -99,10 +99,11 @@
 						<%
 							if(((String)(ordersOneByEmp.get("ordersState"))).equals("결제완료")) {
 						%>	
-								<a class="a-to-button" href="/shop/emp/updateOrdersState.jsp?ordersNo=<%=ordersOneByEmp.get("ordersNo")%>" style="width: 100%;">배송 시작</a>
+								<a class="a-to-button" href="/shop/emp/updateOrdersState.jsp?ordersNo=<%=ordersOneByEmp.get("ordersNo")%>" style="width: 100%; margin: 5px auto;">배송 시작</a>
+								<a class="a-to-button" href="/shop/emp/cancelEmpOrdersForm.jsp?ordersNo=<%=ordersOneByEmp.get("ordersNo")%>" style="width: 100%; margin: 0;">주문취소</a>
 						<%
-							}
-						%>	
+							} 
+						%>
 					</td>	
 				</tr>
 			</tbody>

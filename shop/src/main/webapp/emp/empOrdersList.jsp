@@ -58,7 +58,7 @@
 					<th>주문고객</th>
 					<th>주문번호</th>
 					<th>주문금액</th>
-					<th colspan="2">주문상태</th>
+					<th colspan="3">주문상태</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -102,6 +102,15 @@
 								}
 							%>
 							
+							<%
+								if(((String)(m.get("ordersState"))).equals("결제완료")) {
+							%>
+									<td>
+										<a class="a-to-button" href="/shop/emp/cancelEmpOrdersForm.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">주문취소</a>
+									</td>
+							<%
+								}
+							%>
 						</tr>
 				<%
 					}

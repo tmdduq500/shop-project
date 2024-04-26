@@ -7,6 +7,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrdersDAO {
+	// 주문 취소하기 - 고객이 취소했을 경우
+	public static int deleteOrdersByCustomer(int ordersNo) throws Exception{
+		// DELETE 쿼리 실행했을 때 삭제된 행 개수 
+		int row = 0;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		// ordersNo 값을 조건으로 orders 데이터 DELETE
+		String sql = "DELETE FROM orders WHERE orders_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, ordersNo);
+		row = stmt.executeUpdate();
+		
+		// DB 종료
+		conn.close();
+		
+		// DELETE 쿼리 실행후 삭제된 행 수 반환
+		return row;
+	}
 	
 	/* 고객이 주문한 것의 상세정보 확인 기능 */
 	public static HashMap<String, Object> selectOrdersOneByCustomer(String ordersNo) throws Exception{

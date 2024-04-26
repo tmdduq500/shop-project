@@ -41,7 +41,7 @@
 					<h1>로그인</h1>
 				</div>
 				<div class="col">
-					<a href="/shop/emp/empLoginForm.jsp">관리자용</a>
+					<a href="/shop/emp/empLoginForm.jsp" style="text-decoration: none; color: gray;">관리자용</a>
 				</div>
 			</div>
 			

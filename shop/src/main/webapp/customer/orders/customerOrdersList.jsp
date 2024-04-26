@@ -112,7 +112,7 @@
 								} else if(((String)(m.get("ordersState"))).equals("결제완료")) {
 							%>
 									<td style="width: 10%;">
-										<a class="a-to-button" href="#" style="width: 100%;">주문취소</a>
+										<a class="a-to-button" href="/shop/customer/orders/cancelCustomerOrdersForm.jsp?ordersNo=<%=m.get("ordersNo")%>" style="width: 100%;">주문취소</a>
 									</td>
 							<%
 								}

@@ -82,7 +82,7 @@
 						<textarea class="w3-input" rows="5" cols="50" name="reviewContent" required="required"></textarea>
 					</div>
 					
-					<div>
+					<div style="text-align: center; margin: 10px auto;">
 						<button class="btn btn-outline-secondary" style="width: 60%; margin: 0 auto;" type="submit">리뷰 작성하기</button>
 					</div>
 				</form>

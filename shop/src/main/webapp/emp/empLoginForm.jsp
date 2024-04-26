@@ -39,7 +39,7 @@
 					<h1>로그인</h1>
 				</div>
 				<div class="col">
-					<a href="/shop/customer/customerLoginForm.jsp">고객용</a>
+					<a href="/shop/customer/customerLoginForm.jsp" style="text-decoration: none; color: gray;">고객용</a>
 				</div>
 			</div>
 			
