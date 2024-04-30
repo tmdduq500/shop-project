@@ -86,10 +86,14 @@ public class EmpDAO {
 			FROM emp
 			WHERE active='ON' AND emp_id=? AND emp_pw = ?
 		*/
-		String loginSql = "SELECT e.emp_id empId, e.emp_name empName, j.grade "
-				+ " FROM emp e INNER JOIN empjob j"
-				+ " ON e.emp_job = j.emp_job"
-				+ " WHERE active='ON' AND emp_id=? AND emp_pw = ?";
+		String loginSql = "SELECT v.emp_id empId, v.emp_name empName, v.grade grade"
+				+ " FROM"
+				+ " (SELECT e.emp_id, e.emp_name, j.grade, h.emp_pw, h.createdate"
+				+ " FROM empjob j RIGHT OUTER JOIN emp e ON j.emp_job = e.emp_job INNER JOIN epw_history h ON e.emp_id = h.emp_id"
+				+ " WHERE e.emp_id = ?"
+				+ " ORDER BY createdate DESC"
+				+ " OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY) v"
+				+ " WHERE v.emp_pw = ?";
 		PreparedStatement loginStmt = conn.prepareStatement(loginSql);
 
 		loginStmt.setString(1, empId);

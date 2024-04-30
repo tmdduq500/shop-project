@@ -27,7 +27,7 @@
 	// emp가 맞다면
 	if(isEmp) {
 		// ordersNo값 integer로 변환 후 emp에 의한 주문 삭제 쿼리 실행
-		int deleteOrdersRow = OrdersDAO.deleteOrdersByCustomer(Integer.parseInt(ordersNo));	
+		int deleteOrdersRow = OrdersDAO.deleteOrders(Integer.parseInt(ordersNo));	
 		
 		// 디버깅
 		System.out.println("cancelEmpOrdersAction - deleteOrdersRow = " + deleteOrdersRow);

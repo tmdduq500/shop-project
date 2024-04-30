@@ -29,12 +29,15 @@
 
 <%
 	// 고객 회원가입
-	int insertCustomerRow = CustomerDAO.insertCustomer(customerId, customerPw, customerName, customerBirth, customerGender);
+	int insertCustomerRow = CustomerDAO.insertCustomer(customerId, customerName, customerBirth, customerGender);
+	// 고객 pw 히스토리 테이블에 pw 추가
+	int insertCustomerPwRow = CustomerDAO.insertCustomerPw(customerId, customerPw);
 
 	// insert 됐는지 확인
 	System.out.println("insertCustomerAction - insertCustomerRow = " + insertCustomerRow);
+	System.out.println("insertCustomerAction - insertCustomerPwRow = " + insertCustomerPwRow);
 	
-	if(insertCustomerRow == 1) {
+	if(insertCustomerRow == 1 && insertCustomerRow == 1) {
 		// 회원가입 성공
 		System.out.println("회원가입 성공");
 		response.sendRedirect("/shop/customer/customerLoginForm.jsp");

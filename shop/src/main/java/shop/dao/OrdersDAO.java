@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrdersDAO {
-	// 주문 취소하기 - 고객이 취소했을 경우
-	public static int deleteOrdersByCustomer(int ordersNo) throws Exception{
+	// 주문 취소하기
+	public static int deleteOrders(int ordersNo) throws Exception{
 		// DELETE 쿼리 실행했을 때 삭제된 행 개수 
 		int row = 0;
 		

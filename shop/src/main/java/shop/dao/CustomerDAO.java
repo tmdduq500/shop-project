@@ -13,7 +13,15 @@ public class CustomerDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 
-		String customerLoginSql = "SELECT id customerId, name customerName FROM customer WHERE id = ? AND pw = ?";
+		String customerLoginSql = "SELECT v.id customerId, v.name customerName"
+				+ " FROM"
+				+ " (SELECT c.id, c.name, h.pw, h.createdate"
+				+ " FROM customer c  INNER JOIN cpw_history h"
+				+ " ON c.id = h.id"
+				+ " WHERE c.id = ?"
+				+ " ORDER BY createdate DESC"
+				+ " OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY) v"
+				+ " WHERE v.pw = ?";
 		PreparedStatement customerLoginStmt = conn.prepareStatement(customerLoginSql);
 
 		customerLoginStmt.setString(1, customerId);
@@ -59,7 +67,7 @@ public class CustomerDAO {
 	}
 
 	/* 고객 회원가입 */
-	public static int insertCustomer(String customerId, String customerPw, String customerName, String customerBirth,
+	public static int insertCustomer(String customerId, String customerName, String customerBirth,
 			String customerGender) throws Exception {
 
 		int row = 0;
@@ -68,19 +76,63 @@ public class CustomerDAO {
 		Connection conn = DBHelper.getConnection();
 
 		// [DB]shop.customer에 INSERT쿼리로 data 삽입
-		String insertCustomerSql = "INSERT INTO customer(id, pw, name, birth, gender, update_date, create_date) VALUES(?, ?, ?, ?, ?, sysdate, sysdate)";
+		String insertCustomerSql = "INSERT INTO customer(id, name, birth, gender, update_date, create_date) VALUES(?, ?, ?, ?, sysdate, sysdate)";
 		PreparedStatement insertCustomerStmt = null;
 		insertCustomerStmt = conn.prepareStatement(insertCustomerSql);
 		insertCustomerStmt.setString(1, customerId);
-		insertCustomerStmt.setString(2, customerPw);
-		insertCustomerStmt.setString(3, customerName);
-		insertCustomerStmt.setString(4, customerBirth);
-		insertCustomerStmt.setString(5, customerGender);
+		insertCustomerStmt.setString(2, customerName);
+		insertCustomerStmt.setString(3, customerBirth);
+		insertCustomerStmt.setString(4, customerGender);
 
 		row = insertCustomerStmt.executeUpdate();
 
 		conn.close();
 		return row;
+	}
+	
+	/* 고객 회원가입시, 정보 수정시 고객 비밀번호 히스토리에도 INSERT */
+	public static int insertCustomerPw(String customerId, String customerPw) throws Exception {
+		// 쿼리 실행 결과 행 값
+		int row = 0;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		// [DB]cpw_history에 데이터 추가 
+		String sql = "INSERT INTO cpw_history(id, pw, createdate) VALUES(?, ?, sysdate)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setString(2, customerPw);
+		row = stmt.executeUpdate();
+		
+		conn.close();
+		return row;
+		
+	}
+	
+	/* 고객 pw 변경 시 이전 비밀번호에 동일한 값이 있는지 확인(true면 pw 변경 가능). */
+	public static boolean checkCustomerPwHistory(String customerId, String newCustomerPw) throws Exception{
+		// pw가 history테이블에 있는지 없는지 boolean값으로 설정
+		boolean result = true;
+		
+		Connection conn = DBHelper.getConnection();
+		// 변경할 pw가 history에 있는지 SELECT
+		String sql = "SELECT c.id, c.name, h.pw, h.createdate"
+				+ " FROM customer c INNER JOIN cpw_history h"
+				+ " ON c.id = h.id"
+				+ " WHERE c.id = ? AND h.pw = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setString(2, newCustomerPw);
+		ResultSet rs = stmt.executeQuery();
+		// history에 있다면 사용 불가능이므로 false로 변경
+		if (rs.next()) {
+			result = false;
+		}
+		
+		conn.close();
+		return result;
+		
 	}
 
 	/* 고객 아이디 중복 확인 */
@@ -119,14 +171,22 @@ public class CustomerDAO {
 		return row;
 	}
 
-	/* 정보 수정 전 고객 id, pw 확인 */
+	/* 고객 id, pw 확인 */
 	public static boolean checkCustomerIdPw(String customerId, String customerPw) throws Exception {
 		boolean result = false;
 
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 
-		String checkIdPwSql = "SELECT id customerID FROM customer WHERE id = ? AND pw = ?";
+		String checkIdPwSql = "SELECT v.id customerId"
+				+ " FROM"
+				+ " (SELECT c.id, h.pw"
+				+ " FROM customer c INNER JOIN cpw_history h"
+				+ " ON c.id = h.id"
+				+ " WHERE c.id = ?"
+				+ " ORDER BY createdate DESC"
+				+ " OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY) v"
+				+ " WHERE v.pw = ?" ;
 		PreparedStatement checkIdPwStmt = conn.prepareStatement(checkIdPwSql);
 		checkIdPwStmt.setString(1, customerId);
 		checkIdPwStmt.setString(2, customerPw);
@@ -142,27 +202,19 @@ public class CustomerDAO {
 
 	/* 고객 정보 변경 */
 	public static int updateCustomer(String customerId, String customerName, String customerBirth,
-			String customerGender, String oldCustomerPw, String newCustomerPw) throws Exception {
+			String customerGender) throws Exception {
 
 		int row = 0;
 
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 
-		String updateCustomerSql = "UPDATE customer SET name = ?, birth = ?, gender = ?, update_date = sysdate, pw = ? WHERE id = ? AND pw = ?";
+		String updateCustomerSql = "UPDATE customer SET name = ?, birth = ?, gender = ?, update_date = sysdate WHERE id = ?";
 		PreparedStatement updateCustomerStmt = conn.prepareStatement(updateCustomerSql);
 		updateCustomerStmt.setString(1, customerName);
 		updateCustomerStmt.setString(2, customerBirth);
 		updateCustomerStmt.setString(3, customerGender);
-
-		if (newCustomerPw.equals("")) {
-			updateCustomerStmt.setString(4, oldCustomerPw);
-		} else {
-			updateCustomerStmt.setString(4, newCustomerPw);
-		}
-
-		updateCustomerStmt.setString(5, customerId);
-		updateCustomerStmt.setString(6, oldCustomerPw);
+		updateCustomerStmt.setString(4, customerId);
 		row = updateCustomerStmt.executeUpdate();
 
 		conn.close();
