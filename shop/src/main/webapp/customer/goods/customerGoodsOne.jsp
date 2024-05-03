@@ -92,7 +92,7 @@
 	<meta charset="UTF-8">
 	<title><%=goodsInfo.get("goodsTitle") %></title>
 	<link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/shop/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!-- 메인 메뉴 -->

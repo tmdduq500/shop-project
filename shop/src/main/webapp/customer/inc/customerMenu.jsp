@@ -1,7 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="/shop/css/w3.css" rel="stylesheet" type="text/css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/shop/css/bootstrap.css" rel="stylesheet" type="text/css">
 
 <%
 	HashMap<String, Object> loginCustomerMember = null;

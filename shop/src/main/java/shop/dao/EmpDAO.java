@@ -257,7 +257,14 @@ public class EmpDAO {
 		// DB 연결
 		Connection conn = DBHelper.getConnection();
 
-		String checkIdPwSql = "SELECT emp_id empId FROM emp WHERE emp_id = ? AND emp_pw = ?";
+		String checkIdPwSql = "SELECT v.emp_id empId"
+				+ " FROM"
+				+ " (SELECT e.emp_id, h.emp_pw"
+				+ " FROM emp e INNER JOIN epw_history h ON e.emp_id = h.emp_id"
+				+ " WHERE e.emp_id = ?"
+				+ " ORDER BY createdate DESC"
+				+ " OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY) v"
+				+ " WHERE v.emp_pw = ?";
 		PreparedStatement checkIdPwStmt = conn.prepareStatement(checkIdPwSql);
 		checkIdPwStmt.setString(1, empId);
 		checkIdPwStmt.setString(2, empPw);
