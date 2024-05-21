@@ -86,6 +86,11 @@
 						<%=empInfo.get("active") %>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2">
+						<a class="a-to-button" href="/shop/emp/checkInfoUpdateEmp.jsp" style="width: 100%;">정보 수정</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		

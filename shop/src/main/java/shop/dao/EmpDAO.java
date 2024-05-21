@@ -68,6 +68,51 @@ public class EmpDAO {
 		return row;
 	}
 	
+	/* emp 회원가입시, 정보 수정시 emp 비밀번호 히스토리에도 INSERT */
+	public static int insertEmpPw(String empId, String empPw) throws Exception {
+		// 쿼리 실행 결과 행 값
+		int row = 0;
+		
+		// DB 연결
+		Connection conn = DBHelper.getConnection();
+		
+		// [DB]epw_history에 데이터 추가 
+		String sql = "INSERT INTO epw_history(enp_id, emp_pw, createdate) VALUES(?, ?, sysdate)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);
+		stmt.setString(2, empPw);
+		row = stmt.executeUpdate();
+		
+		conn.close();
+		return row;
+		
+	}
+	
+	/* emp pw 변경 시 이전 비밀번호에 동일한 값이 있는지 확인(true면 pw 변경 가능). */
+	public static boolean checkEmpPwHistory(String empId, String newEmpPw) throws Exception{
+		// pw가 history테이블에 있는지 없는지 boolean값으로 설정
+		boolean result = true;
+		
+		Connection conn = DBHelper.getConnection();
+		// 변경할 pw가 history에 있는지 SELECT
+		String sql = "SELECT e.emp_id, e.emp_name, h.emp_pw, h.createdate"
+				+ " FROM emp e INNER JOIN epw_history h"
+				+ " ON e.emp_id = h.emp_id"
+				+ " WHERE e.emp_id = ? AND h.emp_pw = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);
+		stmt.setString(2, newEmpPw);
+		ResultSet rs = stmt.executeQuery();
+		// history에 있다면 사용 불가능이므로 false로 변경
+		if (rs.next()) {
+			result = false;
+		}
+		
+		conn.close();
+		return result;
+		
+	}
+	
 	/* 관리자 로그인 */
 	// HashMap<String, Object> : null이면 로그인 실패, 아니면 로그인 성공
 	// String empId, String empPw : 로그인 폼에서 사용자가 입력한 id/pw
